@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            /* --- VARIÁVEIS PADRÃO (DARK MODE) --- */
+            /* --- VARIÁVEIS DE TEMA (DARK - PADRÃO) --- */
             --bg-color: #050505;
             --bg-gradient: radial-gradient(circle at center top, #1a1f25 0%, #000000 100%);
             --panel-bg: rgba(20, 20, 20, 0.85);
@@ -24,9 +24,14 @@
             --svg-shadow: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
             --border-color: rgba(255, 255, 255, 0.1);
             --icon-color: #D4AF37;
+            
+            /* --- CONFIGURAÇÕES GERAIS --- */
+            --transition-speed: 0.3s;
+            --safe-area-bottom: env(safe-area-inset-bottom);
+            --safe-area-top: env(safe-area-inset-top);
         }
 
-        /* --- TEMA CLARO (LIGHT MODE) --- */
+        /* --- TEMA CLARO --- */
         body.light-theme {
             --bg-color: #f4f4f0;
             --bg-gradient: radial-gradient(circle at center top, #ffffff 0%, #e6e6e6 100%);
@@ -42,234 +47,139 @@
             --icon-color: #333;
         }
 
+        /* --- RESET & BASE --- */
         * { box-sizing: border-box; }
-
         html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: var(--bg-color);
-            background-image: var(--bg-gradient);
-            color: var(--text-main);
-            font-family: 'Lato', sans-serif;
-            overflow: hidden; 
-            user-select: none; 
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            height: 100%; margin: 0; padding: 0; overflow: hidden;
+            background: var(--bg-color); background-image: var(--bg-gradient);
+            color: var(--text-main); font-family: 'Lato', sans-serif;
+            user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
             transition: background 0.5s ease, color 0.5s ease;
         }
 
+        /* --- LAYOUT --- */
         .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100dvh;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            display: flex; flex-direction: column;
+            height: 100dvh; width: 100%; max-width: 600px; margin: 0 auto;
         }
 
         /* --- BOTÃO DE TEMA --- */
         .theme-toggle-btn {
-            position: absolute;
-            top: max(20px, env(safe-area-inset-top));
-            right: 20px;
-            background: transparent;
-            border: 2px solid var(--border-color);
-            color: var(--icon-color);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 1.2rem;
+            position: absolute; top: max(20px, var(--safe-area-top)); right: 20px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: transparent; border: 2px solid var(--border-color); color: var(--icon-color);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000; font-size: 1.2rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             backdrop-filter: blur(5px);
         }
         .theme-toggle-btn:active { transform: scale(0.9); }
 
-        /* --- VISUAL DO TERÇO --- */
+        /* --- ÁREA DO TERÇO (SVG) --- */
         .rosary-section {
-            flex: 1.4; 
-            min-height: 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex: 1.4; min-height: 40%;
+            display: flex; align-items: center; justify-content: center;
             position: relative;
-            padding: calc(20px + env(safe-area-inset-top)) 20px 10px 20px;
+            padding: calc(20px + var(--safe-area-top)) 20px 10px 20px;
         }
-
         .rosary-svg-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
             animation: fadeIn 1.5s ease-out;
         }
-
         svg {
-            height: 100%;
-            width: auto;
-            max-width: 100%;
-            overflow: visible; 
-            filter: var(--svg-shadow);
-            transition: filter 0.5s ease;
+            height: 100%; width: auto; max-width: 100%; overflow: visible;
+            filter: var(--svg-shadow); transition: filter 0.5s ease;
         }
-
         .string-line {
-            fill: none;
-            stroke: var(--string-color);
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: stroke 0.5s ease;
+            fill: none; stroke: var(--string-color); stroke-width: 1.5;
+            stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.5s ease;
         }
 
+        /* --- ANIMAÇÕES E ESTADOS DAS CONTAS --- */
         @keyframes goldenPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px var(--text-gold)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--text-gold)); }
             50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--text-gold)); }
         }
-
         .bead, .cross, .medal-base {
-            cursor: pointer;
+            cursor: pointer; transform-box: fill-box; transform-origin: center;
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-box: fill-box;
-            transform-origin: center;
         }
-
-        /* CORES */
+        /* Cores aplicadas via SVG definitions, fallback classes abaixo */
         .bead.small { fill: url(#grad-gem-blue); }
         .bead.large { fill: url(#grad-gem-red); }
         .cross, .medal-base { fill: url(#grad-metal-gold-inactive); }
-
-        .bead.done, .cross.done, .medal-base.done { 
-            filter: brightness(0.5) saturate(0.8); 
-            transform: scale(0.9); 
-        }
         
+        .bead.done, .cross.done, .medal-base.done { 
+            filter: brightness(0.5) saturate(0.8); transform: scale(0.9);
+        }
         .bead.active, .cross.active, .medal-base.active {
             fill: url(#grad-gold-active) !important;
             animation: goldenPulse 2.5s infinite ease-in-out;
-            z-index: 100;
-            filter: brightness(1.1);
+            z-index: 100; filter: brightness(1.1);
         }
-
-        .bead.large { r: 10; }
-        .bead.small { r: 6.5; }
+        .bead.large { r: 10; } .bead.small { r: 6.5; }
 
         /* --- PAINEL DE TEXTO --- */
         .text-section {
-            flex: 1;
+            flex: 1; display: flex; flex-direction: column;
             background-color: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px 30px 0 0;
-            padding: 25px 30px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 -10px 50px rgba(0,0,0,0.2);
-            z-index: 20;
-            overflow: hidden; 
-            border-top: 1px solid var(--border-color);
-            padding-bottom: calc(70px + env(safe-area-inset-bottom)); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px 30px 0 0; padding: 25px 30px;
+            box-shadow: 0 -10px 50px rgba(0,0,0,0.2); z-index: 20;
+            overflow: hidden; border-top: 1px solid var(--border-color);
+            padding-bottom: calc(70px + var(--safe-area-bottom));
             transition: background-color 0.5s ease;
         }
-
         .progress-bar-container {
-            width: 100%;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            margin-bottom: 15px;
-            overflow: hidden;
+            width: 100%; height: 4px; background: var(--border-color);
+            border-radius: 2px; margin-bottom: 15px; overflow: hidden;
         }
-        
         .progress-fill {
-            height: 100%;
-            background: var(--text-gold);
-            width: 0%;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 10px var(--text-gold);
+            height: 100%; background: var(--text-gold); width: 0%;
+            transition: width 0.5s ease; box-shadow: 0 0 10px var(--text-gold);
         }
-
         .header-info { text-align: center; flex-shrink: 0; margin-bottom: 15px; }
-
         .date-badge {
-            font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-gold);
-            margin-bottom: 8px;
-            display: inline-block;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 4px;
+            font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; color: var(--text-gold);
+            margin-bottom: 8px; display: inline-block;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 4px;
         }
-
         .mystery-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 5px 0;
-            line-height: 1.3;
+            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
+            color: var(--text-main); margin: 5px 0; line-height: 1.3;
         }
-
         .bead-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; font-weight: 400; }
-
         .prayer-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            min-height: 0;
-            margin-bottom: 15px;
-            padding-right: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--text-muted) transparent;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            flex-grow: 1; overflow-y: auto; min-height: 0;
+            margin-bottom: 15px; padding-right: 10px;
+            scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent;
+            opacity: 1; transition: opacity 0.3s ease;
         }
         .prayer-content.fade-out { opacity: 0; }
-
         .prayer-text {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            white-space: pre-wrap;
-            padding-bottom: 20px;
-            color: var(--text-main);
-            font-weight: 300;
+            font-size: 1.2rem; line-height: 1.7; white-space: pre-wrap;
+            padding-bottom: 20px; color: var(--text-main); font-weight: 300;
         }
-
+        
+        /* --- CONTROLES --- */
         .controls-area { flex-shrink: 0; position: relative; }
-
         button {
-            width: 100%;
-            background: var(--btn-gradient);
-            color: var(--btn-text);
-            border: none;
-            padding: 18px;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 800;
-            border-radius: 60px;
-            cursor: pointer;
+            width: 100%; background: var(--btn-gradient); color: var(--btn-text);
+            border: none; padding: 18px;
+            font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 800;
+            border-radius: 60px; cursor: pointer;
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
             transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            outline: none;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            position: relative;
-            overflow: hidden;
+            outline: none; text-transform: uppercase; letter-spacing: 1.5px;
+            position: relative; overflow: hidden;
         }
         button:active { transform: scale(0.97); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Desktop */
+        /* --- DESKTOP --- */
         @media (min-width: 768px) {
             body { padding: 40px; overflow: auto; }
             .app-container {
@@ -313,7 +223,6 @@
                             <stop offset="100%" style="stop-color: #b8860b; stop-opacity: 1" />
                         </radialGradient>
                     </defs>
-
                     <path id="rosary-string" class="string-line" d="" />
                 </svg>
             </div>
@@ -323,276 +232,329 @@
             <div class="progress-bar-container">
                 <div id="progress-fill" class="progress-fill"></div>
             </div>
-
             <div class="header-info">
                 <div id="date-display" class="date-badge">...</div>
                 <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
                 <div id="label-display" class="bead-label">Início</div>
             </div>
-
             <div id="prayer-scroll-area" class="prayer-content">
                 <div id="text-display" class="prayer-text">Toque no botão abaixo para iniciar.</div>
             </div>
-
             <div class="controls-area">
-                <button onclick="nextBead()" id="btn-next">Iniciar</button>
+                <button id="btn-next">Iniciar</button>
             </div>
         </section>
     </div>
 
     <script>
-        const themeBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-        const savedTheme = localStorage.getItem('rosary-theme');
-        if (savedTheme === 'light') {
-            body.classList.add('light-theme');
-            themeBtn.innerHTML = '☾';
-        } else {
-            themeBtn.innerHTML = '☀';
-        }
-        themeBtn.onclick = () => {
-            body.classList.toggle('light-theme');
-            const isLight = body.classList.contains('light-theme');
-            themeBtn.innerHTML = isLight ? '☾' : '☀';
-            localStorage.setItem('rosary-theme', isLight ? 'light' : 'dark');
-        };
+        /**
+         * APLICAÇÃO TERÇO DIGITAL
+         * Lógica encapsulada para evitar poluição global
+         */
+        const RosaryApp = (() => {
+            'use strict';
 
-        const prayers = {
-            sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos.\n\nEm nome do Pai, do Filho e do Espírito Santo. Amém.",
-            oferecimento: "Oferecimento do Terço:\n\nDivino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos, por intercessão da Virgem Maria, Mãe de Deus e nossa Mãe, as virtudes que nos são necessárias para bem rezá-lo e a graça de ganharmos as indulgências desta santa devoção.",
-            credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
-            paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
-            aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
-            gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.\n\n(Jaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.)",
-            salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.\n\nV. Rogai por nós, Santa Mãe de Deus.\nR. Para que sejamos dignos das promessas de Cristo. Amém."
-        };
-
-        const mysteriesDB = {
-            gozosos: { name: "Mistérios Gozosos", decades: ["1º Mistério: A Anunciação", "2º Mistério: A Visitação", "3º Mistério: O Nascimento", "4º Mistério: A Apresentação", "5º Mistério: O Encontro"] },
-            dolorosos: { name: "Mistérios Dolorosos", decades: ["1º Mistério: A Agonia", "2º Mistério: A Flagelação", "3º Mistério: A Coroação de Espinhos", "4º Mistério: O Caminho da Cruz", "5º Mistério: A Crucificação"] },
-            gloriosos: { name: "Mistérios Gloriosos", decades: ["1º Mistério: A Ressurreição", "2º Mistério: A Ascensão", "3º Mistério: A Vinda do Espírito Santo", "4º Mistério: A Assunção", "5º Mistério: A Coroação"] },
-            luminosos: { name: "Mistérios Luminosos", decades: ["1º Mistério: O Batismo", "2º Mistério: As Bodas de Caná", "3º Mistério: O Reino de Deus", "4º Mistério: A Transfiguração", "5º Mistério: A Eucaristia"] }
-        };
-
-        function getMysteryToday() {
-            const d = new Date().getDay();
-            if (d === 0 || d === 3) return mysteriesDB.gloriosos;
-            if (d === 1 || d === 6) return mysteriesDB.gozosos;
-            if (d === 2 || d === 5) return mysteriesDB.dolorosos;
-            return mysteriesDB.luminosos;
-        }
-        const todayMystery = getMysteryToday();
-
-        let rosaryStructure = [
-            { type: 0, label: "Início: Sinal da Cruz", text: prayers.sinalCruz },
-            { type: 0, label: "Oferecimento", text: prayers.oferecimento },
-            { type: 0, label: "Credo Apostólico", text: prayers.credo },
-            { type: 1, label: "Pai Nosso", text: prayers.paiNosso }, 
-            { type: 2, label: "Ave Maria (Fé)", text: prayers.aveMaria },
-            { type: 2, label: "Ave Maria (Esperança)", text: prayers.aveMaria },
-            { type: 2, label: "Ave Maria (Caridade)", text: prayers.aveMaria },
-            { type: 1, label: "Glória ao Pai", text: prayers.gloria }, 
-        ];
-
-        todayMystery.decades.forEach((m, i) => {
-            rosaryStructure.push({ type: 1, label: `${m} - Pai Nosso`, text: `${m}\n\n${prayers.paiNosso}` });
-            for(let j=1; j<=10; j++) rosaryStructure.push({ type: 2, label: `Ave Maria (${j}/10)`, text: prayers.aveMaria });
-            rosaryStructure.push({ type: 1, label: "Glória", text: prayers.gloria, isVirtual: true });
-        });
-
-        rosaryStructure.pop(); 
-        rosaryStructure.push({ type: 1, label: "Glória", text: prayers.gloria, isVirtual: true });
-        rosaryStructure.push({ type: 0, label: "Final: Salve Rainha", text: prayers.salveRainha });
-
-        let currentStep = -1;
-        const svg = document.getElementById('rosary-svg');
-        const stepToElementMap = []; 
-        const beadElementsList = [];
-        const scrollArea = document.getElementById('prayer-scroll-area');
-        const progressBar = document.getElementById('progress-fill');
-
-        function drawRosary() {
-            const now = new Date();
-            document.getElementById('date-display').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
-            document.getElementById('mystery-display').innerText = todayMystery.name;
-
-            const cx = 150, cy = 180; 
-            const r = 135; 
-            const medalY = cy + r; 
-            
-            // CAUDA com CONTA EXTRA PARA 1º MISTÉRIO
-            const tailCoords = [
-                {x:150, y:515}, // Cruz
-                {x:150, y:465}, // Pai Nosso Intro
-                {x:150, y:430}, // Ave 1
-                {x:150, y:405}, // Ave 2
-                {x:150, y:380}, // Ave 3
-                {x:150, y:345}  // Pai Nosso 1º Mistério (Índice físico 5)
-            ];
-            
-            let pathD = `M 150 515 L 150 ${medalY + 16}`;
-            
-            let physIdx = 0;
-            createBead(tailCoords[0].x, tailCoords[0].y, 0, false); physIdx++;
-            for(let i=1; i<tailCoords.length; i++) {
-                const type = (i===1 || i===5) ? 1 : 2;
-                createBead(tailCoords[i].x, tailCoords[i].y, type, false); 
-                physIdx++;
-            }
-
-            // LOOP DO CÍRCULO - CORRIGIDO PARA 54 CONTAS
-            const totalLoopBeads = 54; 
-            const gapDeg = 25;
-            const startDeg = 90 + (gapDeg/2);
-            const totalSweep = 360 - gapDeg;
-            const stepDeg = totalSweep / (totalLoopBeads - 1);
-
-            const startRad = startDeg * (Math.PI/180);
-            const endRad = (startDeg + totalSweep) * (Math.PI/180);
-            const ax1 = cx + r * Math.cos(endRad); const ay1 = cy + r * Math.sin(endRad);
-            const ax2 = cx + r * Math.cos(startRad); const ay2 = cy + r * Math.sin(startRad);
-            pathD += ` M ${ax1} ${ay1} A ${r} ${r} 0 1 0 ${ax2} ${ay2}`;
-
-            for(let i=0; i<totalLoopBeads; i++) {
-                const deg = startDeg + (stepDeg * i);
-                const rad = deg * (Math.PI/180);
-                const x = cx - r * Math.cos(rad); 
-                const y = cy + r * Math.sin(rad);
-                // Padrão: 10 pequenas, 1 grande...
-                const isLarge = ((i + 1) % 11 === 0); 
-                createBead(x, y, isLarge ? 1 : 2, false);
-                physIdx++;
-            }
-
-            // Medalha
-            createBead(150, medalY, 0, true); 
-            physIdx++;
-
-            document.getElementById('rosary-string').setAttribute('d', pathD);
-
-            // Mapeamento
-            stepToElementMap[0] = beadElementsList[0];
-            stepToElementMap[1] = beadElementsList[0];
-            stepToElementMap[2] = beadElementsList[0];
-            stepToElementMap[3] = beadElementsList[1];
-            stepToElementMap[4] = beadElementsList[2];
-            stepToElementMap[5] = beadElementsList[3];
-            stepToElementMap[6] = beadElementsList[4];
-            // Glória Intro e 1º PN usam a última conta da perna (índice 5)
-            stepToElementMap[7] = beadElementsList[5];
-            stepToElementMap[8] = beadElementsList[5];
-
-            let currentPhysBead = 6; // Começa na primeira conta do loop
-
-            for(let i=9; i<rosaryStructure.length; i++) {
-                const item = rosaryStructure[i];
-                if (item.label.includes("Salve Rainha")) {
-                    stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
-                } 
-                else if (item.isVirtual) {
-                    if(currentPhysBead < beadElementsList.length) {
-                         stepToElementMap[i] = beadElementsList[currentPhysBead]; 
-                    } else {
-                        stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
-                    }
-                } 
-                else {
-                    if(currentPhysBead < beadElementsList.length) {
-                        stepToElementMap[i] = beadElementsList[currentPhysBead];
-                        currentPhysBead++;
-                    }
-                }
-            }
-        }
-
-        function createBead(x, y, type, isMedal) {
-            let el;
-            if(isMedal) { 
-                el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                const points = `${x-16},${y-14} ${x+16},${y-14} ${x},${y+18}`;
-                el.setAttribute("points", points);
-                el.setAttribute("class", "medal-base");
-            } else if (type === 0) { 
-                el = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                const crossPath = `M ${x-4},${y-35} L ${x+4},${y-35} L ${x+4},${y-12} L ${x+22},${y-12} L ${x+22},${y-2} L ${x+4},${y-2} L ${x+4},${y+25} L ${x-4},${y+25} L ${x-4},${y-2} L ${x-22},${y-2} L ${x-22},${y-12} L ${x-4},${y-12} Z`;
-                el.setAttribute("d", crossPath);
-                el.setAttribute("class", "cross");
-            } else { 
-                el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                el.setAttribute("cx", x); el.setAttribute("cy", y);
-                el.setAttribute("class", `bead ${type===1 ? 'large':'small'}`);
-            }
-            svg.appendChild(el);
-            beadElementsList.push(el);
-            el.onclick = () => {
-                const logicIdx = stepToElementMap.findIndex(mappedEl => mappedEl === el);
-                if(logicIdx !== -1) jumpTo(logicIdx);
+            // --- DADOS ---
+            const PRAYERS = {
+                sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos.\n\nEm nome do Pai, do Filho e do Espírito Santo. Amém.",
+                oferecimento: "Oferecimento do Terço:\n\nDivino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos, por intercessão da Virgem Maria, Mãe de Deus e nossa Mãe, as virtudes que nos são necessárias para bem rezá-lo e a graça de ganharmos as indulgências desta santa devoção.",
+                credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
+                paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
+                aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
+                gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.\n\n(Jaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.)",
+                salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.\n\nV. Rogai por nós, Santa Mãe de Deus.\nR. Para que sejamos dignos das promessas de Cristo. Amém."
             };
-        }
 
-        function triggerHaptic() {
-            if (navigator.vibrate) { navigator.vibrate(15); }
-        }
+            const MYSTERIES_DB = {
+                gozosos: { name: "Mistérios Gozosos", decades: ["1º Mistério: A Anunciação", "2º Mistério: A Visitação", "3º Mistério: O Nascimento", "4º Mistério: A Apresentação", "5º Mistério: O Encontro"] },
+                dolorosos: { name: "Mistérios Dolorosos", decades: ["1º Mistério: A Agonia", "2º Mistério: A Flagelação", "3º Mistério: A Coroação de Espinhos", "4º Mistério: O Caminho da Cruz", "5º Mistério: A Crucificação"] },
+                gloriosos: { name: "Mistérios Gloriosos", decades: ["1º Mistério: A Ressurreição", "2º Mistério: A Ascensão", "3º Mistério: A Vinda do Espírito Santo", "4º Mistério: A Assunção", "5º Mistério: A Coroação"] },
+                luminosos: { name: "Mistérios Luminosos", decades: ["1º Mistério: O Batismo", "2º Mistério: As Bodas de Caná", "3º Mistério: O Reino de Deus", "4º Mistério: A Transfiguração", "5º Mistério: A Eucaristia"] }
+            };
 
-        function updateUI() {
-            if(currentStep < 0) return;
-            const progressPct = ((currentStep + 1) / rosaryStructure.length) * 100;
-            progressBar.style.width = `${progressPct}%`;
-            const d = rosaryStructure[currentStep];
-            scrollArea.classList.add('fade-out');
-            setTimeout(() => {
-                document.getElementById('label-display').innerText = d.label;
-                document.getElementById('text-display').innerText = d.text;
-                scrollArea.scrollTop = 0; 
-                scrollArea.classList.remove('fade-out');
-            }, 200);
-            document.querySelectorAll('.active').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.done').forEach(e => e.classList.remove('done'));
-            for(let i=0; i<rosaryStructure.length; i++) {
-                const el = stepToElementMap[i];
-                if(!el) continue;
-                if (i === currentStep) {
-                    el.classList.add('active');
-                    if(el.parentNode && el.tagName !== 'g') el.parentNode.appendChild(el); 
-                } else if (i < currentStep) {
-                    if(el !== stepToElementMap[currentStep]) {
-                        el.classList.add('done');
+            // --- ESTADO E ELEMENTOS ---
+            let currentStep = -1;
+            let rosaryStructure = [];
+            let todayMystery = null;
+            
+            // Elementos DOM (Cache)
+            const els = {
+                svg: document.getElementById('rosary-svg'),
+                path: document.getElementById('rosary-string'),
+                date: document.getElementById('date-display'),
+                mystery: document.getElementById('mystery-display'),
+                label: document.getElementById('label-display'),
+                text: document.getElementById('text-display'),
+                scroll: document.getElementById('prayer-scroll-area'),
+                progress: document.getElementById('progress-fill'),
+                btn: document.getElementById('btn-next'),
+                themeBtn: document.getElementById('theme-toggle')
+            };
+
+            // Listas para mapeamento
+            const beadElementsList = [];
+            const stepToElementMap = [];
+
+            // --- LÓGICA DE INICIALIZAÇÃO ---
+            function init() {
+                setupTheme();
+                determineMystery();
+                buildStructure();
+                drawRosaryGeometry();
+                mapLogicToPhysics();
+                setupEvents();
+                updateUI(); // Estado inicial
+            }
+
+            function setupTheme() {
+                const savedTheme = localStorage.getItem('rosary-theme');
+                if (savedTheme === 'light') {
+                    document.body.classList.add('light-theme');
+                    els.themeBtn.innerHTML = '☾';
+                } else {
+                    els.themeBtn.innerHTML = '☀';
+                }
+                els.themeBtn.onclick = () => {
+                    document.body.classList.toggle('light-theme');
+                    const isLight = document.body.classList.contains('light-theme');
+                    els.themeBtn.innerHTML = isLight ? '☾' : '☀';
+                    localStorage.setItem('rosary-theme', isLight ? 'light' : 'dark');
+                };
+            }
+
+            function determineMystery() {
+                const d = new Date().getDay();
+                if (d === 0 || d === 3) todayMystery = MYSTERIES_DB.gloriosos;
+                else if (d === 1 || d === 6) todayMystery = MYSTERIES_DB.gozosos;
+                else if (d === 2 || d === 5) todayMystery = MYSTERIES_DB.dolorosos;
+                else todayMystery = MYSTERIES_DB.luminosos;
+
+                els.date.innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+                els.mystery.innerText = todayMystery.name;
+            }
+
+            function buildStructure() {
+                rosaryStructure = [
+                    { type: 0, label: "Início: Sinal da Cruz", text: PRAYERS.sinalCruz },
+                    { type: 0, label: "Oferecimento", text: PRAYERS.oferecimento },
+                    { type: 0, label: "Credo Apostólico", text: PRAYERS.credo },
+                    { type: 1, label: "Pai Nosso", text: PRAYERS.paiNosso },
+                    { type: 2, label: "Ave Maria (Fé)", text: PRAYERS.aveMaria },
+                    { type: 2, label: "Ave Maria (Esperança)", text: PRAYERS.aveMaria },
+                    { type: 2, label: "Ave Maria (Caridade)", text: PRAYERS.aveMaria },
+                    { type: 1, label: "Glória ao Pai", text: PRAYERS.gloria }, 
+                ];
+
+                todayMystery.decades.forEach((m, i) => {
+                    rosaryStructure.push({ type: 1, label: `${m} - Pai Nosso`, text: `${m}\n\n${PRAYERS.paiNosso}` });
+                    for(let j=1; j<=10; j++) rosaryStructure.push({ type: 2, label: `Ave Maria (${j}/10)`, text: PRAYERS.aveMaria });
+                    rosaryStructure.push({ type: 1, label: "Glória", text: PRAYERS.gloria, isVirtual: true });
+                });
+
+                rosaryStructure.pop(); // Remove último Glória virtual
+                rosaryStructure.push({ type: 1, label: "Glória", text: PRAYERS.gloria, isVirtual: true });
+                rosaryStructure.push({ type: 0, label: "Final: Salve Rainha", text: PRAYERS.salveRainha });
+            }
+
+            // --- LÓGICA DE DESENHO SVG ---
+            function drawRosaryGeometry() {
+                const cx = 150, cy = 180, r = 135;
+                const medalY = cy + r;
+                
+                // 1. Cauda (Cruz + PN + 3 Aves + PN 1º Mistério)
+                const tailCoords = [
+                    {x:150, y:515}, // Cruz
+                    {x:150, y:465}, // PN Intro
+                    {x:150, y:430}, // Ave 1
+                    {x:150, y:405}, // Ave 2
+                    {x:150, y:380}, // Ave 3
+                    {x:150, y:345}  // PN 1º Mistério (Índice físico 5)
+                ];
+
+                // Desenha linha
+                let pathD = `M 150 515 L 150 ${medalY + 16}`;
+
+                // Cria elementos da Cauda
+                createBeadElement(tailCoords[0].x, tailCoords[0].y, 0, false); // Cruz
+                for(let i=1; i<tailCoords.length; i++) {
+                    const type = (i===1 || i===5) ? 1 : 2; // PN ou Ave
+                    createBeadElement(tailCoords[i].x, tailCoords[i].y, type, false);
+                }
+
+                // 2. Loop (54 Contas)
+                const totalLoopBeads = 54;
+                const gapDeg = 25;
+                const startDeg = 90 + (gapDeg/2);
+                const totalSweep = 360 - gapDeg;
+                const stepDeg = totalSweep / (totalLoopBeads - 1);
+
+                // Arco do loop
+                const startRad = startDeg * (Math.PI/180);
+                const endRad = (startDeg + totalSweep) * (Math.PI/180);
+                const ax1 = cx + r * Math.cos(endRad); const ay1 = cy + r * Math.sin(endRad);
+                const ax2 = cx + r * Math.cos(startRad); const ay2 = cy + r * Math.sin(startRad);
+                pathD += ` M ${ax1} ${ay1} A ${r} ${r} 0 1 0 ${ax2} ${ay2}`;
+
+                for(let i=0; i<totalLoopBeads; i++) {
+                    const deg = startDeg + (stepDeg * i);
+                    const rad = deg * (Math.PI/180);
+                    const x = cx - r * Math.cos(rad);
+                    const y = cy + r * Math.sin(rad);
+                    const isLarge = ((i + 1) % 11 === 0);
+                    createBeadElement(x, y, isLarge ? 1 : 2, false);
+                }
+
+                // 3. Medalha
+                createBeadElement(150, medalY, 0, true);
+                
+                els.path.setAttribute('d', pathD);
+            }
+
+            function createBeadElement(x, y, type, isMedal) {
+                let el;
+                if(isMedal) {
+                    el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    el.setAttribute("points", `${x-16},${y-14} ${x+16},${y-14} ${x},${y+18}`);
+                    el.setAttribute("class", "medal-base");
+                } else if (type === 0) { // Cruz
+                    el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    el.setAttribute("d", `M ${x-4},${y-35} L ${x+4},${y-35} L ${x+4},${y-12} L ${x+22},${y-12} L ${x+22},${y-2} L ${x+4},${y-2} L ${x+4},${y+25} L ${x-4},${y+25} L ${x-4},${y-2} L ${x-22},${y-2} L ${x-22},${y-12} L ${x-4},${y-12} Z`);
+                    el.setAttribute("class", "cross");
+                } else {
+                    el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    el.setAttribute("cx", x); el.setAttribute("cy", y);
+                    el.setAttribute("class", `bead ${type===1 ? 'large':'small'}`);
+                }
+                
+                els.svg.appendChild(el);
+                beadElementsList.push(el);
+                
+                // Interação Reversa (Clique no desenho)
+                el.onclick = () => {
+                    const logicIdx = stepToElementMap.findIndex(mappedEl => mappedEl === el);
+                    if(logicIdx !== -1) jumpTo(logicIdx);
+                };
+            }
+
+            // --- MAPEAMENTO E LÓGICA ---
+            function mapLogicToPhysics() {
+                // Cruz e Intro
+                stepToElementMap[0] = beadElementsList[0];
+                stepToElementMap[1] = beadElementsList[0];
+                stepToElementMap[2] = beadElementsList[0];
+                stepToElementMap[3] = beadElementsList[1]; // PN Intro
+                stepToElementMap[4] = beadElementsList[2]; // Ave 1
+                stepToElementMap[5] = beadElementsList[3]; // Ave 2
+                stepToElementMap[6] = beadElementsList[4]; // Ave 3
+                stepToElementMap[7] = beadElementsList[5]; // Glória Intro (na conta do 1º Mistério)
+                stepToElementMap[8] = beadElementsList[5]; // 1º PN Mistério
+
+                let currentPhysBead = 6; // Começa na primeira Ave do loop
+
+                for(let i=9; i<rosaryStructure.length; i++) {
+                    const item = rosaryStructure[i];
+                    if (item.label.includes("Salve Rainha")) {
+                        stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
+                    } 
+                    else if (item.isVirtual) {
+                        // Glória Virtual usa a próxima conta grande
+                        if(currentPhysBead < beadElementsList.length) {
+                             stepToElementMap[i] = beadElementsList[currentPhysBead]; 
+                        } else {
+                            stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
+                        }
+                    } 
+                    else {
+                        // Avança conta física
+                        if(currentPhysBead < beadElementsList.length) {
+                            stepToElementMap[i] = beadElementsList[currentPhysBead];
+                            currentPhysBead++;
+                        }
                     }
                 }
             }
-            const btn = document.getElementById('btn-next');
-            btn.innerText = (currentStep === rosaryStructure.length - 1) ? "Finalizar" : "Próxima";
-        }
 
-        function jumpTo(i) { 
-            currentStep = i; 
-            triggerHaptic();
-            updateUI(); 
-        }
+            // --- INTERAÇÃO ---
+            function triggerHaptic() {
+                if (navigator.vibrate) navigator.vibrate(15);
+            }
 
-        function nextBead() {
-            triggerHaptic();
-            if(currentStep < rosaryStructure.length - 1) {
-                currentStep++;
+            function setupEvents() {
+                els.btn.onclick = nextBead;
+            }
+
+            function jumpTo(i) {
+                currentStep = i;
+                triggerHaptic();
                 updateUI();
-            } else {
-                if(confirm("Você completou o Santo Terço.\nDeseja reiniciar?")) {
-                    restartRosary();
+            }
+
+            function nextBead() {
+                triggerHaptic();
+                if(currentStep < rosaryStructure.length - 1) {
+                    currentStep++;
+                    updateUI();
+                } else {
+                    if(confirm("Você completou o Santo Terço.\nDeseja reiniciar?")) {
+                        restartRosary();
+                    }
                 }
             }
-        }
 
-        function restartRosary() {
-            currentStep = -1;
-            progressBar.style.width = "0%";
-            document.querySelectorAll('.active, .done').forEach(e => e.classList.remove('active', 'done'));
-            document.getElementById('text-display').innerText = "Toque no botão abaixo para iniciar.";
-            document.getElementById('btn-next').innerText = "Iniciar";
-            document.getElementById('label-display').innerText = "Início";
-            scrollArea.scrollTop = 0;
-        }
+            function restartRosary() {
+                currentStep = -1;
+                els.progress.style.width = "0%";
+                document.querySelectorAll('.active, .done').forEach(e => e.classList.remove('active', 'done'));
+                els.text.innerText = "Toque no botão abaixo para iniciar.";
+                els.btn.innerText = "Iniciar";
+                els.label.innerText = "Início";
+                els.scroll.scrollTop = 0;
+            }
 
-        drawRosary();
+            function updateUI() {
+                if(currentStep < 0) return;
+
+                // Barra de Progresso
+                const progressPct = ((currentStep + 1) / rosaryStructure.length) * 100;
+                els.progress.style.width = `${progressPct}%`;
+
+                // Texto e Label com Fade
+                const d = rosaryStructure[currentStep];
+                els.scroll.classList.add('fade-out');
+                setTimeout(() => {
+                    els.label.innerText = d.label;
+                    els.text.innerText = d.text;
+                    els.scroll.scrollTop = 0; 
+                    els.scroll.classList.remove('fade-out');
+                }, 200);
+
+                // Classes CSS nas contas
+                document.querySelectorAll('.active').forEach(e => e.classList.remove('active'));
+                document.querySelectorAll('.done').forEach(e => e.classList.remove('done'));
+
+                for(let i=0; i<rosaryStructure.length; i++) {
+                    const el = stepToElementMap[i];
+                    if(!el) continue;
+                    if (i === currentStep) {
+                        el.classList.add('active');
+                        // Traz para frente se não for grupo
+                        if(el.parentNode && el.tagName !== 'g') el.parentNode.appendChild(el); 
+                    } else if (i < currentStep) {
+                        // Marca como feito se não for o elemento atual (para passos virtuais)
+                        if(el !== stepToElementMap[currentStep]) {
+                            el.classList.add('done');
+                        }
+                    }
+                }
+
+                els.btn.innerText = (currentStep === rosaryStructure.length - 1) ? "Finalizar" : "Próxima";
+            }
+
+            return { init };
+        })();
+
+        // Inicializa ao carregar
+        document.addEventListener('DOMContentLoaded', RosaryApp.init);
     </script>
 </body>
 </html>
