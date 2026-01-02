@@ -78,10 +78,12 @@
 
         /* --- ÁREA DO TERÇO (SVG) --- */
         .rosary-section {
-            flex: 1.4; min-height: 40%;
+            /* AJUSTE MOBILE: Reduzido de 1.4 para 0.9 para dar mais espaço ao texto */
+            flex: 0.9; 
+            min-height: 35%; /* Altura mínima ligeiramente reduzida */
             display: flex; align-items: center; justify-content: center;
             position: relative;
-            padding: calc(20px + var(--safe-area-top)) 20px 10px 20px;
+            padding: calc(10px + var(--safe-area-top)) 10px 0px 10px; /* Padding reduzido */
         }
         .rosary-svg-container {
             width: 100%; height: 100%;
@@ -123,7 +125,9 @@
 
         /* --- PAINEL DE TEXTO --- */
         .text-section {
-            flex: 1; display: flex; flex-direction: column;
+            /* AJUSTE MOBILE: Flex 1 assume o espaço restante, ficando maior agora */
+            flex: 1; 
+            display: flex; flex-direction: column;
             background-color: var(--panel-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 30px 30px 0 0; padding: 25px 30px;
@@ -187,8 +191,9 @@
                 overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
                 background: var(--bg-color); border: 1px solid var(--border-color); max-width: 1100px;
             }
-            .rosary-section { flex: 1.3; padding: 40px; }
-            .text-section { flex: 1; border-radius: 0; border-left: 1px solid var(--border-color); padding: 40px; }
+            /* AJUSTE DESKTOP: Terço mais estreito (0.8), Texto mais largo (1.2) */
+            .rosary-section { flex: 0.8; padding: 30px; } 
+            .text-section { flex: 1.2; border-radius: 0; border-left: 1px solid var(--border-color); padding: 40px; }
             .theme-toggle-btn { top: 30px; right: 30px; }
         }
     </style>
