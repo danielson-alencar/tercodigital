@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Terço Digital Colorido Premium</title>
+    <title>Terço Digital Premium</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,6 @@
             --text-main: #f0f0f0;
             --text-gold: #D4AF37;
             --text-muted: #8c8c8c;
-            --accent-glow: rgba(212, 175, 55, 0.4);
             --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
         }
 
@@ -71,14 +70,12 @@
             width: auto;
             max-width: 100%;
             overflow: visible; 
-            /* Sombra mais suave para destacar as cores */
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
         }
 
-        /* ESTILOS SVG */
         .string-line {
             fill: none;
-            stroke: #6a5a4a; /* Cor de corda mais natural */
+            stroke: #6a5a4a;
             stroke-width: 1.5;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -95,33 +92,29 @@
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-box: fill-box;
             transform-origin: center;
-            /* As cores base são definidas pelos gradientes no SVG agora */
         }
 
-        /* --- CORES DAS CONTAS (Novos Gradientes) --- */
+        /* CORES */
         .bead.small { fill: url(#grad-gem-blue); }
         .bead.large { fill: url(#grad-gem-red); }
         .cross, .medal-base { fill: url(#grad-metal-gold-inactive); }
 
-        /* Estado "Feito" - Escurece a cor original sem ficar cinza */
         .bead.done, .cross.done, .medal-base.done { 
             filter: brightness(0.5) saturate(0.8); 
             transform: scale(0.9); 
-            transition: all 0.5s ease; 
         }
         
-        /* Estado ATIVO (Fica dourado brilhante, sobrescrevendo a cor) */
         .bead.active, .cross.active, .medal-base.active {
             fill: url(#grad-gold-active) !important;
             animation: goldenPulse 2.5s infinite ease-in-out;
             z-index: 100;
-            filter: brightness(1.1); /* Um pouco mais de brilho no ativo */
+            filter: brightness(1.1);
         }
 
         .bead.large { r: 10; }
         .bead.small { r: 6.5; }
 
-        /* --- PAINEL DE TEXTO (Glassmorphism) --- */
+        /* --- PAINEL DE TEXTO --- */
         .text-section {
             flex: 1;
             background-color: var(--panel-bg);
@@ -136,10 +129,8 @@
             overflow: hidden; 
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: calc(70px + env(safe-area-inset-bottom)); 
-            transition: transform 0.3s ease;
         }
 
-        /* Barra de Progresso */
         .progress-bar-container {
             width: 100%;
             height: 4px;
@@ -149,7 +140,7 @@
             overflow: hidden;
         }
         
-        .progress-bar-fill {
+        .progress-fill {
             height: 100%;
             background: var(--text-gold);
             width: 0%;
@@ -174,21 +165,14 @@
 
         .mystery-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #fff;
             margin: 5px 0;
             line-height: 1.3;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        .bead-label { 
-            font-size: 0.9rem; 
-            color: var(--text-muted); 
-            margin-top: 5px; 
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
+        .bead-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; font-weight: 400; }
 
         .prayer-content {
             flex-grow: 1;
@@ -201,7 +185,6 @@
             opacity: 1;
             transition: opacity 0.3s ease;
         }
-
         .prayer-content.fade-out { opacity: 0; }
 
         .prayer-text {
@@ -234,23 +217,7 @@
             position: relative;
             overflow: hidden;
         }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-
-        button:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
-        }
-        
-        button:active::after { left: 100%; transition: 0s; }
-
+        button:active { transform: scale(0.97); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Desktop */
@@ -259,8 +226,7 @@
             .app-container {
                 flex-direction: row; height: 85vh; border-radius: 30px;
                 overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-                background: var(--bg-dark); border: 1px solid #333;
-                max-width: 1100px;
+                background: var(--bg-dark); border: 1px solid #333; max-width: 1100px;
             }
             .rosary-section { flex: 1.3; padding: 40px; }
             .text-section { flex: 1; border-radius: 0; border-left: 1px solid #333; padding: 40px; }
@@ -275,17 +241,20 @@
                 <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
                     <defs>
                         <radialGradient id="grad-gem-blue" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
-                            <stop offset="0%" style="stop-color: #00c6ff; stop-opacity: 1" /> <stop offset="70%" style="stop-color: #005bea; stop-opacity: 1" /> <stop offset="100%" style="stop-color: #002244; stop-opacity: 1" /> </radialGradient>
-
+                            <stop offset="0%" style="stop-color: #00c6ff; stop-opacity: 1" />
+                            <stop offset="70%" style="stop-color: #005bea; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #002244; stop-opacity: 1" />
+                        </radialGradient>
                         <radialGradient id="grad-gem-red" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
-                            <stop offset="0%" style="stop-color: #ff4b1f; stop-opacity: 1" /> <stop offset="70%" style="stop-color: #cc0000; stop-opacity: 1" /> <stop offset="100%" style="stop-color: #660000; stop-opacity: 1" /> </radialGradient>
-                        
-                        <linearGradient id="grad-metal-gold-inactive" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color: #ff4b1f; stop-opacity: 1" />
+                            <stop offset="70%" style="stop-color: #cc0000; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #660000; stop-opacity: 1" />
+                        </radialGradient>
+                         <linearGradient id="grad-metal-gold-inactive" x1="0%" y1="0%" x2="100%" y2="100%">
                              <stop offset="0%" style="stop-color: #cbb35a;" />
                              <stop offset="50%" style="stop-color: #9e812d;" />
                              <stop offset="100%" style="stop-color: #745c1b;" />
                         </linearGradient>
-                        
                         <radialGradient id="grad-gold-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
                             <stop offset="0%" style="stop-color: #fffde7; stop-opacity: 1" />
                             <stop offset="40%" style="stop-color: #ffd700; stop-opacity: 1" />
@@ -300,7 +269,7 @@
 
         <section class="text-section">
             <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill"></div>
+                <div id="progress-fill" class="progress-fill"></div>
             </div>
 
             <div class="header-info">
@@ -320,64 +289,21 @@
     </div>
 
     <script>
-        // --- DADOS COMPLETOS ---
         const prayers = {
             sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos.\n\nEm nome do Pai, do Filho e do Espírito Santo. Amém.",
-            
             oferecimento: "Oferecimento do Terço:\n\nDivino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos, por intercessão da Virgem Maria, Mãe de Deus e nossa Mãe, as virtudes que nos são necessárias para bem rezá-lo e a graça de ganharmos as indulgências desta santa devoção.",
-            
             credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
-            
             paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
-            
             aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
-            
             gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.\n\n(Jaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.)",
-            
             salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.\n\nV. Rogai por nós, Santa Mãe de Deus.\nR. Para que sejamos dignos das promessas de Cristo. Amém."
         };
 
         const mysteriesDB = {
-            gozosos: { 
-                name: "Mistérios Gozosos (Segunda e Sábado)", 
-                decades: [
-                    "1º Mistério: A Anunciação do Anjo Gabriel à Virgem Maria.",
-                    "2º Mistério: A Visitação de Nossa Senhora à sua prima Santa Isabel.",
-                    "3º Mistério: O Nascimento do Menino Jesus em Belém.",
-                    "4º Mistério: A Apresentação do Menino Jesus no Templo.",
-                    "5º Mistério: O Encontro do Menino Jesus no Templo entre os Doutores."
-                ] 
-            },
-            dolorosos: { 
-                name: "Mistérios Dolorosos (Terça e Sexta)", 
-                decades: [
-                    "1º Mistério: A Agonia de Jesus no Horto das Oliveiras.",
-                    "2º Mistério: A Flagelação de Nosso Senhor Jesus Cristo.",
-                    "3º Mistério: A Coroação de Espinhos.",
-                    "4º Mistério: Jesus carrega a Cruz a caminho do Calvário.",
-                    "5º Mistério: A Crucificação e Morte de Jesus."
-                ] 
-            },
-            gloriosos: { 
-                name: "Mistérios Gloriosos (Quarta e Domingo)", 
-                decades: [
-                    "1º Mistério: A Ressurreição de Nosso Senhor Jesus Cristo.",
-                    "2º Mistério: A Ascensão de Jesus ao Céu.",
-                    "3º Mistério: A Vinda do Espírito Santo sobre os Apóstolos.",
-                    "4º Mistério: A Assunção de Nossa Senhora ao Céu.",
-                    "5º Mistério: A Coroação de Nossa Senhora como Rainha do Céu e da Terra."
-                ] 
-            },
-            luminosos: { 
-                name: "Mistérios Luminosos (Quinta-feira)", 
-                decades: [
-                    "1º Mistério: O Batismo de Jesus no Rio Jordão.",
-                    "2º Mistério: O Milagre nas Bodas de Caná.",
-                    "3º Mistério: O Anúncio do Reino de Deus e convite à conversão.",
-                    "4º Mistério: A Transfiguração de Jesus no Monte Tabor.",
-                    "5º Mistério: A Instituição da Eucaristia."
-                ] 
-            }
+            gozosos: { name: "Mistérios Gozosos", decades: ["1º Mistério: A Anunciação", "2º Mistério: A Visitação", "3º Mistério: O Nascimento", "4º Mistério: A Apresentação", "5º Mistério: O Encontro"] },
+            dolorosos: { name: "Mistérios Dolorosos", decades: ["1º Mistério: A Agonia", "2º Mistério: A Flagelação", "3º Mistério: A Coroação de Espinhos", "4º Mistério: O Caminho da Cruz", "5º Mistério: A Crucificação"] },
+            gloriosos: { name: "Mistérios Gloriosos", decades: ["1º Mistério: A Ressurreição", "2º Mistério: A Ascensão", "3º Mistério: A Vinda do Espírito Santo", "4º Mistério: A Assunção", "5º Mistério: A Coroação"] },
+            luminosos: { name: "Mistérios Luminosos", decades: ["1º Mistério: O Batismo", "2º Mistério: As Bodas de Caná", "3º Mistério: O Reino de Deus", "4º Mistério: A Transfiguração", "5º Mistério: A Eucaristia"] }
         };
 
         function getMysteryToday() {
@@ -389,6 +315,7 @@
         }
         const todayMystery = getMysteryToday();
 
+        // Estrutura Lógica
         let rosaryStructure = [
             { type: 0, label: "Início: Sinal da Cruz", text: prayers.sinalCruz },
             { type: 0, label: "Oferecimento", text: prayers.oferecimento },
@@ -397,12 +324,18 @@
             { type: 2, label: "Ave Maria (Fé)", text: prayers.aveMaria },
             { type: 2, label: "Ave Maria (Esperança)", text: prayers.aveMaria },
             { type: 2, label: "Ave Maria (Caridade)", text: prayers.aveMaria },
-            { type: 1, label: "Glória ao Pai", text: prayers.gloria, isVirtual: true }, 
+            // Glória e 1º Mistério usam a mesma conta (a última da perna)
+            { type: 1, label: "Glória ao Pai", text: prayers.gloria }, 
         ];
 
         todayMystery.decades.forEach((m, i) => {
-            rosaryStructure.push({ type: 1, label: `${m}`, text: `${m}\n\n${prayers.paiNosso}` });
+            // Se for o 1º Mistério, ele já usa a conta que adicionamos manualmente (Glória anterior)
+            // Se for do 2º em diante, usa as contas grandes do círculo
+            rosaryStructure.push({ type: 1, label: `${m} - Pai Nosso`, text: `${m}\n\n${prayers.paiNosso}` });
+            
             for(let j=1; j<=10; j++) rosaryStructure.push({ type: 2, label: `Ave Maria (${j}/10)`, text: prayers.aveMaria });
+            
+            // Glória Virtual, usa o próximo Pai Nosso
             rosaryStructure.push({ type: 1, label: "Glória", text: prayers.gloria, isVirtual: true });
         });
 
@@ -410,7 +343,6 @@
         rosaryStructure.push({ type: 1, label: "Glória", text: prayers.gloria, isVirtual: true });
         rosaryStructure.push({ type: 0, label: "Final: Salve Rainha", text: prayers.salveRainha });
 
-        // --- RENDERIZAÇÃO ---
         let currentStep = -1;
         const svg = document.getElementById('rosary-svg');
         const stepToElementMap = []; 
@@ -427,26 +359,34 @@
             const r = 135; 
             const medalY = cy + r; 
             
-            // 1. Cauda
+            // --- GEOMETRIA ---
+            // CAUDA COM 6 ELEMENTOS (Inclui o Pai Nosso do 1º Mistério antes da Medalha)
             const tailCoords = [
-                {x:150, y:510}, // Cruz
-                {x:150, y:455}, // Pai Nosso
-                {x:150, y:425}, // Ave 1
-                {x:150, y:400}, // Ave 2
-                {x:150, y:375}  // Ave 3
+                {x:150, y:515}, // Cruz
+                {x:150, y:465}, // Pai Nosso (Intro)
+                {x:150, y:430}, // Ave 1
+                {x:150, y:405}, // Ave 2
+                {x:150, y:380}, // Ave 3
+                {x:150, y:345}  // CONTA GRANDE (Glória/1º PN) - Antes da medalha (315)
             ];
             
-            let pathD = `M 150 510 L 150 ${medalY + 16}`;
+            let pathD = `M 150 515 L 150 ${medalY + 16}`;
             
             let physIdx = 0;
+            // Cruz
             createBead(tailCoords[0].x, tailCoords[0].y, 0, false); physIdx++;
+            // Contas da Cauda
             for(let i=1; i<tailCoords.length; i++) {
-                createBead(tailCoords[i].x, tailCoords[i].y, 1, false); 
+                // i=1 (PN intro) e i=5 (1º PN Mistério) são GRANDES
+                const type = (i===1 || i===5) ? 1 : 2;
+                createBead(tailCoords[i].x, tailCoords[i].y, type, false); 
                 physIdx++;
             }
 
-            // 2. Loop
-            const totalLoopBeads = 55;
+            // LOOP DO CÍRCULO - Começa com Ave Marias
+            // Estrutura do Loop: 10 Aves -> 1 PN -> 10 Aves -> 1 PN... (Total 54 contas: 50 Aves + 4 PNs)
+            // O 1º PN está na perna, então o círculo só tem os outros 4 PNs.
+            const totalLoopBeads = 54; 
             const gapDeg = 25;
             const startDeg = 90 + (gapDeg/2);
             const totalSweep = 360 - gapDeg;
@@ -463,38 +403,65 @@
                 const rad = deg * (Math.PI/180);
                 const x = cx - r * Math.cos(rad); 
                 const y = cy + r * Math.sin(rad);
-                const isLarge = (i % 11 === 0); 
+                
+                // Lógica de tipo:
+                // i=0 a 9: Aves (10)
+                // i=10: PN (1)
+                // i=11 a 20: Aves (10) ...
+                // Padrão: (i+1) % 11 === 0, é PN.
+                const isLarge = ((i + 1) % 11 === 0);
                 createBead(x, y, isLarge ? 1 : 2, false);
                 physIdx++;
             }
 
-            // 3. Medalha (Triângulo)
+            // Medalha (Triângulo)
             createBead(150, medalY, 0, true); 
             physIdx++;
 
             document.getElementById('rosary-string').setAttribute('d', pathD);
 
-            // Mapeamento
-            let currentPhysBead = 0;
+            // --- MAPEAMENTO LÓGICO ---
+            // 0,1,2 = Cruz
             stepToElementMap[0] = beadElementsList[0];
             stepToElementMap[1] = beadElementsList[0];
             stepToElementMap[2] = beadElementsList[0];
-            currentPhysBead = 1; 
+            
+            // 3 = Pai Nosso Intro (Bead #1)
+            stepToElementMap[3] = beadElementsList[1];
+            
+            // 4,5,6 = Aves Intro (Beads #2, #3, #4)
+            stepToElementMap[4] = beadElementsList[2];
+            stepToElementMap[5] = beadElementsList[3];
+            stepToElementMap[6] = beadElementsList[4];
 
-            for(let i=3; i<rosaryStructure.length; i++) {
+            // 7 = Glória Intro (Bead #5 - A conta grande antes da medalha)
+            stepToElementMap[7] = beadElementsList[5];
+
+            // 8 = 1º Mistério Pai Nosso (Também Bead #5!)
+            // Nota: No array `rosaryStructure`, o índice 8 é o 1º PN.
+            // Precisamos ajustar o loop abaixo para começar do índice 8.
+            stepToElementMap[8] = beadElementsList[5];
+
+            let currentPhysBead = 6; // Começa na primeira conta do loop (1ª Ave do 1º Mistério)
+
+            for(let i=9; i<rosaryStructure.length; i++) {
                 const item = rosaryStructure[i];
+                
                 if (item.label.includes("Salve Rainha")) {
                     stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
                 } 
                 else if (item.isVirtual) {
-                    if(currentPhysBead < beadElementsList.length) {
-                         stepToElementMap[i] = beadElementsList[currentPhysBead]; 
+                    // Glória: Aponta para o próximo PN físico (sem consumir)
+                    if (currentPhysBead < beadElementsList.length) {
+                        stepToElementMap[i] = beadElementsList[currentPhysBead];
                     } else {
+                        // Fim do terço, aponta para medalha
                         stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
                     }
                 } 
                 else {
-                    if(currentPhysBead < beadElementsList.length) {
+                    // Ave ou Pai Nosso (do 2º mistério em diante)
+                    if (currentPhysBead < beadElementsList.length) {
                         stepToElementMap[i] = beadElementsList[currentPhysBead];
                         currentPhysBead++;
                     }
@@ -519,32 +486,23 @@
                 el.setAttribute("cx", x); el.setAttribute("cy", y);
                 el.setAttribute("class", `bead ${type===1 ? 'large':'small'}`);
             }
-            
             svg.appendChild(el);
             beadElementsList.push(el);
-            
             el.onclick = () => {
                 const logicIdx = stepToElementMap.findIndex(mappedEl => mappedEl === el);
                 if(logicIdx !== -1) jumpTo(logicIdx);
             };
         }
 
-        // Haptic Feedback
         function triggerHaptic() {
-            if (navigator.vibrate) {
-                navigator.vibrate(15);
-            }
+            if (navigator.vibrate) { navigator.vibrate(15); }
         }
 
         function updateUI() {
             if(currentStep < 0) return;
-            
             const progressPct = ((currentStep + 1) / rosaryStructure.length) * 100;
             progressBar.style.width = `${progressPct}%`;
-
             const d = rosaryStructure[currentStep];
-            
-            // Fade de texto
             scrollArea.classList.add('fade-out');
             setTimeout(() => {
                 document.getElementById('label-display').innerText = d.label;
@@ -552,24 +510,24 @@
                 scrollArea.scrollTop = 0; 
                 scrollArea.classList.remove('fade-out');
             }, 200);
-
             document.querySelectorAll('.active').forEach(e => e.classList.remove('active'));
             document.querySelectorAll('.done').forEach(e => e.classList.remove('done'));
-
+            
+            // Lógica para iluminar (permitindo que o mesmo elemento seja iluminado por passos diferentes)
+            // ex: Glória e 1º PN
             for(let i=0; i<rosaryStructure.length; i++) {
                 const el = stepToElementMap[i];
                 if(!el) continue;
-
                 if (i === currentStep) {
                     el.classList.add('active');
                     if(el.parentNode && el.tagName !== 'g') el.parentNode.appendChild(el); 
                 } else if (i < currentStep) {
+                    // Só marca como done se não for o mesmo elemento do passo atual
                     if(el !== stepToElementMap[currentStep]) {
                         el.classList.add('done');
                     }
                 }
             }
-
             const btn = document.getElementById('btn-next');
             btn.innerText = (currentStep === rosaryStructure.length - 1) ? "Finalizar" : "Próxima";
         }
