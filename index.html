@@ -11,10 +11,10 @@
 
     <style>
         :root {
-            /* --- VARIÁVEIS DE TEMA (DARK - PADRÃO) --- */
+            /* --- VARIÁVEIS DE TEMA --- */
             --bg-color: #050505;
             --bg-gradient: radial-gradient(circle at center top, #1a1f25 0%, #000000 100%);
-            --panel-bg: rgba(20, 20, 20, 0.85);
+            --panel-bg: rgba(20, 20, 20, 0.98); 
             --text-main: #f0f0f0;
             --text-gold: #D4AF37;
             --text-muted: #8c8c8c;
@@ -22,20 +22,19 @@
             --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
             --btn-text: #000;
             --svg-shadow: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.15);
             --icon-color: #D4AF37;
+            --divider-color: rgba(212, 175, 55, 0.3);
             
-            /* --- CONFIGURAÇÕES GERAIS --- */
-            --transition-speed: 0.3s;
-            --safe-area-bottom: env(safe-area-inset-bottom);
-            --safe-area-top: env(safe-area-inset-top);
+            --safe-top: env(safe-area-inset-top, 20px);
+            --safe-bottom: env(safe-area-inset-bottom, 20px);
         }
 
         /* --- TEMA CLARO --- */
         body.light-theme {
             --bg-color: #f4f4f0;
             --bg-gradient: radial-gradient(circle at center top, #ffffff 0%, #e6e6e6 100%);
-            --panel-bg: rgba(255, 255, 255, 0.85);
+            --panel-bg: rgba(255, 255, 255, 0.98);
             --text-main: #333333;
             --text-gold: #b8860b;
             --text-muted: #666666;
@@ -45,51 +44,64 @@
             --svg-shadow: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
             --border-color: rgba(0, 0, 0, 0.1);
             --icon-color: #333;
+            --divider-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* --- RESET & BASE --- */
         * { box-sizing: border-box; }
+
         html, body {
-            height: 100%; margin: 0; padding: 0; overflow: hidden;
+            height: 100%; width: 100%;
+            margin: 0; padding: 0; 
+            overflow: hidden; 
+            position: fixed; 
             background: var(--bg-color); background-image: var(--bg-gradient);
             color: var(--text-main); font-family: 'Lato', sans-serif;
             user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
             transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* --- LAYOUT --- */
         .app-container {
             display: flex; flex-direction: column;
-            height: 100dvh; width: 100%; max-width: 600px; margin: 0 auto;
+            height: 100%; width: 100%; max-width: 600px; margin: 0 auto;
+            position: relative;
         }
 
         /* --- BOTÃO DE TEMA --- */
-        .theme-toggle-btn {
-            position: absolute; top: max(20px, var(--safe-area-top)); right: 20px;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: transparent; border: 2px solid var(--border-color); color: var(--icon-color);
+        .theme-btn {
+            position: absolute;
+            top: max(15px, var(--safe-top));
+            right: 15px;
+            z-index: 1000;
+            background: var(--panel-bg); 
+            border: 1px solid var(--border-color); 
+            color: var(--icon-color);
+            width: 44px; height: 44px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 1000; font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all var(--transition-speed) ease;
-            backdrop-filter: blur(5px);
+            cursor: pointer; backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            transition: all 0.3s ease;
         }
-        .theme-toggle-btn:active { transform: scale(0.9); }
+        .theme-btn:active { transform: scale(0.95); }
+        .theme-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
-        /* --- ÁREA DO TERÇO (SVG) --- */
+        /* --- ÁREA DO TERÇO --- */
         .rosary-section {
-            flex: 1.2; min-height: 35%;
+            flex: 0 0 45%; 
+            min-height: 20%; 
+            max-height: 80%; 
             display: flex; align-items: center; justify-content: center;
             position: relative;
-            padding: calc(10px + var(--safe-area-top)) 10px 0px 10px;
+            padding: calc(10px + var(--safe-top)) 10px 0px 10px;
         }
+
         .rosary-svg-container {
             width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
             animation: fadeIn 1.5s ease-out;
         }
         svg {
-            height: 100%; width: auto; max-width: 100%; overflow: visible;
+            width: 100%; height: 100%; 
+            overflow: visible;
             filter: var(--svg-shadow); transition: filter 0.5s ease;
         }
         .string-line {
@@ -97,171 +109,180 @@
             stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.5s ease;
         }
 
-        /* --- ANIMAÇÕES E ESTADOS DAS CONTAS --- */
-        @keyframes goldenPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--text-gold)); }
-            50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); }
+        /* --- DIVISOR ARRASTÁVEL --- */
+        .drag-divider {
+            height: 30px; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: row-resize; z-index: 50; background: transparent;
+            margin-top: -15px; margin-bottom: -15px; position: relative;
         }
-        .bead, .cross, .medal-base {
-            cursor: pointer; transform-box: fill-box; transform-origin: center;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .drag-handle-visual {
+            width: 50px; height: 4px; background-color: var(--text-gold);
+            border-radius: 10px; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
         }
-        .bead.small { fill: url(#grad-gem-blue); }
-        .bead.large { fill: url(#grad-gem-red); }
-        .cross, .medal-base { fill: url(#grad-metal-gold-inactive); }
-        
-        .bead.done, .cross.done, .medal-base.done { 
-            filter: brightness(0.5) saturate(0.8); transform: scale(0.9);
-        }
-        .bead.active, .cross.active, .medal-base.active {
-            fill: url(#grad-gold-active) !important;
-            animation: goldenPulse 2.5s infinite ease-in-out;
-            z-index: 100; filter: brightness(1.1);
-        }
-        .bead.large { r: 10; } .bead.small { r: 6.5; }
+        .drag-divider:active .drag-handle-visual { transform: scale(1.2); background-color: #fff; }
 
         /* --- PAINEL DE TEXTO --- */
         .text-section {
-            flex: 1; display: flex; flex-direction: column;
+            flex: 1; 
+            min-height: 20%; 
+            display: flex; flex-direction: column;
             background-color: var(--panel-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px 30px 0 0; padding: 25px 30px;
-            box-shadow: 0 -10px 50px rgba(0,0,0,0.2); z-index: 20;
-            overflow: hidden; border-top: 1px solid var(--border-color);
-            padding-bottom: calc(70px + var(--safe-area-bottom));
-            transition: background-color 0.5s ease;
+            border-radius: 25px 25px 0 0; 
+            padding: 20px 25px 130px 25px; 
+            box-shadow: 0 -10px 50px rgba(0,0,0,0.3); z-index: 20;
+            overflow: hidden; 
+            border-top: 1px solid var(--border-color);
+            position: relative; 
         }
 
-        /* --- ÁREA DE PROGRESSO --- */
-        .progress-area {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            gap: 10px;
-        }
-        .progress-bar-container {
-            flex: 1; /* Ocupa o espaço restante */
-            height: 4px; background: var(--border-color);
-            border-radius: 2px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; background: var(--text-gold); width: 0%;
-            transition: width 0.5s ease; box-shadow: 0 0 10px var(--text-gold);
-        }
-        .progress-text {
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            color: var(--text-gold);
-            font-weight: 700;
-            min-width: 40px;
-            text-align: right;
-        }
+        .progress-area { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 15px; flex-shrink: 0; }
+        .progress-bar-container { flex: 1; height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--text-gold); width: 0%; transition: width 0.5s ease; }
+        .progress-text { font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--text-gold); font-weight: 700; min-width: 40px; text-align: right; }
 
-        .header-info { text-align: center; flex-shrink: 0; margin-bottom: 15px; }
-        .date-badge {
-            font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 2px; color: var(--text-gold);
-            margin-bottom: 8px; display: inline-block;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 4px;
-        }
-        .mystery-title {
-            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
-            color: var(--text-main); margin: 5px 0; line-height: 1.3;
-        }
-        .bead-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; font-weight: 400; }
-        .prayer-content {
-            flex-grow: 1; overflow-y: auto; min-height: 0;
-            margin-bottom: 15px; padding-right: 10px;
-            scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent;
-            opacity: 1; transition: opacity 0.3s ease;
+        .header-info { text-align: center; flex-shrink: 0; margin-bottom: 8px; }
+        .date-badge { font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gold); margin-bottom: 4px; display: inline-block; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
+        .mystery-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 4px 0; line-height: 1.2; }
+        .bead-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; font-weight: 400; }
+        
+        .prayer-content { 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            min-height: 0; 
+            padding-right: 5px; 
+            scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent; 
+            opacity: 1; transition: opacity 0.3s ease; 
         }
         .prayer-content.fade-out { opacity: 0; }
-        .prayer-text {
-            font-size: 1.2rem; line-height: 1.7; white-space: pre-wrap;
-            padding-bottom: 20px; color: var(--text-main); font-weight: 300;
-        }
+        .prayer-text { font-size: 1.1rem; line-height: 1.5; white-space: pre-wrap; color: var(--text-main); font-weight: 300; }
         
-        /* --- CONTROLES --- */
-        .controls-area { flex-shrink: 0; position: relative; }
-        button {
-            width: 100%; background: var(--btn-gradient); color: var(--btn-text);
-            border: none; padding: 18px;
-            font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 800;
-            border-radius: 60px; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            outline: none; text-transform: uppercase; letter-spacing: 1.5px;
-            position: relative; overflow: hidden;
+        .controls-area { 
+            position: absolute; 
+            bottom: 0; left: 0; width: 100%;
+            background: var(--panel-bg); 
+            padding: 15px 25px calc(45px + var(--safe-bottom)) 25px;
+            border-top: 1px solid var(--border-color);
+            z-index: 30;
+            -webkit-transform: translate3d(0,0,0);
         }
-        button:active { transform: scale(0.97); }
+
+        button { 
+            width: 100%; 
+            background: var(--btn-gradient); color: var(--btn-text); 
+            border: none; padding: 16px; 
+            font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 800; 
+            border-radius: 50px; cursor: pointer; 
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); 
+            transition: transform 0.1s; outline: none; 
+            text-transform: uppercase; letter-spacing: 1.5px;
+            -webkit-tap-highlight-color: transparent; 
+        }
+        button:active { transform: scale(0.96); }
+        
+        /* SVG Utils */
+        .bead, .cross, .medal-base { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .bead.small { fill: url(#grad-gem-blue); } .bead.large { fill: url(#grad-gem-red); } .cross, .medal-base { fill: url(#grad-metal-gold-inactive); }
+        .bead.done, .cross.done, .medal-base.done { filter: brightness(0.5) saturate(0.8); transform: scale(0.9); }
+        .bead.active, .cross.active, .medal-base.active { fill: url(#grad-gold-active) !important; animation: goldenPulse 2.5s infinite ease-in-out; z-index: 100; filter: brightness(1.1); }
+        .bead.large { r: 10; } .bead.small { r: 6.5; }
+        @keyframes goldenPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--text-gold)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- DESKTOP --- */
+        /* --- DESKTOP (Horizontal) --- */
         @media (min-width: 768px) {
-            body { padding: 40px; overflow: auto; }
-            .app-container {
-                flex-direction: row; height: 85vh; border-radius: 30px;
-                overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-                background: var(--bg-color); border: 1px solid var(--border-color); max-width: 1100px;
+            body { position: relative; padding: 40px; overflow: auto; }
+            .app-container { 
+                flex-direction: row; 
+                height: 92vh; 
+                border-radius: 30px; 
+                overflow: hidden; 
+                box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
+                background: var(--bg-color); 
+                border: 1px solid var(--border-color); 
+                max-width: 1100px; 
             }
-            .rosary-section { flex: 1.2; padding: 30px; } 
-            .text-section { flex: 1.2; border-radius: 0; border-left: 1px solid var(--border-color); padding: 40px; }
-            .theme-toggle-btn { top: 30px; right: 30px; }
+            
+            /* AQUI: Ajustes de tamanho do terço para Desktop */
+            .rosary-section { 
+                flex: 0 0 45%; 
+                min-height: auto; 
+                /* Removemos o max-height para usar toda a altura disponível */
+                max-height: 100%; 
+                min-width: 20%; 
+                max-width: 80%; 
+                /* Removemos o padding para o SVG crescer ao máximo */
+                padding: 0; 
+                /* Centraliza verticalmente e horizontalmente */
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Ajustamos o container do SVG para garantir que ele não corte */
+            .rosary-svg-container {
+                height: 95%; /* Uma margem mínima de segurança */
+                width: 95%;
+            }
+
+            .text-section { 
+                flex: 1; border-radius: 0; 
+                border-left: 1px solid var(--border-color); border-top: none;
+                padding: 40px 40px 100px 40px; 
+            }
+            
+            .controls-area { 
+                padding: 20px 40px 20px 40px; 
+            }
+
+            .drag-divider { width: 24px; height: 100%; cursor: col-resize; margin: 0 -12px; flex-direction: column; }
+            .drag-handle-visual { width: 5px; height: 60px; }
+            
+            .theme-btn { top: 30px; right: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">☀</button>
+    <button id="theme-toggle" class="theme-btn" aria-label="Alternar Tema">
+        <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
 
-    <div class="app-container">
-        <section class="rosary-section">
+    <div class="app-container" id="app-container">
+        <section class="rosary-section" id="rosary-pane">
             <div class="rosary-svg-container">
                 <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
                     <defs>
-                        <radialGradient id="grad-gem-blue" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
-                            <stop offset="0%" style="stop-color: #00c6ff; stop-opacity: 1" />
-                            <stop offset="70%" style="stop-color: #005bea; stop-opacity: 1" />
-                            <stop offset="100%" style="stop-color: #002244; stop-opacity: 1" />
-                        </radialGradient>
-                        <radialGradient id="grad-gem-red" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
-                            <stop offset="0%" style="stop-color: #ff4b1f; stop-opacity: 1" />
-                            <stop offset="70%" style="stop-color: #cc0000; stop-opacity: 1" />
-                            <stop offset="100%" style="stop-color: #660000; stop-opacity: 1" />
-                        </radialGradient>
-                         <linearGradient id="grad-metal-gold-inactive" x1="0%" y1="0%" x2="100%" y2="100%">
-                             <stop offset="0%" style="stop-color: #cbb35a;" />
-                             <stop offset="50%" style="stop-color: #9e812d;" />
-                             <stop offset="100%" style="stop-color: #745c1b;" />
-                        </linearGradient>
-                        <radialGradient id="grad-gold-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
-                            <stop offset="0%" style="stop-color: #fffde7; stop-opacity: 1" />
-                            <stop offset="40%" style="stop-color: #ffd700; stop-opacity: 1" />
-                            <stop offset="100%" style="stop-color: #b8860b; stop-opacity: 1" />
-                        </radialGradient>
+                        <radialGradient id="grad-gem-blue" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #00c6ff; stop-opacity: 1" /><stop offset="70%" style="stop-color: #005bea; stop-opacity: 1" /><stop offset="100%" style="stop-color: #002244; stop-opacity: 1" /></radialGradient>
+                        <radialGradient id="grad-gem-red" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #ff4b1f; stop-opacity: 1" /><stop offset="70%" style="stop-color: #cc0000; stop-opacity: 1" /><stop offset="100%" style="stop-color: #660000; stop-opacity: 1" /></radialGradient>
+                        <linearGradient id="grad-metal-gold-inactive" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color: #cbb35a;" /><stop offset="50%" style="stop-color: #9e812d;" /><stop offset="100%" style="stop-color: #745c1b;" /></linearGradient>
+                        <radialGradient id="grad-gold-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #fffde7; stop-opacity: 1" /><stop offset="40%" style="stop-color: #ffd700; stop-opacity: 1" /><stop offset="100%" style="stop-color: #b8860b; stop-opacity: 1" /></radialGradient>
                     </defs>
                     <path id="rosary-string" class="string-line" d="" />
                 </svg>
             </div>
         </section>
 
-        <section class="text-section">
+        <div class="drag-divider" id="drag-bar">
+            <div class="drag-handle-visual"></div>
+        </div>
+
+        <section class="text-section" id="text-pane">
             <div class="progress-area">
-                <div class="progress-bar-container">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
+                <div class="progress-bar-container"><div id="progress-fill" class="progress-fill"></div></div>
                 <span id="progress-text" class="progress-text">0%</span>
             </div>
-
             <div class="header-info">
                 <div id="date-display" class="date-badge">...</div>
                 <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
                 <div id="label-display" class="bead-label">Início</div>
             </div>
+            
             <div id="prayer-scroll-area" class="prayer-content">
                 <div id="text-display" class="prayer-text">Toque no botão abaixo para iniciar.</div>
             </div>
+            
             <div class="controls-area">
                 <button id="btn-next">Iniciar</button>
             </div>
@@ -269,13 +290,9 @@
     </div>
 
     <script>
-        /**
-         * APLICAÇÃO TERÇO DIGITAL
-         */
         const RosaryApp = (() => {
             'use strict';
 
-            // --- DADOS ---
             const PRAYERS = {
                 sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos.\n\nEm nome do Pai, do Filho e do Espírito Santo. Amém.",
                 oferecimento: "Oferecimento do Terço:\n\nDivino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos, por intercessão da Virgem Maria, Mãe de Deus e nossa Mãe, as virtudes que nos são necessárias para bem rezá-lo e a graça de ganharmos as indulgências desta santa devoção.",
@@ -293,55 +310,108 @@
                 luminosos: { name: "Mistérios Luminosos", decades: ["1º Mistério: O Batismo", "2º Mistério: As Bodas de Caná", "3º Mistério: O Reino de Deus", "4º Mistério: A Transfiguração", "5º Mistério: A Eucaristia"] }
             };
 
-            // --- ESTADO E ELEMENTOS ---
             let currentStep = -1;
             let rosaryStructure = [];
             let todayMystery = null;
-            
-            // Elementos DOM (Cache)
-            const els = {
-                svg: document.getElementById('rosary-svg'),
-                path: document.getElementById('rosary-string'),
-                date: document.getElementById('date-display'),
-                mystery: document.getElementById('mystery-display'),
-                label: document.getElementById('label-display'),
-                text: document.getElementById('text-display'),
-                scroll: document.getElementById('prayer-scroll-area'),
-                progress: document.getElementById('progress-fill'),
-                progressText: document.getElementById('progress-text'), // Elemento da porcentagem
-                btn: document.getElementById('btn-next'),
-                themeBtn: document.getElementById('theme-toggle')
-            };
+            let els = {}; 
 
-            // Listas para mapeamento
             const beadElementsList = [];
             const stepToElementMap = [];
 
-            // --- LÓGICA DE INICIALIZAÇÃO ---
+            // Ícones SVG
+            const sunIcon = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+            const moonIcon = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
             function init() {
+                // Cache de elementos DOM
+                els = {
+                    container: document.querySelector('.app-container'),
+                    rosaryPane: document.getElementById('rosary-pane'),
+                    dragBar: document.getElementById('drag-bar'),
+                    svg: document.getElementById('rosary-svg'),
+                    path: document.getElementById('rosary-string'),
+                    date: document.getElementById('date-display'),
+                    mystery: document.getElementById('mystery-display'),
+                    label: document.getElementById('label-display'),
+                    text: document.getElementById('text-display'),
+                    scroll: document.getElementById('prayer-scroll-area'),
+                    progress: document.getElementById('progress-fill'),
+                    progressText: document.getElementById('progress-text'),
+                    btn: document.getElementById('btn-next'),
+                    themeBtn: document.getElementById('theme-toggle')
+                };
+
                 setupTheme();
+                setupDraggable(); 
                 determineMystery();
                 buildStructure();
                 drawRosaryGeometry();
                 mapLogicToPhysics();
                 setupEvents();
-                updateUI(); // Estado inicial
+                updateUI();
             }
 
             function setupTheme() {
                 const savedTheme = localStorage.getItem('rosary-theme');
                 if (savedTheme === 'light') {
                     document.body.classList.add('light-theme');
-                    els.themeBtn.innerHTML = '☾';
+                    els.themeBtn.innerHTML = moonIcon;
                 } else {
-                    els.themeBtn.innerHTML = '☀';
+                    els.themeBtn.innerHTML = sunIcon;
                 }
                 els.themeBtn.onclick = () => {
                     document.body.classList.toggle('light-theme');
                     const isLight = document.body.classList.contains('light-theme');
-                    els.themeBtn.innerHTML = isLight ? '☾' : '☀';
+                    els.themeBtn.innerHTML = isLight ? moonIcon : sunIcon;
                     localStorage.setItem('rosary-theme', isLight ? 'light' : 'dark');
                 };
+            }
+
+            // --- LÓGICA DE ARRASTAR (DRAGGABLE) ---
+            function setupDraggable() {
+                let isDragging = false;
+
+                const onPointerDown = (e) => {
+                    isDragging = true;
+                    document.body.style.cursor = window.innerWidth >= 768 ? 'col-resize' : 'row-resize';
+                    document.body.style.userSelect = 'none'; 
+                };
+
+                const onPointerUp = () => {
+                    isDragging = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                };
+
+                const onPointerMove = (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault(); 
+
+                    const containerRect = els.container.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                    // Desktop vs Mobile
+                    if (window.innerWidth >= 768) {
+                        const relativeX = clientX - containerRect.left;
+                        let percentage = (relativeX / containerRect.width) * 100;
+                        percentage = Math.max(20, Math.min(80, percentage)); 
+                        els.rosaryPane.style.flex = `0 0 ${percentage}%`;
+                    } else {
+                        const relativeY = clientY - containerRect.top;
+                        let percentage = (relativeY / containerRect.height) * 100;
+                        percentage = Math.max(20, Math.min(80, percentage)); 
+                        els.rosaryPane.style.flex = `0 0 ${percentage}%`;
+                    }
+                };
+
+                els.dragBar.addEventListener('mousedown', onPointerDown);
+                window.addEventListener('mouseup', onPointerUp);
+                window.addEventListener('mousemove', onPointerMove);
+
+                els.dragBar.addEventListener('touchstart', onPointerDown, { passive: false });
+                window.addEventListener('touchend', onPointerUp);
+                window.addEventListener('touchmove', onPointerMove, { passive: false });
             }
 
             function determineMystery() {
@@ -373,44 +443,38 @@
                     rosaryStructure.push({ type: 1, label: "Glória", text: PRAYERS.gloria, isVirtual: true });
                 });
 
-                rosaryStructure.pop(); // Remove último Glória virtual
+                rosaryStructure.pop(); 
                 rosaryStructure.push({ type: 1, label: "Glória", text: PRAYERS.gloria, isVirtual: true });
                 rosaryStructure.push({ type: 0, label: "Final: Salve Rainha", text: PRAYERS.salveRainha });
             }
 
-            // --- LÓGICA DE DESENHO SVG ---
             function drawRosaryGeometry() {
                 const cx = 150, cy = 180, r = 135;
                 const medalY = cy + r;
                 
-                // 1. Cauda (Cruz + PN + 3 Aves + PN 1º Mistério)
                 const tailCoords = [
-                    {x:150, y:515}, // Cruz
-                    {x:150, y:465}, // PN Intro
-                    {x:150, y:430}, // Ave 1
-                    {x:150, y:405}, // Ave 2
-                    {x:150, y:380}, // Ave 3
-                    {x:150, y:345}  // PN 1º Mistério (Índice físico 5)
+                    {x:150, y:515}, 
+                    {x:150, y:465}, 
+                    {x:150, y:430}, 
+                    {x:150, y:405}, 
+                    {x:150, y:380}, 
+                    {x:150, y:345}  
                 ];
 
-                // Desenha linha
                 let pathD = `M 150 515 L 150 ${medalY + 16}`;
 
-                // Cria elementos da Cauda
-                createBeadElement(tailCoords[0].x, tailCoords[0].y, 0, false); // Cruz
+                createBeadElement(tailCoords[0].x, tailCoords[0].y, 0, false); 
                 for(let i=1; i<tailCoords.length; i++) {
-                    const type = (i===1 || i===5) ? 1 : 2; // PN ou Ave
+                    const type = (i===1 || i===5) ? 1 : 2; 
                     createBeadElement(tailCoords[i].x, tailCoords[i].y, type, false);
                 }
 
-                // 2. Loop (54 Contas)
                 const totalLoopBeads = 54;
                 const gapDeg = 25;
                 const startDeg = 90 + (gapDeg/2);
                 const totalSweep = 360 - gapDeg;
                 const stepDeg = totalSweep / (totalLoopBeads - 1);
 
-                // Arco do loop
                 const startRad = startDeg * (Math.PI/180);
                 const endRad = (startDeg + totalSweep) * (Math.PI/180);
                 const ax1 = cx + r * Math.cos(endRad); const ay1 = cy + r * Math.sin(endRad);
@@ -426,7 +490,6 @@
                     createBeadElement(x, y, isLarge ? 1 : 2, false);
                 }
 
-                // 3. Medalha
                 createBeadElement(150, medalY, 0, true);
                 
                 els.path.setAttribute('d', pathD);
@@ -438,7 +501,7 @@
                     el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
                     el.setAttribute("points", `${x-16},${y-14} ${x+16},${y-14} ${x},${y+18}`);
                     el.setAttribute("class", "medal-base");
-                } else if (type === 0) { // Cruz
+                } else if (type === 0) { 
                     el = document.createElementNS("http://www.w3.org/2000/svg", "path");
                     el.setAttribute("d", `M ${x-4},${y-35} L ${x+4},${y-35} L ${x+4},${y-12} L ${x+22},${y-12} L ${x+22},${y-2} L ${x+4},${y-2} L ${x+4},${y+25} L ${x-4},${y+25} L ${x-4},${y-2} L ${x-22},${y-2} L ${x-22},${y-12} L ${x-4},${y-12} Z`);
                     el.setAttribute("class", "cross");
@@ -451,27 +514,24 @@
                 els.svg.appendChild(el);
                 beadElementsList.push(el);
                 
-                // Interação Reversa (Clique no desenho)
                 el.onclick = () => {
                     const logicIdx = stepToElementMap.findIndex(mappedEl => mappedEl === el);
                     if(logicIdx !== -1) jumpTo(logicIdx);
                 };
             }
 
-            // --- MAPEAMENTO E LÓGICA ---
             function mapLogicToPhysics() {
-                // Cruz e Intro
                 stepToElementMap[0] = beadElementsList[0];
                 stepToElementMap[1] = beadElementsList[0];
                 stepToElementMap[2] = beadElementsList[0];
-                stepToElementMap[3] = beadElementsList[1]; // PN Intro
-                stepToElementMap[4] = beadElementsList[2]; // Ave 1
-                stepToElementMap[5] = beadElementsList[3]; // Ave 2
-                stepToElementMap[6] = beadElementsList[4]; // Ave 3
-                stepToElementMap[7] = beadElementsList[5]; // Glória Intro (na conta do 1º Mistério)
-                stepToElementMap[8] = beadElementsList[5]; // 1º PN Mistério
+                stepToElementMap[3] = beadElementsList[1]; 
+                stepToElementMap[4] = beadElementsList[2]; 
+                stepToElementMap[5] = beadElementsList[3]; 
+                stepToElementMap[6] = beadElementsList[4]; 
+                stepToElementMap[7] = beadElementsList[5]; 
+                stepToElementMap[8] = beadElementsList[5]; 
 
-                let currentPhysBead = 6; // Começa na primeira Ave do loop
+                let currentPhysBead = 6; 
 
                 for(let i=9; i<rosaryStructure.length; i++) {
                     const item = rosaryStructure[i];
@@ -479,7 +539,6 @@
                         stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
                     } 
                     else if (item.isVirtual) {
-                        // Glória Virtual usa a próxima conta grande
                         if(currentPhysBead < beadElementsList.length) {
                              stepToElementMap[i] = beadElementsList[currentPhysBead]; 
                         } else {
@@ -487,7 +546,6 @@
                         }
                     } 
                     else {
-                        // Avança conta física
                         if(currentPhysBead < beadElementsList.length) {
                             stepToElementMap[i] = beadElementsList[currentPhysBead];
                             currentPhysBead++;
@@ -496,7 +554,6 @@
                 }
             }
 
-            // --- INTERAÇÃO ---
             function triggerHaptic() {
                 if (navigator.vibrate) navigator.vibrate(15);
             }
@@ -537,12 +594,10 @@
             function updateUI() {
                 if(currentStep < 0) return;
 
-                // Barra de Progresso e Porcentagem
                 const progressPct = ((currentStep + 1) / rosaryStructure.length) * 100;
                 els.progress.style.width = `${progressPct}%`;
                 els.progressText.innerText = `${Math.round(progressPct)}%`;
 
-                // Texto e Label com Fade
                 const d = rosaryStructure[currentStep];
                 els.scroll.classList.add('fade-out');
                 setTimeout(() => {
@@ -552,7 +607,6 @@
                     els.scroll.classList.remove('fade-out');
                 }, 200);
 
-                // Classes CSS nas contas
                 document.querySelectorAll('.active').forEach(e => e.classList.remove('active'));
                 document.querySelectorAll('.done').forEach(e => e.classList.remove('done'));
 
@@ -561,10 +615,8 @@
                     if(!el) continue;
                     if (i === currentStep) {
                         el.classList.add('active');
-                        // Traz para frente se não for grupo
                         if(el.parentNode && el.tagName !== 'g') el.parentNode.appendChild(el); 
                     } else if (i < currentStep) {
-                        // Marca como feito se não for o elemento atual (para passos virtuais)
                         if(el !== stepToElementMap[currentStep]) {
                             el.classList.add('done');
                         }
@@ -577,7 +629,6 @@
             return { init };
         })();
 
-        // Inicializa ao carregar
         document.addEventListener('DOMContentLoaded', RosaryApp.init);
     </script>
 </body>
