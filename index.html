@@ -27,15 +27,13 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* Impede rolagem da página inteira */
+            overflow: hidden; 
         }
 
-        /* Container Principal */
         .app-container {
             display: flex;
             flex-direction: column;
-            /* Usa dvh para ignorar a barra de endereço do navegador móvel */
-            height: 100dvh; 
+            height: 100dvh; /* Altura total da viewport dinâmica */
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
@@ -43,15 +41,14 @@
 
         /* --- ÁREA DO TERÇO (Topo) --- */
         .rosary-section {
-            /* Ocupa espaço flexível, mas tem prioridade menor que o texto */
-            flex: 1; 
-            min-height: 40%; /* Garante altura mínima para o desenho */
+            flex: 1; /* Ocupa o espaço que sobrar */
+            min-height: 35%; /* Garante que o terço não suma */
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             background: radial-gradient(circle at center, #2a2a2a 0%, var(--bg-color) 80%);
-            padding: 20px;
+            padding: 10px;
         }
 
         .rosary-svg-container {
@@ -64,16 +61,16 @@
 
         svg {
             height: 100%;
-            width: auto; /* Mantém proporção */
+            width: auto;
             max-width: 100%;
-            /* CRUCIAL: Permite que o brilho saia da caixa sem ser cortado */
             overflow: visible; 
             filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
 
         /* --- ÁREA DE TEXTO (Base) --- */
         .text-section {
-            flex: 1.2; /* O texto ganha um pouco mais de espaço */
+            /* Flex fixo para garantir que não cresça infinitamente */
+            flex: 1.5; 
             background-color: var(--panel-bg);
             border-radius: 25px 25px 0 0;
             padding: 20px 25px;
@@ -81,14 +78,16 @@
             flex-direction: column;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
             z-index: 10;
+            /* CRUCIAL: Impede que o painel cresça além da tela */
+            overflow: hidden; 
             
-            /* Ajuste para iPhones com notch/barra inferior */
-            padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
+            /* Ajuste para iPhones X+ */
+            padding-bottom: calc(15px + env(safe-area-inset-bottom)); 
         }
 
         .header-info {
             text-align: center;
-            flex-shrink: 0;
+            flex-shrink: 0; /* Impede que o cabeçalho encolha */
             margin-bottom: 10px;
         }
 
@@ -101,10 +100,11 @@
         }
 
         .mystery-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--bead-active);
             margin: 5px 0;
+            line-height: 1.2;
         }
 
         .bead-label {
@@ -115,13 +115,13 @@
             margin-bottom: 8px;
         }
 
-        /* Conteúdo com rolagem interna */
+        /* CORREÇÃO DA ROLAGEM */
         .prayer-content {
-            flex-grow: 1;
-            overflow-y: auto;
+            flex-grow: 1; /* Ocupa todo espaço disponível */
+            overflow-y: auto; /* Habilita rolagem interna */
+            min-height: 0; /* CRUCIAL: Permite que o flex encolha para caber na tela */
             margin-bottom: 15px;
             padding-right: 5px;
-            /* Scroll suave */
             -webkit-overflow-scrolling: touch; 
         }
 
@@ -129,10 +129,12 @@
             font-size: 1.1rem;
             line-height: 1.5;
             white-space: pre-wrap;
+            padding-bottom: 20px; /* Espaço extra no fim do texto */
         }
 
         .controls-area {
-            flex-shrink: 0;
+            flex-shrink: 0; /* Impede que o botão seja esmagado */
+            margin-top: auto; /* Empurra para o fundo se sobrar espaço */
         }
 
         button {
@@ -140,7 +142,7 @@
             background-color: var(--btn-color);
             color: var(--btn-text);
             border: none;
-            padding: 15px;
+            padding: 16px;
             font-size: 1.1rem;
             font-weight: bold;
             border-radius: 50px;
@@ -161,7 +163,6 @@
             stroke-linecap: round;
         }
 
-        /* Animação de pulsação */
         @keyframes pulse {
             0% { transform: scale(1); filter: drop-shadow(0 0 4px var(--bead-active)); }
             50% { transform: scale(1.4); filter: drop-shadow(0 0 12px var(--bead-active)); }
@@ -170,7 +171,7 @@
 
         .bead, .cross {
             fill: var(--bead-inactive);
-            transition: fill 0.4s ease; /* Transição de cor suave */
+            transition: fill 0.4s ease;
             transform-box: fill-box;
             transform-origin: center;
             cursor: pointer;
@@ -181,7 +182,7 @@
         .bead.active, .cross.active {
             fill: var(--bead-active);
             animation: pulse 2s infinite ease-in-out;
-            z-index: 99; /* Garante que fique por cima */
+            z-index: 99;
         }
 
         .bead.large { r: 9; }
@@ -207,7 +208,7 @@
                 flex: 0 0 400px; 
                 border-radius: 0; 
                 border-left: 1px solid #333;
-                padding-bottom: 20px; /* Reset safe area */
+                padding-bottom: 20px; 
             }
         }
     </style>
@@ -298,11 +299,11 @@
             document.getElementById('date-display').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
             document.getElementById('mystery-display').innerText = todayMystery.name;
 
-            // Geometria (Centralizada no viewBox -30 -20 360 540)
-            const cx = 150, cy = 200, r = 130; // Raio um pouco maior
+            // Geometria
+            const cx = 150, cy = 200, r = 130; 
             const tailY = cy + r;
             
-            // Perna (Coordenadas ajustadas para caber no novo viewBox)
+            // Perna
             const tail = [
                 {x:150, y:480}, {x:150, y:480}, {x:150, y:480}, // Cruz
                 {x:150, y:435}, {x:150, y:410}, {x:150, y:390}, {x:150, y:370}, {x:150, y:340} // Glória conecta
@@ -319,13 +320,12 @@
             path += ` M 150 ${tailY} A ${r} ${r} 0 1 1 149.9 ${tailY}`;
             
             for(let i=0; i<count; i++) {
-                // Ajuste de ângulo para começar de baixo
                 const angle = (90 + (360/count)*i) * (Math.PI/180);
                 const x = cx - r * Math.cos(angle);
                 const y = cy + r * Math.sin(angle);
                 createBead(x, y, startIdx + i);
             }
-            createBead(150, tailY-20, endIdx); // Salve Rainha
+            createBead(150, tailY-20, endIdx); 
 
             document.getElementById('rosary-string').setAttribute('d', path);
         }
@@ -336,17 +336,14 @@
 
             let el;
             if(data.type === 0 && idx === 0) { 
-                // Cruz
                 el = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 el.innerHTML = `<rect x="${x-6}" y="${y-30}" width="12" height="60"/><rect x="${x-20}" y="${y-15}" width="40" height="12"/>`;
                 el.setAttribute("class", "cross");
             } else if (idx === rosaryStructure.length - 1) { 
-                // Salve Rainha
                 el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
                 el.setAttribute("points", `${x},${y+18} ${x-20},${y-18} ${x+20},${y-18}`);
                 el.setAttribute("class", "bead large");
             } else { 
-                // Bolinha
                 el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 el.setAttribute("cx", x); el.setAttribute("cy", y);
                 el.setAttribute("class", `bead ${data.type===1 ? 'large':'small'}`);
