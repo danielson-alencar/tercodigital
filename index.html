@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Terço Digital</title>
+    <title>Terço Digital Realista</title>
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -32,7 +32,7 @@
         .app-container {
             display: flex;
             flex-direction: column;
-            height: 100dvh; /* Altura real da tela mobile */
+            height: 100dvh; /* Usa a altura dinâmica da viewport */
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
@@ -40,16 +40,15 @@
 
         /* --- VISUAL DO TERÇO --- */
         .rosary-section {
-            /* Flex 1 garante que ocupe o espaço disponível sem empurrar o texto */
-            flex: 1; 
-            min-height: 0; /* Permite encolher se necessário */
+            flex: 1.4; 
+            min-height: 40%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             background: transparent;
-            /* Padding seguro para o topo (notch) e laterais */
-            padding: calc(10px + env(safe-area-inset-top)) 10px 0 10px;
+            /* AJUSTE DE PADDING: Adicionado espaço nas laterais e em baixo para não colar na borda da tela */
+            padding: calc(20px + env(safe-area-inset-top)) 20px 20px 20px;
         }
 
         .rosary-svg-container {
@@ -61,12 +60,12 @@
         }
 
         svg {
-            /* Garante que o SVG ocupe o máximo possível sem distorcer */
-            width: 100%;
             height: 100%;
-            max-height: 100%;
-            overflow: visible; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
+            width: auto;
+            max-width: 100%;
+            overflow: visible; /* Permite que sombras passem um pouco se necessário */
+            /* Sombra do objeto inteiro */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
 
         /* ESTILOS SVG */
@@ -80,7 +79,8 @@
 
         @keyframes goldenPulse {
             0% { transform: scale(1); filter: drop-shadow(0 0 5px var(--accent-gold)); }
-            50% { transform: scale(1.2); filter: drop-shadow(0 0 25px var(--accent-gold)) brightness(1.4); }
+            /* Aumentei o brilho para ficar mais bonito com o novo espaço */
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 30px var(--accent-gold)) brightness(1.5); }
             100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--accent-gold)); }
         }
 
@@ -95,7 +95,7 @@
         .bead, .medal-base { fill: url(#grad-bead-inactive); }
         .cross { fill: url(#grad-cross-inactive); }
         
-        .medal-detail { /* Letra M na medalha */
+        .medal-detail {
             fill: none;
             stroke: rgba(0,0,0,0.5);
             stroke-width: 1.5;
@@ -104,7 +104,7 @@
 
         /* Estado "Feito" */
         .bead.done, .cross.done, .medal-group.done .medal-base { 
-            filter: brightness(0.4); 
+            filter: brightness(0.4);
             transform: scale(0.9);
         }
 
@@ -114,25 +114,24 @@
             animation: goldenPulse 2s infinite ease-in-out;
             z-index: 10;
         }
-
+        
         .bead.large { r: 10; }
         .bead.small { r: 6.5; }
 
         /* --- TEXTO E CONTROLES --- */
         .text-section {
-            /* Tamanho fixo relativo para garantir leitura */
-            flex: 0 0 45%; 
-            max-height: 50%;
+            flex: 1;
             background-color: var(--panel-bg);
             border-radius: 30px 30px 0 0;
-            padding: 20px 25px;
+            padding: 25px 25px;
             display: flex;
             flex-direction: column;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
             z-index: 20;
             overflow: hidden; 
-            padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
             border-top: 1px solid #222;
+            /* Correção para botões do Android */
+            padding-bottom: calc(60px + env(safe-area-inset-bottom)); 
         }
 
         .header-info { text-align: center; flex-shrink: 0; margin-bottom: 10px; }
@@ -149,29 +148,28 @@
         }
 
         .mystery-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--text-color);
             margin: 5px 0;
             font-family: sans-serif;
-            line-height: 1.2;
         }
 
-        .bead-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; font-family: sans-serif; }
+        .bead-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 5px; font-family: sans-serif; }
 
         .prayer-content {
             flex-grow: 1;
             overflow-y: auto;
             min-height: 0;
             margin-bottom: 15px;
-            padding-right: 5px;
+            padding-right: 10px;
             -webkit-overflow-scrolling: touch; 
             scrollbar-width: thin;
             scrollbar-color: #333 transparent;
         }
 
         .prayer-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.5;
             white-space: pre-wrap;
             padding-bottom: 20px;
@@ -185,8 +183,8 @@
             background: linear-gradient(135deg, #ffe066 0%, #b38f00 100%);
             color: var(--btn-text);
             border: none;
-            padding: 16px;
-            font-size: 1.1rem;
+            padding: 18px;
+            font-size: 1.2rem;
             font-weight: 800;
             border-radius: 60px;
             cursor: pointer;
@@ -196,6 +194,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-family: sans-serif;
+            -webkit-tap-highlight-color: transparent; 
         }
 
         button:active {
@@ -211,8 +210,8 @@
                 overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
                 background: var(--bg-color); border: 1px solid #222;
             }
-            .rosary-section { flex: 1.3; padding: 40px; }
-            .text-section { flex: 1; border-radius: 0; border-left: 1px solid #222; padding: 40px; max-height: 100%; }
+            .rosary-section { flex: 1.3; padding: 40px; background: transparent; }
+            .text-section { flex: 1; border-radius: 0; border-left: 1px solid #222; padding: 40px; }
         }
     </style>
 </head>
@@ -221,7 +220,7 @@
     <div class="app-container">
         <section class="rosary-section">
             <div class="rosary-svg-container">
-                <svg id="rosary-svg" viewBox="0 0 300 550" preserveAspectRatio="xMidYMid meet">
+                <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
                     <defs>
                         <radialGradient id="grad-bead-inactive" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
                             <stop offset="0%" style="stop-color: #555; stop-opacity: 1" />
@@ -264,27 +263,33 @@
         // --- DADOS COMPLETOS ---
         const prayers = {
             sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos.\n\nEm nome do Pai, do Filho e do Espírito Santo. Amém.",
+            
             oferecimento: "Oferecimento do Terço:\n\nDivino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos, por intercessão da Virgem Maria, Mãe de Deus e nossa Mãe, as virtudes que nos são necessárias para bem rezá-lo e a graça de ganharmos as indulgências desta santa devoção.",
+            
             credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
+            
             paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
+            
             aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
+            
             gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.\n\n(Jaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.)",
+            
             salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.\n\nV. Rogai por nós, Santa Mãe de Deus.\nR. Para que sejamos dignos das promessas de Cristo. Amém."
         };
 
         const mysteriesDB = {
             gozosos: { 
-                name: "Mistérios Gozosos", 
+                name: "Mistérios Gozosos (Segunda e Sábado)", 
                 decades: [
                     "1º Mistério: A Anunciação do Anjo Gabriel à Virgem Maria.",
-                    "2º Mistério: A Visitação de Nossa Senhora.",
+                    "2º Mistério: A Visitação de Nossa Senhora à sua prima Santa Isabel.",
                     "3º Mistério: O Nascimento do Menino Jesus em Belém.",
                     "4º Mistério: A Apresentação do Menino Jesus no Templo.",
-                    "5º Mistério: O Encontro do Menino Jesus no Templo."
+                    "5º Mistério: O Encontro do Menino Jesus no Templo entre os Doutores."
                 ] 
             },
             dolorosos: { 
-                name: "Mistérios Dolorosos", 
+                name: "Mistérios Dolorosos (Terça e Sexta)", 
                 decades: [
                     "1º Mistério: A Agonia de Jesus no Horto das Oliveiras.",
                     "2º Mistério: A Flagelação de Nosso Senhor Jesus Cristo.",
@@ -294,22 +299,22 @@
                 ] 
             },
             gloriosos: { 
-                name: "Mistérios Gloriosos", 
+                name: "Mistérios Gloriosos (Quarta e Domingo)", 
                 decades: [
                     "1º Mistério: A Ressurreição de Nosso Senhor Jesus Cristo.",
                     "2º Mistério: A Ascensão de Jesus ao Céu.",
-                    "3º Mistério: A Vinda do Espírito Santo.",
+                    "3º Mistério: A Vinda do Espírito Santo sobre os Apóstolos.",
                     "4º Mistério: A Assunção de Nossa Senhora ao Céu.",
-                    "5º Mistério: A Coroação de Nossa Senhora."
+                    "5º Mistério: A Coroação de Nossa Senhora como Rainha do Céu e da Terra."
                 ] 
             },
             luminosos: { 
-                name: "Mistérios Luminosos", 
+                name: "Mistérios Luminosos (Quinta-feira)", 
                 decades: [
                     "1º Mistério: O Batismo de Jesus no Rio Jordão.",
                     "2º Mistério: O Milagre nas Bodas de Caná.",
-                    "3º Mistério: O Anúncio do Reino de Deus.",
-                    "4º Mistério: A Transfiguração de Jesus.",
+                    "3º Mistério: O Anúncio do Reino de Deus e convite à conversão.",
+                    "4º Mistério: A Transfiguração de Jesus no Monte Tabor.",
                     "5º Mistério: A Instituição da Eucaristia."
                 ] 
             }
@@ -324,11 +329,12 @@
         }
         const todayMystery = getMysteryToday();
 
+        // --- ESTRUTURA LÓGICA ---
         let rosaryStructure = [
             { type: 0, label: "Início: Sinal da Cruz", text: prayers.sinalCruz },
             { type: 0, label: "Oferecimento", text: prayers.oferecimento },
             { type: 0, label: "Credo Apostólico", text: prayers.credo },
-            { type: 1, label: "Pai Nosso", text: prayers.paiNosso },
+            { type: 1, label: "Pai Nosso", text: prayers.paiNosso }, 
             { type: 2, label: "Ave Maria (Fé)", text: prayers.aveMaria },
             { type: 2, label: "Ave Maria (Esperança)", text: prayers.aveMaria },
             { type: 2, label: "Ave Maria (Caridade)", text: prayers.aveMaria },
@@ -357,7 +363,7 @@
             document.getElementById('date-display').innerText = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
             document.getElementById('mystery-display').innerText = todayMystery.name;
 
-            // Ajuste de Geometria para ViewBox 0 0 300 550
+            // Ajuste de Geometria para ViewBox Expandido
             const cx = 150, cy = 180; 
             const r = 135; 
             const medalY = cy + r; 
@@ -374,9 +380,7 @@
             let pathD = `M 150 510 L 150 ${medalY + 16}`;
             
             let physIdx = 0;
-            // Cruz
             createBead(tailCoords[0].x, tailCoords[0].y, 0, false); physIdx++;
-            // 3 Contas
             for(let i=1; i<tailCoords.length; i++) {
                 createBead(tailCoords[i].x, tailCoords[i].y, 1, false); 
                 physIdx++;
@@ -442,19 +446,16 @@
         function createBead(x, y, type, isMedal) {
             let el;
             if(isMedal) { 
-                // Medalha (Triângulo)
                 el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
                 const points = `${x-16},${y-14} ${x+16},${y-14} ${x},${y+18}`;
                 el.setAttribute("points", points);
                 el.setAttribute("class", "medal-base");
             } else if (type === 0) { 
-                // Cruz
                 el = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 const crossPath = `M ${x-4},${y-35} L ${x+4},${y-35} L ${x+4},${y-12} L ${x+22},${y-12} L ${x+22},${y-2} L ${x+4},${y-2} L ${x+4},${y+25} L ${x-4},${y+25} L ${x-4},${y-2} L ${x-22},${y-2} L ${x-22},${y-12} L ${x-4},${y-12} Z`;
                 el.setAttribute("d", crossPath);
                 el.setAttribute("class", "cross");
             } else { 
-                // Conta
                 el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 el.setAttribute("cx", x); el.setAttribute("cy", y);
                 el.setAttribute("class", `bead ${type===1 ? 'large':'small'}`);
