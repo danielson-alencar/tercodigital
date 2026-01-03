@@ -66,7 +66,7 @@
             position: relative;
         }
 
-        /* --- BOTÕES DE TOPO REDIMENSIONADOS --- */
+        /* --- BOTÕES DE TOPO REDIMENSIONADOS (Destaque para Sobre) --- */
         .top-btn {
             position: absolute;
             top: max(15px, var(--safe-top));
@@ -82,13 +82,12 @@
         }
         .top-btn:active { transform: scale(0.92); }
         
-        /* Ícones com destaque maior */
         .top-btn svg { 
             width: 32px; 
             height: 32px; 
+            stroke-width: 2.5; /* Traço mais forte */
             fill: none; 
             stroke: currentColor; 
-            stroke-width: 2.5; 
             stroke-linecap: round; 
             stroke-linejoin: round; 
         }
@@ -190,6 +189,7 @@
             padding: 15px 25px calc(45px + var(--safe-bottom)) 25px;
             border-top: 1px solid var(--border-color);
             z-index: 30;
+            -webkit-transform: translate3d(0,0,0);
         }
 
         .btn-group { display: flex; gap: 10px; width: 100%; }
@@ -203,6 +203,7 @@
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); 
             transition: transform 0.1s; outline: none; 
             text-transform: uppercase; letter-spacing: 1.5px;
+            -webkit-tap-highlight-color: transparent; 
         }
         button:active { transform: scale(0.96); }
 
@@ -215,15 +216,44 @@
         .bead.done, .cross.done, .medal-base.done { filter: brightness(0.5) saturate(0.8); transform: scale(0.9); }
         .bead.active, .cross.active, .medal-base.active { fill: url(#grad-gold-active) !important; animation: goldenPulse 2.5s infinite ease-in-out; z-index: 100; filter: brightness(1.1); }
         .bead.large { r: 10; } .bead.small { r: 6.5; }
-        @keyframes goldenPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); } }
+        @keyframes goldenPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px var(--text-gold)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- DESKTOP --- */
+        /* --- DESKTOP (Horizontal) --- */
         @media (min-width: 768px) {
             body { position: relative; padding: 40px; overflow: auto; }
-            .app-container { flex-direction: row; height: 92vh; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3); background: var(--bg-color); border: 1px solid var(--border-color); max-width: 1100px; }
-            .rosary-section { flex: 0 0 45%; max-height: 100%; padding: 0; align-items: center; justify-content: center; }
-            .text-section { flex: 1; border-radius: 0; border-left: 1px solid var(--border-color); padding: 40px 40px 100px 40px; }
+            .app-container { 
+                flex-direction: row; 
+                height: 92vh; 
+                border-radius: 30px; 
+                overflow: hidden; 
+                box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
+                background: var(--bg-color); 
+                border: 1px solid var(--border-color); 
+                max-width: 1100px; 
+            }
+            .rosary-section { 
+                flex: 0 0 45%; 
+                min-height: auto; 
+                max-height: 100%; 
+                min-width: 20%; 
+                max-width: 80%; 
+                padding: 0; 
+                align-items: center;
+                justify-content: center;
+            }
+            .rosary-svg-container {
+                height: 95%; 
+                width: 95%;
+            }
+            .text-section { 
+                flex: 1; border-radius: 0; 
+                border-left: 1px solid var(--border-color); border-top: none;
+                padding: 40px 40px 100px 40px; 
+            }
+            .controls-area { 
+                padding: 20px 40px 20px 40px; 
+            }
             .drag-divider { width: 24px; height: 100%; cursor: col-resize; margin: 0 -12px; flex-direction: column; }
             .drag-handle-visual { width: 5px; height: 60px; }
             .top-btn { top: 30px; width: 52px; height: 52px; }
@@ -255,13 +285,13 @@
     <div id="modal-about" class="modal-overlay">
         <div class="modal-content">
             <span id="about-close" class="modal-close">&times;</span>
-            <h2 style="font-family: 'Cinzel'; color: var(--text-gold);">Sobre o Aplicativo</h2>
+            <h2 style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">Sobre o Aplicativo</h2>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main);">O Terço Digital une a beleza da tradição católica com a facilidade da tecnologia moderna para guiar sua fé diária.</p>
             <div style="margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 15px; border: 1px dashed var(--text-gold);">
                 <h3 style="font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px;">Apoie o Projeto</h3>
                 <p style="font-size: 0.8rem; margin-bottom: 15px;">Sua doação ajuda a manter este app gratuito.</p>
                 <code id="pix-key" style="display: block; background: #000; padding: 10px; border-radius: 8px; color: var(--text-gold); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">danielson150@gmail.com</code>
-                <button onclick="copyPix()" style="padding: 10px 20px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; font-size: 0.8rem; text-transform: uppercase;">Copiar Chave PIX</button>
+                <button onclick="copyPix()" style="padding: 10px 20px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; width: auto;">Copiar Chave PIX</button>
             </div>
             <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 20px;">Versão 2.3 | Desenvolvido com Fé</p>
         </div>
@@ -273,7 +303,7 @@
                 <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
                     <defs>
                         <radialGradient id="grad-gem-blue" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #00c6ff;" /><stop offset="100%" style="stop-color: #002244;" /></radialGradient>
-                        <radialGradient id="grad-gem-red" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #ff4b1f;" /><stop offset="70%" style="stop-color: #cc0000;" /><stop offset="100%" style="stop-color: #660000;" /></radialGradient>
+                        <radialGradient id="grad-gem-red" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #ff4b1f;" /><stop offset="100%" style="stop-color: #660000;" /></radialGradient>
                         <linearGradient id="grad-metal-gold-inactive" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color: #cbb35a;" /><stop offset="100%" style="stop-color: #745c1b;" /></linearGradient>
                         <radialGradient id="grad-gold-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%"><stop offset="0%" style="stop-color: #fffde7;" /><stop offset="100%" style="stop-color: #b8860b;" /></radialGradient>
                     </defs>
@@ -281,7 +311,9 @@
                 </svg>
             </div>
         </section>
+
         <div class="drag-divider" id="drag-bar"><div class="drag-handle-visual"></div></div>
+
         <section class="text-section" id="text-pane">
             <div class="progress-area">
                 <div class="progress-bar-container"><div id="progress-fill" class="progress-fill"></div></div>
@@ -292,7 +324,11 @@
                 <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
                 <div id="label-display" class="bead-label">Início</div>
             </div>
-            <div id="prayer-scroll-area" class="prayer-content"><div id="text-display" class="prayer-text"></div></div>
+            
+            <div id="prayer-scroll-area" class="prayer-content">
+                <div id="text-display" class="prayer-text"></div>
+            </div>
+            
             <div class="controls-area">
                 <div class="btn-group">
                     <button id="btn-prev">Voltar</button>
@@ -308,7 +344,7 @@
 
             const PRAYERS = {
                 sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém.",
-                oferecimento: "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias para bem rezá-lo.",
+                oferecimento: "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
                 credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
                 paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
                 aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
@@ -320,7 +356,7 @@
                 gozosos: { name: "Mistérios Gozosos", decades: ["1º Mistério: A Anunciação", "2º Mistério: A Visitação", "3º Mistério: O Nascimento", "4º Mistério: A Apresentação", "5º Mistério: O Encontro"] },
                 dolorosos: { name: "Mistérios Dolorosos", decades: ["1º Mistério: A Agonia", "2º Mistério: A Flagelação", "3º Mistério: A Coroação", "4º Mistério: O Caminho", "5º Mistério: A Crucificação"] },
                 gloriosos: { name: "Mistérios Gloriosos", decades: ["1º Mistério: A Ressurreição", "2º Mistério: A Ascensão", "3º Pentecostes", "4º A Assunção", "5º A Coroação"] },
-                luminosos: { name: "Mistérios Luminosos", decades: ["1º O Batismo", "2º Bodas de Caná", "3º O Reino", "4º A Transfiguração", "5º A Instituição da Eucaristia"] }
+                luminosos: { name: "Mistérios Luminosos", decades: ["1º Mistério: O Batismo", "2º Bodas de Caná", "3º O Reino", "4º A Transfiguração", "5º A Instituição da Eucaristia"] }
             };
 
             let currentStep = -1, rosaryStructure = [], beadElementsList = [], stepToElementMap = [], els = {};
@@ -356,20 +392,45 @@
                 const onMove = (e) => {
                     if (!isDragging) return;
                     if (e.cancelable) e.preventDefault();
+                    
+                    // Captura coordenada dependendo do tipo de entrada (mouse ou touch)
+                    const touch = e.touches ? e.touches[0] : e;
                     const rect = els.container.getBoundingClientRect();
-                    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
-                    const clientY = (e.touches ? e.touches[0].clientY : e.clientY);
+                    
                     let pct;
                     if (window.innerWidth >= 768) {
-                        pct = ((clientX - rect.left) / rect.width) * 100;
+                        pct = ((touch.clientX - rect.left) / rect.width) * 100;
                     } else {
-                        pct = ((clientY - rect.top) / rect.height) * 100;
+                        pct = ((touch.clientY - rect.top) / rect.height) * 100;
                     }
                     els.rosaryPane.style.flex = `0 0 ${Math.max(20, Math.min(80, pct))}%`;
                 };
-                els.dragBar.onmousedown = els.dragBar.ontouchstart = () => isDragging = true;
-                window.onmouseup = window.ontouchend = () => isDragging = false;
-                window.onmousemove = window.ontouchmove = onMove;
+
+                // Eventos de Mouse
+                els.dragBar.addEventListener('mousedown', () => isDragging = true);
+                window.addEventListener('mouseup', () => isDragging = false);
+                window.addEventListener('mousemove', onMove);
+
+                // Eventos de Toque (Mobile)
+                els.dragBar.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    // Previne scroll enquanto arrasta o divisor
+                    if (e.cancelable) e.preventDefault();
+                }, { passive: false });
+                
+                window.addEventListener('touchend', () => isDragging = false);
+                
+                window.addEventListener('touchmove', (e) => {
+                    if (isDragging && e.cancelable) e.preventDefault();
+                    onMove(e);
+                }, { passive: false });
+            }
+
+            function setupTheme() { 
+                els.themeBtn.onclick = () => {
+                    const isLight = document.body.classList.toggle('light-theme');
+                    els.themeIcon.innerHTML = isLight ? moonIcon : sunIcon;
+                };
             }
 
             function setupModal() {
@@ -438,13 +499,6 @@
                 }
             }
 
-            function setupTheme() { 
-                els.themeBtn.onclick = () => {
-                    const isLight = document.body.classList.toggle('light-theme');
-                    els.themeIcon.innerHTML = isLight ? moonIcon : sunIcon;
-                };
-            }
-
             function setupEvents() {
                 els.btnNext.onclick = () => { if(currentStep < rosaryStructure.length-1) { currentStep++; updateUI(); } else if(confirm("Reiniciar Terço?")) restartRosary(); };
                 els.btnPrev.onclick = () => { if(currentStep > 0) { currentStep--; updateUI(); } };
@@ -457,15 +511,18 @@
                     els.text.innerText = "Toque no botão abaixo para iniciar.";
                     els.btnNext.innerText = "Iniciar"; els.btnPrev.style.display = "none";
                     els.progress.style.width = "0%"; els.progressText.innerText = "0%";
+                    els.label.innerText = "Início";
                     beadElementsList.forEach(e => e.classList.remove('active', 'done'));
                     return;
                 }
                 const item = rosaryStructure[currentStep];
                 els.text.innerText = item.text; els.label.innerText = item.label;
                 els.btnNext.innerText = "Próximo"; els.btnPrev.style.display = "block";
+                
                 const pct = Math.round(((currentStep+1)/rosaryStructure.length)*100);
                 els.progress.style.width = pct + "%";
                 els.progressText.innerText = pct + "%";
+
                 const activeEl = stepToElementMap[currentStep];
                 beadElementsList.forEach(el => {
                     el.classList.remove('active', 'done');
