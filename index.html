@@ -17,14 +17,14 @@
             --panel-bg: rgba(20, 20, 20, 0.98); 
             --text-main: #f0f0f0;
             --text-gold: #D4AF37;
-            --text-muted: #a0a0a0; /* Contraste melhorado de #8c8c8c */
+            --text-muted: #a0a0a0;
             --string-color: #6a5a4a;
             --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
             --btn-text: #000;
             --svg-shadow: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
             --border-color: rgba(255, 255, 255, 0.15);
             --icon-color: #D4AF37;
-            --focus-ring: 2px solid #D4AF37; /* Acessibilidade */
+            --focus-ring: 2px solid #D4AF37;
             
             --safe-top: env(safe-area-inset-top, 20px);
             --safe-bottom: env(safe-area-inset-bottom, 20px);
@@ -37,7 +37,7 @@
             --panel-bg: rgba(255, 255, 255, 0.98);
             --text-main: #333333;
             --text-gold: #b8860b;
-            --text-muted: #555555; /* Contraste melhorado de #666666 */
+            --text-muted: #555555;
             --string-color: #8c7b6a;
             --btn-gradient: linear-gradient(135deg, #b8860b 0%, #8a6508 100%);
             --btn-text: #fff;
@@ -48,7 +48,6 @@
 
         * { box-sizing: border-box; }
 
-        /* Foco visível para acessibilidade (teclado) */
         *:focus-visible {
             outline: var(--focus-ring);
             outline-offset: 2px;
@@ -71,7 +70,7 @@
             position: relative;
         }
 
-        /* --- BOTÕES DE TOPO REDUZIDOS --- */
+        /* --- BOTÕES DE TOPO --- */
         .top-btn {
             position: absolute;
             top: max(15px, var(--safe-top));
@@ -79,7 +78,7 @@
             background: var(--panel-bg); 
             border: 1px solid var(--border-color);
             color: var(--icon-color);
-            width: 48px; height: 48px; /* Aumentado para 48px (tamanho mínimo toque) */
+            width: 48px; height: 48px;
             border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; backdrop-filter: blur(10px);
@@ -89,10 +88,8 @@
         .top-btn:active { transform: scale(0.92); }
         .top-btn svg { width: 22px; height: 22px; stroke-width: 2; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* Posicionamento dos botões (ajustado para novo tamanho) */
         #about-toggle { left: 15px; }
         #model-toggle { left: 73px; } 
-        
         #theme-toggle { right: 15px; }
         #menu-toggle { right: 73px; } 
 
@@ -109,16 +106,40 @@
             padding: 30px; position: relative; text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             animation: modalPop 0.3s ease-out;
-            max-height: 90vh; overflow-y: auto; /* Prevenção para telas pequenas */
+            max-height: 90vh; overflow-y: auto;
         }
+        
+        /* BOTÕES DO MODAL (NOVO) */
+        .modal-actions {
+            display: flex; gap: 15px; justify-content: center; width: 100%; margin-top: 10px;
+        }
+        .modal-btn {
+            padding: 12px 20px; border-radius: 50px; cursor: pointer;
+            font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600;
+            flex: 1; transition: transform 0.1s;
+        }
+        .modal-btn:active { transform: scale(0.95); }
+        
+        .modal-btn.primary {
+            background: var(--btn-gradient); color: var(--btn-text); border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        .modal-btn.secondary {
+            background: transparent; color: var(--text-muted); 
+            border: 1px solid var(--border-color);
+        }
+        .modal-btn.secondary:hover {
+            border-color: var(--text-gold); color: var(--text-main);
+        }
+
         @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .modal-close { 
             position: absolute; top: 15px; right: 20px; font-size: 28px; 
             cursor: pointer; color: var(--text-muted); line-height: 1; 
-            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; /* Melhor alvo de toque */
+            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
         }
         
-        /* Grid de Seleção de Mistérios */
+        /* Grid de Seleção */
         .selection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .full-width { grid-column: span 2; }
         .select-btn {
@@ -132,7 +153,7 @@
         .select-btn:active { transform: scale(0.98); }
         .select-btn.primary { background: var(--btn-gradient); color: var(--btn-text); border: none; font-weight: bold; }
 
-        /* Grid de Modelos (Cores) */
+        /* Grid de Modelos */
         .models-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .model-option { 
             display: flex; align-items: center; gap: 15px; padding: 14px; 
@@ -159,7 +180,7 @@
 
         /* --- DIVISOR --- */
         .drag-divider {
-            height: 40px; /* Aumentado para melhor pega */ 
+            height: 40px; 
             width: 100%; display: flex; align-items: center; justify-content: center;
             cursor: row-resize; z-index: 50; background: transparent;
             margin-top: -20px; margin-bottom: -20px; position: relative; touch-action: none; 
@@ -168,7 +189,7 @@
             width: 60px; height: 5px; background-color: var(--text-gold);
             border-radius: 10px; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
             transition: transform 0.2s, background-color 0.2s;
-            pointer-events: none; /* Deixa o clique passar para o pai */
+            pointer-events: none;
         }
         .drag-divider:active .drag-handle-visual { transform: scale(1.2); background-color: #fff; }
 
@@ -184,10 +205,12 @@
         .text-section:active { background-color: rgba(30,30,30,0.95); }
         body.light-theme .text-section:active { background-color: rgba(245,245,245,0.95); }
 
-        /* Máscara de scroll para indicar mais texto */
+        /* MÁSCARA DE SCROLL */
         .text-section::after {
             content: '';
-            position: absolute; bottom: calc(90px + var(--safe-bottom)); left: 0; right: 0;
+            position: absolute; 
+            bottom: calc(110px + var(--safe-bottom)); 
+            left: 0; right: 0;
             height: 40px;
             background: linear-gradient(to bottom, transparent, var(--panel-bg));
             pointer-events: none;
@@ -210,26 +233,27 @@
             scroll-behavior: smooth;
             padding-bottom: 20px;
         }
-        /* Estilização customizada da barra de rolagem (Webkit) */
         .prayer-content::-webkit-scrollbar { width: 6px; }
         .prayer-content::-webkit-scrollbar-track { background: transparent; }
         .prayer-content::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
 
         .prayer-text { 
-            font-size: 1.2rem; /* Leitura mais confortável */
-            line-height: 1.7; /* Espaçamento melhor */
+            font-size: 1.2rem;
+            line-height: 1.7;
             white-space: pre-wrap; 
             color: var(--text-main); 
             font-weight: 400;
-            user-select: text; /* Permite seleção sem bugs */
+            user-select: text;
         }
         
         .text-fade-in { animation: fadeInText 0.4s ease-out forwards; }
         @keyframes fadeInText { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- CONTROLES --- */
         .controls-area { 
             position: absolute; bottom: 0; left: 0; width: 100%;
-            background: var(--panel-bg); padding: 20px 25px calc(25px + var(--safe-bottom)) 25px;
+            background: var(--panel-bg); 
+            padding: 20px 25px calc(45px + env(safe-area-inset-bottom, 0px)) 25px;
             border-top: 1px solid var(--border-color); z-index: 30; -webkit-transform: translate3d(0,0,0);
             pointer-events: none;
         }
@@ -251,7 +275,6 @@
         
         /* SVG Utils */
         .bead, .cross, .medal-base { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: all 0.5s ease; }
-        /* As cores das contas agora são controladas pelos IDs dos gradients abaixo */
         .bead.small { fill: url(#grad-bead-small); } 
         .bead.large { fill: url(#grad-bead-large); } 
         .cross, .medal-base { fill: url(#grad-metal); }
@@ -269,9 +292,11 @@
             .rosary-section { flex: 0 0 45%; min-height: auto; max-height: 100%; min-width: 20%; max-width: 80%; padding: 0; align-items: center; justify-content: center; }
             .rosary-svg-container { height: 95%; width: 95%; }
             .text-section { flex: 1; border-radius: 0; border-left: 1px solid var(--border-color); border-top: none; padding: 40px 40px 100px 40px; cursor: default; }
-            .text-section::after { bottom: 100px; /* Ajuste da máscara no desktop */ }
-            .text-section:active { background-color: var(--panel-bg); }
+            
+            .text-section::after { bottom: 100px; }
             .controls-area { padding: 20px 40px 20px 40px; }
+            
+            .text-section:active { background-color: var(--panel-bg); }
             .drag-divider { width: 30px; height: 100%; cursor: col-resize; margin: 0 -15px; flex-direction: column; }
             .drag-handle-visual { width: 5px; height: 60px; }
             .top-btn { top: 30px; width: 44px; height: 44px; }
@@ -357,6 +382,18 @@
                 <button onclick="copyPix()" style="padding: 12px 24px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; width: auto; font-size: 0.9rem;">Copiar Chave PIX</button>
             </div>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Versão 2.7 | Desenvolvido com Fé</p>
+        </div>
+    </div>
+
+    <div id="modal-restart" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-restart">
+        <div class="modal-content" style="max-width: 320px;">
+            <h2 id="title-restart" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 10px;">Reiniciar?</h2>
+            <p style="color: var(--text-main); margin-bottom: 25px;">Você voltará ao início do terço.</p>
+            
+            <div class="modal-actions">
+                <button id="btn-restart-no" class="modal-btn secondary">Não</button>
+                <button id="btn-restart-yes" class="modal-btn primary">Sim, Reiniciar</button>
+            </div>
         </div>
     </div>
 
@@ -495,6 +532,10 @@
                     modalAbout: document.getElementById('modal-about'),
                     modalSelection: document.getElementById('modal-selection'),
                     modalModels: document.getElementById('modal-models'),
+                    
+                    // Novo Modal no Objeto
+                    modalRestart: document.getElementById('modal-restart'),
+                    
                     textPane: document.getElementById('text-pane'),
                     // Gradient stops
                     stopS1: document.getElementById('stop-small-1'),
@@ -600,6 +641,14 @@
                 els.modelBtn.onclick = () => els.modalModels.style.display = 'flex';
                 document.getElementById('model-close').onclick = () => closeModal(els.modalModels);
                 els.modalModels.onclick = (e) => { if(e.target == els.modalModels) closeModal(els.modalModels); }
+
+                // --- NOVO: Configuração do Modal de Reiniciar ---
+                document.getElementById('btn-restart-no').onclick = () => els.modalRestart.style.display = 'none';
+                document.getElementById('btn-restart-yes').onclick = () => {
+                    els.modalRestart.style.display = 'none';
+                    restartRosary();
+                };
+                els.modalRestart.onclick = (e) => { if(e.target == els.modalRestart) els.modalRestart.style.display = 'none'; }
             }
 
             // Suporte a Teclado (Acessibilidade)
@@ -609,6 +658,7 @@
                     if (e.key === 'Escape') {
                         els.modalAbout.style.display = 'none';
                         els.modalModels.style.display = 'none';
+                        els.modalRestart.style.display = 'none';
                         // Não fecha a seleção inicial se não tiver começado
                         if(currentStep >= 0) els.modalSelection.style.display = 'none';
                     }
@@ -616,6 +666,7 @@
                     // Se modais estiverem abertos, não navegar no terço
                     if(els.modalAbout.style.display === 'flex' || 
                        els.modalModels.style.display === 'flex' || 
+                       els.modalRestart.style.display === 'flex' ||
                        els.modalSelection.style.display === 'flex') return;
 
                     if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -674,12 +725,14 @@
             function nextStep() {
                 if(currentStep < rosaryStructure.length-1) { 
                     currentStep++; updateUI(); vibrate(); 
-                } else if(confirm("Reiniciar Terço?")) { 
-                    restartRosary(); 
+                } else { 
+                    // Se chegou ao fim, abre o novo modal em vez do confirm()
+                    els.modalRestart.style.display = 'flex';
                 }
             }
 
             function prevStep() {
+                // Agora permite voltar para -1 (Tela Inicial) se estiver no passo 0
                 if(currentStep >= 0) { currentStep--; updateUI(); vibrate(); }
             }
 
