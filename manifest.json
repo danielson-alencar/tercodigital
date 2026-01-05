@@ -1,15 +1,18 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "danielson-alencar.github",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "danielson-alencar.github",
+  "name": "Terço Mariano",
+  "short_name": "Terço Mariano",
   "start_url": "/",
-  "theme_color": "#ffffff",
-  "categories": [
-    "productivity",
-    "utilities"
-  ]
+  "icons": [
+    {
+      "src": "icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone"
 }
