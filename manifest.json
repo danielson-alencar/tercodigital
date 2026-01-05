@@ -1,0 +1,15 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "danielson-alencar.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "danielson-alencar.github",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": [
+    "productivity",
+    "utilities"
+  ]
+}
