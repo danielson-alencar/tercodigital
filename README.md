@@ -1,6 +1,6 @@
-# 📿 Terço Digital
+# 📿 Terço Digital Mariano
 
-Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a oração diária do Santo Terço. O projeto une a beleza da tradição católica com a facilidade da tecnologia, funcionando como um PWA (Progressive Web App) que pode ser instalado diretamente no celular.
+Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a oração diária do Santo Terço Mariano. O projeto une a beleza da tradição católica com a facilidade da tecnologia, funcionando como um PWA (Progressive Web App) que pode ser instalado diretamente no celular.
 
 <div align="center">
 
