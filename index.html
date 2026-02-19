@@ -1,804 +1,1428 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Terço Digital</title>
-    <link rel="manifest" href="./manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Terço Digital</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet">
 
-    <style>
-        :root {
-            /* --- VARIÁVEIS DE TEMA --- */
-            --bg-color: #050505;
-            --bg-gradient: radial-gradient(circle at center top, #1a1f25 0%, #000000 100%);
-            --panel-bg: rgba(20, 20, 20, 0.98); 
-            --text-main: #f0f0f0;
-            --text-gold: #D4AF37;
-            --text-muted: #a0a0a0;
-            --string-color: #6a5a4a;
-            --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
-            --btn-text: #000;
-            --svg-shadow: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
-            --border-color: rgba(255, 255, 255, 0.15);
-            --icon-color: #D4AF37;
-            --focus-ring: 2px solid #D4AF37;
-            
-            --safe-top: env(safe-area-inset-top, 20px);
-            --safe-bottom: env(safe-area-inset-bottom, 20px);
-        }
+  <style>
+    /* ... TODAS AS SUAS VARIÁVEIS E ESTILOS ORIGINAIS CONTINUAM AQUI ... */
+    :root {
+      --bg-color: #050505;
+      --bg-gradient: radial-gradient(circle at center top, #1a1f25 0%, #000000 100%);
+      --panel-bg: rgba(20, 20, 20, 0.98);
+      --text-main: #f0f0f0;
+      --text-gold: #D4AF37;
+      --text-muted: #a0a0a0;
+      --string-color: #6a5a4a;
+      --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
+      --btn-text: #000;
+      --svg-shadow: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+      --border-color: rgba(255, 255, 255, 0.15);
+      --icon-color: #D4AF37;
+      --focus-ring: 2px solid #D4AF37;
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
 
-        /* --- TEMA CLARO --- */
-        body.light-theme {
-            --bg-color: #f4f4f0;
-            --bg-gradient: radial-gradient(circle at center top, #ffffff 0%, #e6e6e6 100%);
-            --panel-bg: rgba(255, 255, 255, 0.98);
-            --text-main: #333333;
-            --text-gold: #b8860b;
-            --text-muted: #555555;
-            --string-color: #8c7b6a;
-            --btn-gradient: linear-gradient(135deg, #b8860b 0%, #8a6508 100%);
-            --btn-text: #fff;
-            --svg-shadow: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-            --border-color: rgba(0, 0, 0, 0.1);
-            --icon-color: #333;
-        }
+    body.light-theme {
+      --bg-color: #f4f4f0;
+      --bg-gradient: radial-gradient(circle at center top, #ffffff 0%, #e6e6e6 100%);
+      --panel-bg: rgba(255, 255, 255, 0.98);
+      --text-main: #333333;
+      --text-gold: #b8860b;
+      --text-muted: #555555;
+      --string-color: #8c7b6a;
+      --btn-gradient: linear-gradient(135deg, #b8860b 0%, #8a6508 100%);
+      --btn-text: #fff;
+      --svg-shadow: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+      --border-color: rgba(0, 0, 0, 0.1);
+      --icon-color: #333;
+    }
 
-        * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-        *:focus-visible {
-            outline: var(--focus-ring);
-            outline-offset: 2px;
-        }
+    *:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 2px;
+    }
 
-        html, body {
-            height: 100%; width: 100%;
-            margin: 0; padding: 0; 
-            overflow: hidden; 
-            position: fixed; 
-            background: var(--bg-color); background-image: var(--bg-gradient);
-            color: var(--text-main); font-family: 'Lato', sans-serif;
-            user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: fixed;
+      background: var(--bg-color);
+      background-image: var(--bg-gradient);
+      color: var(--text-main);
+      font-family: 'Lato', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
 
-        .app-container {
-            display: flex; flex-direction: column;
-            height: 100%; width: 100%; max-width: 600px; margin: 0 auto;
-            position: relative;
-        }
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
 
-        /* --- BOTÕES DE TOPO --- */
-        .top-btn {
-            position: absolute;
-            top: max(15px, var(--safe-top));
-            z-index: 1000;
-            background: var(--panel-bg); 
-            border: 1px solid var(--border-color);
-            color: var(--icon-color);
-            width: 48px; height: 48px;
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            transition: transform 0.2s ease, background 0.2s;
-        }
-        .top-btn:active { transform: scale(0.92); }
-        .top-btn svg { width: 22px; height: 22px; stroke-width: 2; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+    .top-btn {
+      position: absolute;
+      top: max(15px, var(--safe-top));
+      z-index: 1000;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      color: var(--icon-color);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, background 0.2s;
+    }
 
-        #about-toggle { left: 15px; }
-        #model-toggle { left: 73px; } 
-        #theme-toggle { right: 15px; }
-        #menu-toggle { right: 73px; } 
+    .top-btn:active {
+      transform: scale(0.92);
+    }
 
-        /* --- MODAIS --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 3000; padding: 20px;
-        }
-        .modal-content {
-            background: var(--panel-bg); border: 1px solid var(--text-gold);
-            border-radius: 25px; max-width: 400px; width: 100%;
-            padding: 30px; position: relative; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: modalPop 0.3s ease-out;
-            max-height: 90vh; overflow-y: auto;
-        }
-        
-        /* BOTÕES DO MODAL (NOVO) */
-        .modal-actions {
-            display: flex; gap: 15px; justify-content: center; width: 100%; margin-top: 10px;
-        }
-        .modal-btn {
-            padding: 12px 20px; border-radius: 50px; cursor: pointer;
-            font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600;
-            flex: 1; transition: transform 0.1s;
-        }
-        .modal-btn:active { transform: scale(0.95); }
-        
-        .modal-btn.primary {
-            background: var(--btn-gradient); color: var(--btn-text); border: none;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-        }
-        .modal-btn.secondary {
-            background: transparent; color: var(--text-muted); 
-            border: 1px solid var(--border-color);
-        }
-        .modal-btn.secondary:hover {
-            border-color: var(--text-gold); color: var(--text-main);
-        }
+    .top-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .modal-close { 
-            position: absolute; top: 15px; right: 20px; font-size: 28px; 
-            cursor: pointer; color: var(--text-muted); line-height: 1; 
-            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-        }
-        
-        /* Grid de Seleção */
-        .selection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .full-width { grid-column: span 2; }
-        .select-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 18px; border-radius: 12px;
-            cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.9rem;
-            transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-        }
-        .select-btn small { font-size: 0.7rem; color: var(--text-muted); font-family: 'Lato', sans-serif; font-weight: 400; }
-        .select-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--text-gold); }
-        .select-btn:active { transform: scale(0.98); }
-        .select-btn.primary { background: var(--btn-gradient); color: var(--btn-text); border: none; font-weight: bold; }
+    #about-toggle {
+      left: 15px;
+    }
 
-        /* Grid de Modelos */
-        .models-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .model-option { 
-            display: flex; align-items: center; gap: 15px; padding: 14px; 
-            border: 1px solid var(--border-color); border-radius: 12px; cursor: pointer;
-            background: rgba(255,255,255,0.03); transition: background 0.2s;
-        }
-        .model-option:hover { background: rgba(255,255,255,0.08); }
-        .model-preview { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        .model-name { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--text-main); }
+    #model-toggle {
+      left: 73px;
+    }
 
-        /* --- ÁREA DO TERÇO --- */
-        .rosary-section {
-            flex: 0 0 42%; 
-            display: flex; align-items: center; justify-content: center;
-            position: relative;
-            padding: calc(10px + var(--safe-top)) 10px 0px 10px;
-            overflow: hidden;
-            transition: flex 0.3s ease;
-        }
+    #theme-toggle {
+      right: 15px;
+    }
 
-        .rosary-svg-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; animation: fadeIn 1.5s ease-out; }
-        svg#rosary-svg { width: 100%; height: 100%; overflow: visible; filter: var(--svg-shadow); transition: filter 0.5s ease; }
-        .string-line { fill: none; stroke: var(--string-color); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.5s ease; }
+    #menu-toggle {
+      right: 73px;
+    }
 
-        /* --- DIVISOR --- */
-        .drag-divider {
-            height: 40px; 
-            width: 100%; display: flex; align-items: center; justify-content: center;
-            cursor: row-resize; z-index: 50; background: transparent;
-            margin-top: -20px; margin-bottom: -20px; position: relative; touch-action: none; 
-        }
-        .drag-handle-visual {
-            width: 60px; height: 5px; background-color: var(--text-gold);
-            border-radius: 10px; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-            transition: transform 0.2s, background-color 0.2s;
-            pointer-events: none;
-        }
-        .drag-divider:active .drag-handle-visual { transform: scale(1.2); background-color: #fff; }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(15px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 20px;
+    }
 
-        /* --- PAINEL DE TEXTO --- */
-        .text-section {
-            flex: 1; min-height: 20%; display: flex; flex-direction: column;
-            background-color: var(--panel-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 25px 25px 0 0; padding: 25px 25px 120px 25px; 
-            box-shadow: 0 -10px 50px rgba(0,0,0,0.3); z-index: 20;
-            overflow: hidden; border-top: 1px solid var(--border-color); position: relative; 
-            cursor: pointer;
-        }
-        .text-section:active { background-color: rgba(30,30,30,0.95); }
-        body.light-theme .text-section:active { background-color: rgba(245,245,245,0.95); }
+    .modal-content {
+      background: var(--panel-bg);
+      border: 1px solid var(--text-gold);
+      border-radius: 25px;
+      max-width: 400px;
+      width: 100%;
+      padding: 30px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      animation: modalPop 0.3s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
 
-        /* MÁSCARA DE SCROLL */
-        .text-section::after {
-            content: '';
-            position: absolute; 
-            bottom: calc(110px + var(--safe-bottom)); 
-            left: 0; right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, transparent, var(--panel-bg));
-            pointer-events: none;
-            z-index: 25;
-        }
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      width: 100%;
+      margin-top: 10px;
+    }
 
-        .progress-area { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 15px; flex-shrink: 0; }
-        .progress-bar-container { flex: 1; height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--text-gold); width: 0%; transition: width 0.5s ease; }
-        .progress-text { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--text-gold); font-weight: 700; min-width: 45px; text-align: right; }
+    .modal-btn {
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      flex: 1;
+      transition: transform 0.1s;
+    }
 
-        .header-info { text-align: center; flex-shrink: 0; margin-bottom: 12px; }
-        .date-badge { font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gold); margin-bottom: 6px; display: inline-block; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
-        .mystery-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin: 6px 0; line-height: 1.3; }
-        .bead-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; font-weight: 400; }
-        
-        .prayer-content { 
-            flex-grow: 1; overflow-y: auto; min-height: 0; padding-right: 8px; 
-            scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent; 
-            scroll-behavior: smooth;
-            padding-bottom: 20px;
-        }
-        .prayer-content::-webkit-scrollbar { width: 6px; }
-        .prayer-content::-webkit-scrollbar-track { background: transparent; }
-        .prayer-content::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+    .modal-btn:active {
+      transform: scale(0.95);
+    }
 
-        .prayer-text { 
-            font-size: 1.2rem;
-            line-height: 1.7;
-            white-space: pre-wrap; 
-            color: var(--text-main); 
-            font-weight: 400;
-            user-select: text;
-        }
-        
-        .text-fade-in { animation: fadeInText 0.4s ease-out forwards; }
-        @keyframes fadeInText { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-btn.primary {
+      background: var(--btn-gradient);
+      color: var(--btn-text);
+      border: none;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    }
 
-        /* --- CONTROLES --- */
-        .controls-area { 
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: var(--panel-bg); 
-            padding: 20px 25px calc(45px + env(safe-area-inset-bottom, 0px)) 25px;
-            border-top: 1px solid var(--border-color); z-index: 30; -webkit-transform: translate3d(0,0,0);
-            pointer-events: none;
-        }
-        .btn-group { display: flex; gap: 15px; width: 100%; pointer-events: auto; }
-        
-        button.action-btn { 
-            width: 100%; background: var(--btn-gradient); color: var(--btn-text); 
-            border: none; padding: 18px; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 800; 
-            border-radius: 50px; cursor: pointer; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); 
-            transition: transform 0.1s, box-shadow 0.2s; outline: none; text-transform: uppercase; letter-spacing: 1.5px; 
-            -webkit-tap-highlight-color: transparent; 
-        }
-        button.action-btn:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2); }
-        button.action-btn:focus-visible { outline: 3px solid #fff; outline-offset: -2px; }
-        
-        #btn-prev { flex: 1; background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); box-shadow: none; display: none; font-size: 0.9rem; font-weight: 600; }
-        #btn-prev:hover { border-color: var(--text-gold); color: var(--text-main); }
-        #btn-next { flex: 2.5; }
-        
-        /* SVG Utils */
-        .bead, .cross, .medal-base { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: all 0.5s ease; }
-        .bead.small { fill: url(#grad-bead-small); } 
-        .bead.large { fill: url(#grad-bead-large); } 
-        .cross, .medal-base { fill: url(#grad-metal); }
-        
-        .bead.done, .cross.done, .medal-base.done { filter: brightness(0.5) saturate(0.8); transform: scale(0.9); }
-        .bead.active, .cross.active, .medal-base.active { fill: url(#grad-active) !important; animation: goldenPulse 2.5s infinite ease-in-out; z-index: 100; filter: brightness(1.1); }
-        .bead.large { r: 10; } .bead.small { r: 6.5; }
-        @keyframes goldenPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px var(--text-gold)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-btn.secondary {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
 
-        /* --- DESKTOP --- */
-        @media (min-width: 768px) {
-            body { position: relative; padding: 40px; overflow: auto; }
-            .app-container { flex-direction: row; height: 92vh; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3); background: var(--bg-color); border: 1px solid var(--border-color); max-width: 1100px; }
-            .rosary-section { flex: 0 0 45%; min-height: auto; max-height: 100%; min-width: 20%; max-width: 80%; padding: 0; align-items: center; justify-content: center; }
-            .rosary-svg-container { height: 95%; width: 95%; }
-            .text-section { flex: 1; border-radius: 0; border-left: 1px solid var(--border-color); border-top: none; padding: 40px 40px 100px 40px; cursor: default; }
-            
-            .text-section::after { bottom: 100px; }
-            .controls-area { padding: 20px 40px 20px 40px; }
-            
-            .text-section:active { background-color: var(--panel-bg); }
-            .drag-divider { width: 30px; height: 100%; cursor: col-resize; margin: 0 -15px; flex-direction: column; }
-            .drag-handle-visual { width: 5px; height: 60px; }
-            .top-btn { top: 30px; width: 44px; height: 44px; }
-            #theme-toggle { right: 30px; }
-            #menu-toggle { right: 85px; }
-            #model-toggle { left: 85px; }
-            #about-toggle { left: 30px; }
-        }
-    </style>
+    .modal-btn.secondary:hover {
+      border-color: var(--text-gold);
+      color: var(--text-main);
+    }
+
+    @keyframes modalPop {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .selection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    .select-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .select-btn small {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+    }
+
+    .select-btn:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--text-gold);
+    }
+
+    .select-btn:active {
+      transform: scale(0.98);
+    }
+
+    .select-btn.primary {
+      background: var(--btn-gradient);
+      color: var(--btn-text);
+      border: none;
+      font-weight: bold;
+    }
+
+    .models-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .model-option {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.2s;
+    }
+
+    .model-option:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .model-preview {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .model-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .rosary-section {
+      flex: 0 0 42%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: calc(10px + var(--safe-top)) 10px 0px 10px;
+      overflow: hidden;
+      transition: flex 0.3s ease;
+    }
+
+    .rosary-svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    svg#rosary-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: var(--svg-shadow);
+      transition: filter 0.5s ease;
+    }
+
+    .string-line {
+      fill: none;
+      stroke: var(--string-color);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.5s ease;
+    }
+
+    .drag-divider {
+      height: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: row-resize;
+      z-index: 50;
+      background: transparent;
+      margin-top: -20px;
+      margin-bottom: -20px;
+      position: relative;
+      touch-action: none;
+    }
+
+    .drag-handle-visual {
+      width: 60px;
+      height: 5px;
+      background-color: var(--text-gold);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+      transition: transform 0.2s, background-color 0.2s;
+      pointer-events: none;
+    }
+
+    .drag-divider:active .drag-handle-visual {
+      transform: scale(1.2);
+      background-color: #fff;
+    }
+
+    .text-section {
+      flex: 1;
+      min-height: 20%;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 25px 25px 0 0;
+      padding: 25px 25px 120px 25px;
+      box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.3);
+      z-index: 20;
+      overflow: hidden;
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .text-section:active {
+      background-color: rgba(30, 30, 30, 0.95);
+    }
+
+    body.light-theme .text-section:active {
+      background-color: rgba(245, 245, 245, 0.95);
+    }
+
+    .text-section::after {
+      content: '';
+      position: absolute;
+      bottom: calc(110px + var(--safe-bottom));
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--panel-bg));
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    .progress-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 15px;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--text-gold);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--text-gold);
+      font-weight: 700;
+      min-width: 45px;
+      text-align: right;
+    }
+
+    .header-info {
+      text-align: center;
+      flex-shrink: 0;
+      margin-bottom: 12px;
+    }
+
+    .date-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-gold);
+      margin-bottom: 6px;
+      display: inline-block;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+    }
+
+    .mystery-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 6px 0;
+      line-height: 1.3;
+    }
+
+    .bead-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .prayer-content {
+      flex-grow: 1;
+      overflow-y: auto;
+      min-height: 0;
+      padding-right: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--text-muted) transparent;
+      scroll-behavior: smooth;
+      padding-bottom: 20px;
+    }
+
+    .prayer-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .prayer-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .prayer-content::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 10px;
+    }
+
+    .prayer-text {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      color: var(--text-main);
+      font-weight: 400;
+      user-select: text;
+    }
+
+    .text-fade-in {
+      animation: fadeInText 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeInText {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .controls-area {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--panel-bg);
+      padding: 20px 25px calc(45px + env(safe-area-inset-bottom, 0px)) 25px;
+      border-top: 1px solid var(--border-color);
+      z-index: 30;
+      -webkit-transform: translate3d(0, 0, 0);
+      pointer-events: none;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      pointer-events: auto;
+    }
+
+    button.action-btn {
+      width: 100%;
+      background: var(--btn-gradient);
+      color: var(--btn-text);
+      border: none;
+      padding: 18px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+      transition: transform 0.1s, box-shadow 0.2s;
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button.action-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+    }
+
+    button.action-btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: -2px;
+    }
+
+    #btn-prev {
+      flex: 1;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      box-shadow: none;
+      display: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    #btn-prev:hover {
+      border-color: var(--text-gold);
+      color: var(--text-main);
+    }
+
+    #btn-next {
+      flex: 2.5;
+    }
+
+    .bead,
+    .cross,
+    .medal-base {
+      cursor: pointer;
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: all 0.5s ease;
+    }
+
+    .bead.small {
+      fill: url(#grad-bead-small);
+    }
+
+    .bead.large {
+      fill: url(#grad-bead-large);
+    }
+
+    .cross,
+    .medal-base {
+      fill: url(#grad-metal);
+    }
+
+    .bead.done,
+    .cross.done,
+    .medal-base.done {
+      filter: brightness(0.5) saturate(0.8);
+      transform: scale(0.9);
+    }
+
+    .bead.active,
+    .cross.active,
+    .medal-base.active {
+      fill: url(#grad-active) !important;
+      animation: goldenPulse 2.5s infinite ease-in-out;
+      z-index: 100;
+      filter: brightness(1.1);
+    }
+
+    .bead.large {
+      r: 10;
+    }
+
+    .bead.small {
+      r: 6.5;
+    }
+
+    @keyframes goldenPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 30px var(--text-gold));
+      }
+
+      50% {
+        transform: scale(1.25);
+        filter: drop-shadow(0 0 30px var(--text-gold)) brightness(1.3);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 768px) {
+      body {
+        position: relative;
+        padding: 40px;
+        overflow: auto;
+      }
+
+      .app-container {
+        flex-direction: row;
+        height: 92vh;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        max-width: 1100px;
+      }
+
+      .rosary-section {
+        flex: 0 0 45%;
+        min-height: auto;
+        max-height: 100%;
+        min-width: 20%;
+        max-width: 80%;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .rosary-svg-container {
+        height: 95%;
+        width: 95%;
+      }
+
+      .text-section {
+        flex: 1;
+        border-radius: 0;
+        border-left: 1px solid var(--border-color);
+        border-top: none;
+        padding: 40px 40px 100px 40px;
+        cursor: default;
+      }
+
+      .text-section::after {
+        bottom: 100px;
+      }
+
+      .controls-area {
+        padding: 20px 40px 20px 40px;
+      }
+
+      .text-section:active {
+        background-color: var(--panel-bg);
+      }
+
+      .drag-divider {
+        width: 30px;
+        height: 100%;
+        cursor: col-resize;
+        margin: 0 -15px;
+        flex-direction: column;
+      }
+
+      .drag-handle-visual {
+        width: 5px;
+        height: 60px;
+      }
+
+      .top-btn {
+        top: 30px;
+        width: 44px;
+        height: 44px;
+      }
+
+      #theme-toggle {
+        right: 30px;
+      }
+
+      #menu-toggle {
+        right: 85px;
+      }
+
+      #model-toggle {
+        left: 85px;
+      }
+
+      #about-toggle {
+        left: 30px;
+      }
+    }
+
+    /* --- NOVO: Estilo para Toast Notification --- */
+    .toast-notification {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: var(--panel-bg);
+      color: var(--text-main);
+      text-align: center;
+      border-radius: 25px;
+      padding: 16px;
+      position: fixed;
+      z-index: 4000;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      font-size: 0.95rem;
+      border: 1px solid var(--text-gold);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      font-family: 'Lato', sans-serif;
+      opacity: 0;
+      transition: opacity 0.3s, bottom 0.3s, visibility 0.3s;
+    }
+
+    .toast-notification.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+  </style>
 </head>
+
 <body>
 
-    <button id="about-toggle" class="top-btn" aria-label="Sobre o Aplicativo">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-    </button>
+  <button id="about-toggle" class="top-btn" aria-label="Sobre o Aplicativo"><svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </svg></button>
+  <button id="model-toggle" class="top-btn" aria-label="Personalizar Aparência"><svg viewBox="0 0 24 24">
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.88 0 1.65-.24 2.32-.67a3 3 0 0 0 .68-4.13 1 1 0 0 1-.22-.58 1 1 0 0 1 1-1h1.72a4.5 4.5 0 0 0 4.5-4.5V11c0-5-4.03-9-9-9zM7.5 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z">
+      </path>
+    </svg></button>
+  <button id="menu-toggle" class="top-btn" aria-label="Menu de Mistérios"><svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg></button>
+  <button id="theme-toggle" class="top-btn" aria-label="Alternar Tema Claro/Escuro"><svg id="theme-icon"
+      viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg></button>
 
-    <button id="model-toggle" class="top-btn" aria-label="Personalizar Aparência">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.88 0 1.65-.24 2.32-.67a3 3 0 0 0 .68-4.13 1 1 0 0 1-.22-.58 1 1 0 0 1 1-1h1.72a4.5 4.5 0 0 0 4.5-4.5V11c0-5-4.03-9-9-9zM7.5 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path></svg>
-    </button>
-
-    <button id="menu-toggle" class="top-btn" aria-label="Menu de Mistérios">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-    </button>
-
-    <button id="theme-toggle" class="top-btn" aria-label="Alternar Tema Claro/Escuro">
-        <svg id="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-    </button>
-
-    <div id="modal-models" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-models">
-        <div class="modal-content">
-            <span id="model-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
-            <h2 id="title-models" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Estilo do Terço</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">Escolha a cor das contas</p>
-            
-            <div class="models-grid">
-                <div class="model-option" onclick="RosaryApp.changeModel('classico')" role="button" tabindex="0">
-                    <div class="model-preview" style="background: linear-gradient(135deg, #00c6ff, #002244)"></div>
-                    <span class="model-name">Clássico (Azul)</span>
-                </div>
-                <div class="model-option" onclick="RosaryApp.changeModel('perola')" role="button" tabindex="0">
-                    <div class="model-preview" style="background: linear-gradient(135deg, #fcfcfc, #b0b0b0)"></div>
-                    <span class="model-name">Pérola Mariana</span>
-                </div>
-                <div class="model-option" onclick="RosaryApp.changeModel('madeira')" role="button" tabindex="0">
-                    <div class="model-preview" style="background: linear-gradient(135deg, #deb887, #8b4513)"></div>
-                    <span class="model-name">Madeira Rústica</span>
-                </div>
-                <div class="model-option" onclick="RosaryApp.changeModel('rosa')" role="button" tabindex="0">
-                    <div class="model-preview" style="background: linear-gradient(135deg, #ffb6c1, #ff69b4)"></div>
-                    <span class="model-name">Rosa Místico</span>
-                </div>
-                <div class="model-option" onclick="RosaryApp.changeModel('noturno')" role="button" tabindex="0">
-                    <div class="model-preview" style="background: linear-gradient(135deg, #7f8c8d, #2c3e50)"></div>
-                    <span class="model-name">Noturno</span>
-                </div>
-            </div>
+  <div id="modal-models" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-models">
+    <div class="modal-content">
+      <span id="model-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
+      <h2 id="title-models" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Estilo do Terço
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Escolha a cor das contas</p>
+      <div class="models-grid">
+        <div class="model-option" onclick="RosaryApp.changeModel('classico')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #00c6ff, #002244)"></div><span
+            class="model-name">Clássico (Azul)</span>
         </div>
-    </div>
-
-    <div id="modal-selection" class="modal-overlay" style="display: flex;" role="dialog" aria-modal="true" aria-labelledby="title-selection">
-        <div class="modal-content">
-            <h2 id="title-selection" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Bem-vindo</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">O que vamos rezar hoje?</p>
-            <div class="selection-grid">
-                <button class="select-btn primary full-width" onclick="RosaryApp.startWith('auto')">MISTÉRIO DO DIA<small>Automático</small></button>
-                <button class="select-btn" onclick="RosaryApp.startWith('gozosos')">GOZOSOS<small>Segunda e Sábado</small></button>
-                <button class="select-btn" onclick="RosaryApp.startWith('dolorosos')">DOLOROSOS<small>Terça e Sexta</small></button>
-                <button class="select-btn" onclick="RosaryApp.startWith('gloriosos')">GLORIOSOS<small>Quarta e Domingo</small></button>
-                <button class="select-btn" onclick="RosaryApp.startWith('luminosos')">LUMINOSOS<small>Quinta-feira</small></button>
-            </div>
+        <div class="model-option" onclick="RosaryApp.changeModel('perola')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #fcfcfc, #b0b0b0)"></div><span
+            class="model-name">Pérola Mariana</span>
         </div>
-    </div>
-
-    <div id="modal-about" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-about">
-        <div class="modal-content">
-            <span id="about-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
-            <h2 id="title-about" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">Sobre o Aplicativo</h2>
-            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-main);">O Terço Digital une a beleza da tradição católica com a facilidade da tecnologia moderna para guiar sua fé diária.</p>
-            <div style="margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 15px; border: 1px dashed var(--text-gold);">
-                <h3 style="font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px;">Apoie o Projeto</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 15px;">Sua doação ajuda a manter este app gratuito.</p>
-                <code id="pix-key" style="display: block; background: #000; padding: 12px; border-radius: 8px; color: var(--text-gold); font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 1px; user-select: text;">danielson150@gmail.com</code>
-                <button onclick="copyPix()" style="padding: 12px 24px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; width: auto; font-size: 0.9rem;">Copiar Chave PIX</button>
-            </div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Versão 2.7 | Desenvolvido com Fé</p>
+        <div class="model-option" onclick="RosaryApp.changeModel('madeira')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #deb887, #8b4513)"></div><span
+            class="model-name">Madeira Rústica</span>
         </div>
-    </div>
-
-    <div id="modal-restart" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-restart">
-        <div class="modal-content" style="max-width: 320px;">
-            <h2 id="title-restart" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 10px;">Reiniciar?</h2>
-            <p style="color: var(--text-main); margin-bottom: 25px;">Você voltará ao início do terço.</p>
-            
-            <div class="modal-actions">
-                <button id="btn-restart-no" class="modal-btn secondary">Não</button>
-                <button id="btn-restart-yes" class="modal-btn primary">Sim, Reiniciar</button>
-            </div>
+        <div class="model-option" onclick="RosaryApp.changeModel('rosa')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #ffb6c1, #ff69b4)"></div><span
+            class="model-name">Rosa Místico</span>
         </div>
+        <div class="model-option" onclick="RosaryApp.changeModel('noturno')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #7f8c8d, #2c3e50)"></div><span
+            class="model-name">Noturno</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-selection" class="modal-overlay" style="display: flex;" role="dialog" aria-modal="true"
+    aria-labelledby="title-selection">
+    <div class="modal-content">
+      <h2 id="title-selection" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Bem-vindo
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">O que vamos rezar hoje?</p>
+      <div class="selection-grid">
+        <button id="btn-resume" class="select-btn primary full-width" style="display: none;"
+          onclick="RosaryApp.resumeProgress()">CONTINUAR DE ONDE PAROU<small>Retomar Oração</small></button>
+        <button class="select-btn primary full-width" onclick="RosaryApp.startWith('auto')">MISTÉRIO DO
+          DIA<small>Automático</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('gozosos')">GOZOSOS<small>Segunda e
+            Sábado</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('dolorosos')">DOLOROSOS<small>Terça e
+            Sexta</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('gloriosos')">GLORIOSOS<small>Quarta e
+            Domingo</small></button>
+        <button class="select-btn"
+          onclick="RosaryApp.startWith('luminosos')">LUMINOSOS<small>Quinta-feira</small></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-about" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-about">
+    <div class="modal-content">
+      <span id="about-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
+      <h2 id="title-about" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">Sobre o
+        Aplicativo</h2>
+      <p style="font-size: 1rem; line-height: 1.6; color: var(--text-main);">O Terço Digital une a beleza da tradição
+        católica com a facilidade da tecnologia moderna para guiar sua fé diária.</p>
+      <div
+        style="margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 15px; border: 1px dashed var(--text-gold);">
+        <h3 style="font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px;">Apoie o Projeto</h3>
+        <p style="font-size: 0.9rem; margin-bottom: 15px;">Sua doação ajuda a manter este app gratuito.</p>
+        <code id="pix-key"
+          style="display: block; background: #000; padding: 12px; border-radius: 8px; color: var(--text-gold); font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 1px; user-select: text;">danielson150@gmail.com</code>
+        <button onclick="copyPix()"
+          style="padding: 12px 24px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; width: auto; font-size: 0.9rem;">Copiar
+          Chave PIX</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Versão 2.8 | Desenvolvido com Fé</p>
+    </div>
+  </div>
+
+  <div id="modal-restart" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-restart">
+    <div class="modal-content" style="max-width: 320px;">
+      <h2 id="title-restart" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 10px;">Terço
+        Concluído</h2>
+      <p style="color: var(--text-main); margin-bottom: 25px;">O que você deseja fazer agora?</p>
+
+      <div class="modal-actions" style="flex-direction: column; gap: 12px;">
+        <button id="btn-finish-home" class="modal-btn primary" style="width: 100%;">Tela Inicial</button>
+        <button id="btn-finish-restart" class="modal-btn secondary" style="width: 100%;">Reiniciar Terço</button>
+        <button id="btn-finish-cancel" class="modal-btn secondary"
+          style="width: 100%; border: none; background: transparent; color: var(--text-muted);">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-message" class="toast-notification">Chave PIX copiada com sucesso!</div>
+
+  <div class="app-container" id="app-container">
+    <section class="rosary-section" id="rosary-pane" aria-hidden="true">
+      <div class="rosary-svg-container">
+        <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="grad-bead-small" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
+              <stop id="stop-small-1" offset="0%" stop-color="#00c6ff" />
+              <stop id="stop-small-2" offset="100%" stop-color="#002244" />
+            </radialGradient>
+            <radialGradient id="grad-bead-large" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
+              <stop id="stop-large-1" offset="0%" stop-color="#ff4b1f" />
+              <stop id="stop-large-2" offset="100%" stop-color="#660000" />
+            </radialGradient>
+            <linearGradient id="grad-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#cbb35a" />
+              <stop offset="100%" stop-color="#745c1b" />
+            </linearGradient>
+            <radialGradient id="grad-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="#fffde7" />
+              <stop offset="100%" stop-color="#b8860b" />
+            </radialGradient>
+          </defs>
+          <path id="rosary-string" class="string-line" d="" />
+        </svg>
+      </div>
+    </section>
+
+    <div class="drag-divider" id="drag-bar" role="separator" aria-label="Ajustar tamanho da tela">
+      <div class="drag-handle-visual"></div>
     </div>
 
-    <div class="app-container" id="app-container">
-        <section class="rosary-section" id="rosary-pane" aria-hidden="true">
-            <div class="rosary-svg-container">
-                <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
-                    <defs>
-                        <radialGradient id="grad-bead-small" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop id="stop-small-1" offset="0%" stop-color="#00c6ff" /><stop id="stop-small-2" offset="100%" stop-color="#002244" /></radialGradient>
-                        <radialGradient id="grad-bead-large" cx="30%" cy="30%" r="80%" fx="30%" fy="30%"><stop id="stop-large-1" offset="0%" stop-color="#ff4b1f" /><stop id="stop-large-2" offset="100%" stop-color="#660000" /></radialGradient>
-                        <linearGradient id="grad-metal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#cbb35a" /><stop offset="100%" stop-color="#745c1b" /></linearGradient>
-                        <radialGradient id="grad-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%"><stop offset="0%" stop-color="#fffde7" /><stop offset="100%" stop-color="#b8860b" /></radialGradient>
-                    </defs>
-                    <path id="rosary-string" class="string-line" d="" />
-                </svg>
-            </div>
-        </section>
+    <section class="text-section" id="text-pane">
+      <div class="progress-area" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar-container">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <span id="progress-text" class="progress-text">0%</span>
+      </div>
+      <div class="header-info">
+        <div id="date-display" class="date-badge">...</div>
+        <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
+        <div id="label-display" class="bead-label">Início</div>
+      </div>
 
-        <div class="drag-divider" id="drag-bar" role="separator" aria-label="Ajustar tamanho da tela"><div class="drag-handle-visual"></div></div>
+      <div id="prayer-scroll-area" class="prayer-content">
+        <div id="text-display" class="prayer-text" role="region" aria-live="polite"></div>
+      </div>
 
-        <section class="text-section" id="text-pane" onclick="RosaryApp.textClick(event)">
-            <div class="progress-area" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar-container"><div id="progress-fill" class="progress-fill"></div></div>
-                <span id="progress-text" class="progress-text">0%</span>
-            </div>
-            <div class="header-info">
-                <div id="date-display" class="date-badge">...</div>
-                <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
-                <div id="label-display" class="bead-label">Início</div>
-            </div>
-            
-            <div id="prayer-scroll-area" class="prayer-content">
-                <div id="text-display" class="prayer-text" role="region" aria-live="polite"></div>
-            </div>
-            
-            <div class="controls-area">
-                <div class="btn-group">
-                    <button id="btn-prev" class="action-btn" aria-label="Voltar Oração">Voltar</button>
-                    <button id="btn-next" class="action-btn" aria-label="Avançar Oração">Iniciar</button>
-                </div>
-            </div>
-        </section>
-    </div>
+      <div class="controls-area">
+        <div class="btn-group">
+          <button id="btn-prev" class="action-btn" aria-label="Voltar Oração">Voltar</button>
+          <button id="btn-next" class="action-btn" aria-label="Avançar Oração">Iniciar</button>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    <script>
-        const RosaryApp = (() => {
-            'use strict';
+  <script>
+    const RosaryApp = (() => {
+      'use strict';
 
-            const PRAYERS = {
-                sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém.",
-                oferecimento: "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
-                credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
-                paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
-                aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
-                gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém. \n\nJaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.",
-                gracas: "Infinitas graças vos damos, Soberana Rainha, pelos benefícios que todos os dias recebemos de vossas mãos liberais. Dignai-vos agora e para sempre tomar-nos debaixo de vosso poderoso amparo e para mais vos obrigar, vos saudamos com uma Salve Rainha...",
-                salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria. V. Rogai por nós, Santa Mãe de Deus. R. Para que sejamos dignos das promessas de Cristo. Amém."
-            };
+      // Dicionário de orações e mistérios mantido intacto para brevidade...
+      const PRAYERS = {
+        sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém.",
+        oferecimento: "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
+        credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
+        paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
+        aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
+        gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém. \n\nJaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.",
+        gracas: "Infinitas graças vos damos, Soberana Rainha, pelos benefícios que todos os dias recebemos de vossas mãos liberais. Dignai-vos agora e para sempre tomar-nos debaixo de vosso poderoso amparo e para mais vos obrigar, vos saudamos com uma Salve Rainha...",
+        salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria. V. Rogai por nós, Santa Mãe de Deus. R. Para que sejamos dignos das promessas de Cristo. Amém."
+      };
 
-            const MYSTERIES_DB = {
-                gozosos: { 
-                    name: "Mistérios Gozosos", 
-                    decades: [
-                        { t: "1º Mistério: A Anunciação", d: "No primeiro mistério contemplamos a Anunciação do Arcanjo Gabriel à Nossa Senhora.\n\nDisse-lhe o anjo: 'Ave, cheia de graça, o Senhor é contigo'. E Maria respondeu: 'Eis aqui a serva do Senhor, faça-se em mim segundo a tua palavra'." },
-                        { t: "2º Mistério: A Visitação", d: "No segundo mistério contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.\n\nMaria foi apressadamente às montanhas. Entrou em casa de Zacarias e saudou Isabel, que ficou cheia do Espírito Santo e exclamou: 'Bendita és tu entre as mulheres'." },
-                        { t: "3º Mistério: O Nascimento", d: "No terceiro mistério contemplamos o Nascimento de Jesus em Belém.\n\nE deu à luz seu filho primogênito, e envolveu-o em panos, e deitou-o numa manjedoura, porque não havia lugar para eles na estalagem." },
-                        { t: "4º Mistério: A Apresentação", d: "No quarto mistério contemplamos a Apresentação do Menino Jesus no Templo.\n\nLevaram o menino a Jerusalém para o apresentarem ao Senhor, como está escrito na Lei. Simeão tomou-o nos braços e louvou a Deus." },
-                        { t: "5º Mistério: O Encontro", d: "No quinto mistério contemplamos o Encontro de Jesus no Templo.\n\nApós três dias de procura, encontraram-no no templo, sentado no meio dos doutores, ouvindo-os e interrogando-os." }
-                    ]
-                },
-                dolorosos: { 
-                    name: "Mistérios Dolorosos", 
-                    decades: [
-                        { t: "1º Mistério: A Agonia", d: "No primeiro mistério contemplamos a Agonia de Jesus no Horto das Oliveiras.\n\nJesus orou: 'Pai, se é do teu agrado, afasta de mim este cálice; contudo, não se faça a minha vontade, mas a tua'. E seu suor tornou-se como gotas de sangue." },
-                        { t: "2º Mistério: A Flagelação", d: "No segundo mistério contemplamos a Flagelação de Nosso Senhor Jesus Cristo.\n\nPilatos, querendo satisfazer a multidão, soltou-lhes Barrabás; e, depois de mandar flagelar Jesus, entregou-o para ser crucificado." },
-                        { t: "3º Mistério: A Coroação", d: "No terceiro mistério contemplamos a Coroação de Espinhos.\n\nOs soldados teceram uma coroa de espinhos, puseram-na sobre a sua cabeça e vestiram-no com um manto de púrpura, zombando dele: 'Salve, Rei dos Judeus!'." },
-                        { t: "4º Mistério: O Caminho", d: "No quarto mistério contemplamos Jesus a caminho do Calvário carregando a Cruz.\n\nE ele, carregando a sua própria cruz, saiu para o lugar chamado Calvário, onde o crucificaram." },
-                        { t: "5º Mistério: A Crucificação", d: "No quinto mistério contemplamos a Crucificação e Morte de Jesus.\n\nJesus disse: 'Pai, nas tuas mãos entrego o meu espírito'. E, havendo dito isto, expirou." }
-                    ]
-                },
-                gloriosos: { 
-                    name: "Mistérios Gloriosos", 
-                    decades: [
-                        { t: "1º Mistério: A Ressurreição", d: "No primeiro mistério contemplamos a Ressurreição de Jesus Cristo.\n\nO anjo disse às mulheres: 'Não tenhais medo. Sei que buscais Jesus, o crucificado. Ele não está aqui; ressuscitou, como havia dito'." },
-                        { t: "2º Mistério: A Ascensão", d: "No segundo mistério contemplamos a Ascensão de Jesus ao Céu.\n\nEnquanto os abençoava, afastou-se deles e foi elevado ao céu. E eles o adoraram e voltaram para Jerusalém com grande alegria." },
-                        { t: "3º Mistério: Pentecostes", d: "No terceiro mistério contemplamos a Vinda do Espírito Santo sobre os Apóstolos.\n\nFicaram todos cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito lhes concedia que falassem." },
-                        { t: "4º Mistério: A Assunção", d: "No quarto mistério contemplamos a Assunção de Nossa Senhora ao Céu.\n\nFez-se em mim grandes coisas o Todo-Poderoso. Maria é elevada ao céu em corpo e alma, como primícia da glória a que todos somos chamados." },
-                        { t: "5º Mistério: A Coroação", d: "No quinto mistério contemplamos a Coroação de Maria como Rainha do Céu e da Terra.\n\nApareceu no céu um grande sinal: uma mulher vestida de sol, com a lua debaixo dos pés e uma coroa de doze estrelas na cabeça." }
-                    ]
-                },
-                luminosos: { 
-                    name: "Mistérios Luminosos", 
-                    decades: [
-                        { t: "1º Mistério: O Batismo", d: "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\nAssim que Jesus foi batizado, o céu se abriu, e viu o Espírito de Deus descer como pomba. E uma voz do céu disse: 'Este é o meu Filho amado'." },
-                        { t: "2º Mistério: Bodas de Caná", d: "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\nSua mãe disse aos serventes: 'Fazei tudo o que ele vos disser'. Jesus transformou a água em vinho, manifestando a sua glória e seus discípulos creram nele." },
-                        { t: "3º Mistério: O Reino", d: "No terceiro mistério contemplamos o Anúncio do Reino de Deus e o convite à conversão.\n\nJesus pregava: 'O tempo completou-se e o Reino de Deus está próximo. Arrependei-vos e crede no Evangelho'." },
-                        { t: "4º Mistério: A Transfiguração", d: "No quarto mistério contemplamos a Transfiguração de Jesus no Monte Tabor.\n\nSeu rosto brilhou como o sol e suas vestes tornaram-se brancas como a luz. Da nuvem saiu uma voz: 'Este é o meu Filho amado, ouvi-o'." },
-                        { t: "5º Mistério: A Eucaristia", d: "No quinto mistério contemplamos a Instituição da Eucaristia.\n\nJesus tomou o pão e disse: 'Tomai e comei, isto é o meu corpo'. E o cálice: 'Bebei dele todos, pois isto é o meu sangue da nova aliança'." }
-                    ]
-                }
-            };
-
-            // Paletas de Cores
-            const MODELS = {
-                classico: { s: ['#00c6ff', '#002244'], l: ['#ff4b1f', '#660000'] },
-                perola: { s: ['#fcfcfc', '#b0b0b0'], l: ['#e6c200', '#b8860b'] },
-                madeira: { s: ['#deb887', '#8b4513'], l: ['#a0522d', '#5c4033'] },
-                rosa: { s: ['#ffb6c1', '#ff69b4'], l: ['#ff1493', '#8b0000'] },
-                noturno: { s: ['#7f8c8d', '#2c3e50'], l: ['#95a5a6', '#000000'] }
-            };
-
-            let currentStep = -1, rosaryStructure = [], beadElementsList = [], stepToElementMap = [], els = {};
-            const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
-            const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
-
-            function init() {
-                els = {
-                    container: document.querySelector('.app-container'),
-                    rosaryPane: document.getElementById('rosary-pane'),
-                    dragBar: document.getElementById('drag-bar'),
-                    svg: document.getElementById('rosary-svg'),
-                    path: document.getElementById('rosary-string'),
-                    date: document.getElementById('date-display'),
-                    mystery: document.getElementById('mystery-display'),
-                    label: document.getElementById('label-display'),
-                    text: document.getElementById('text-display'),
-                    scroll: document.getElementById('prayer-scroll-area'),
-                    progress: document.getElementById('progress-fill'),
-                    progressText: document.getElementById('progress-text'),
-                    btnNext: document.getElementById('btn-next'),
-                    btnPrev: document.getElementById('btn-prev'),
-                    themeBtn: document.getElementById('theme-toggle'),
-                    themeIcon: document.getElementById('theme-icon'),
-                    menuBtn: document.getElementById('menu-toggle'),
-                    modelBtn: document.getElementById('model-toggle'),
-                    modalAbout: document.getElementById('modal-about'),
-                    modalSelection: document.getElementById('modal-selection'),
-                    modalModels: document.getElementById('modal-models'),
-                    
-                    // Novo Modal no Objeto
-                    modalRestart: document.getElementById('modal-restart'),
-                    
-                    textPane: document.getElementById('text-pane'),
-                    // Gradient stops
-                    stopS1: document.getElementById('stop-small-1'),
-                    stopS2: document.getElementById('stop-small-2'),
-                    stopL1: document.getElementById('stop-large-1'),
-                    stopL2: document.getElementById('stop-large-2')
-                };
-                setupTheme(); setupDraggable(); setupModals(); 
-                
-                loadMystery('auto'); 
-                drawRosaryGeometry(); 
-                setupEvents();
-                setupKeyboard();
-            }
-
-            function vibrate() { if (navigator.vibrate) navigator.vibrate(12); }
-
-            function startWith(type) {
-                loadMystery(type);
-                els.modalSelection.style.display = 'none';
-                restartRosary();
-            }
-
-            function changeModel(modelKey) {
-                const m = MODELS[modelKey];
-                if(m) {
-                    els.stopS1.setAttribute('stop-color', m.s[0]);
-                    els.stopS2.setAttribute('stop-color', m.s[1]);
-                    els.stopL1.setAttribute('stop-color', m.l[0]);
-                    els.stopL2.setAttribute('stop-color', m.l[1]);
-                    els.modalModels.style.display = 'none';
-                }
-            }
-
-            function loadMystery(type) {
-                let mysteryData;
-                if (type === 'auto') {
-                    const d = new Date().getDay();
-                    const map = [MYSTERIES_DB.gloriosos, MYSTERIES_DB.gozosos, MYSTERIES_DB.dolorosos, MYSTERIES_DB.gloriosos, MYSTERIES_DB.luminosos, MYSTERIES_DB.dolorosos, MYSTERIES_DB.gozosos];
-                    mysteryData = map[d];
-                } else if (MYSTERIES_DB[type]) {
-                    mysteryData = MYSTERIES_DB[type];
-                } else { return; }
-
-                els.date.innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
-                els.mystery.innerText = mysteryData.name;
-                
-                buildStructure(mysteryData);
-                if(beadElementsList.length > 0) mapLogicToPhysics();
-            }
-
-            function buildStructure(mysteryData) {
-                rosaryStructure = [{ label: "Sinal da Cruz", text: PRAYERS.sinalCruz }, { label: "Oferecimento", text: PRAYERS.oferecimento }, { label: "Credo", text: PRAYERS.credo }, { label: "Pai Nosso", text: PRAYERS.paiNosso }, { label: "Ave Maria (Fé)", text: PRAYERS.aveMaria }, { label: "Ave Maria (Esperança)", text: PRAYERS.aveMaria }, { label: "Ave Maria (Caridade)", text: PRAYERS.aveMaria }];
-                
-                mysteryData.decades.forEach((m, index) => {
-                    rosaryStructure.push({ label: m.t, text: m.d, isShared: true }, { label: "Pai Nosso", text: PRAYERS.paiNosso, isShared: true });
-                    for(let j=1; j<=10; j++) rosaryStructure.push({ label: `Ave Maria (${j}/10)`, text: PRAYERS.aveMaria });
-                    rosaryStructure.push({ label: "Glória ao Pai", text: PRAYERS.gloria, isShared: true });
-                    if(index === 4) rosaryStructure.push({ label: "Infinitas Graças", text: PRAYERS.gracas, isShared: true });
-                });
-                
-                rosaryStructure.push({ label: "Salve Rainha", text: PRAYERS.salveRainha });
-            }
-
-            function setupDraggable() {
-                let isDragging = false;
-                const onMove = (e) => {
-                    if (!isDragging) return;
-                    if (e.cancelable) e.preventDefault();
-                    const touch = e.touches ? e.touches[0] : e;
-                    const rect = els.container.getBoundingClientRect();
-                    let pct = window.innerWidth >= 768 ? ((touch.clientX - rect.left) / rect.width) * 100 : ((touch.clientY - rect.top) / rect.height) * 100;
-                    els.rosaryPane.style.flex = `0 0 ${Math.max(20, Math.min(80, pct))}%`;
-                };
-                els.dragBar.addEventListener('mousedown', () => isDragging = true);
-                window.addEventListener('mouseup', () => isDragging = false);
-                window.addEventListener('mousemove', onMove);
-                els.dragBar.addEventListener('touchstart', (e) => { isDragging = true; if (e.cancelable) e.preventDefault(); }, { passive: false });
-                window.addEventListener('touchend', () => isDragging = false);
-                window.addEventListener('touchmove', (e) => { if (isDragging && e.cancelable) e.preventDefault(); onMove(e); }, { passive: false });
-            }
-
-            function setupTheme() { 
-                els.themeBtn.onclick = () => {
-                    const isLight = document.body.classList.toggle('light-theme');
-                    els.themeIcon.innerHTML = isLight ? moonIcon : sunIcon;
-                };
-            }
-
-            function setupModals() {
-                // Fechar modais com clique fora
-                const closeModal = (modal) => modal.style.display = 'none';
-                
-                // About
-                document.getElementById('about-toggle').onclick = () => els.modalAbout.style.display = 'flex';
-                document.getElementById('about-close').onclick = () => closeModal(els.modalAbout);
-                els.modalAbout.onclick = (e) => { if(e.target == els.modalAbout) closeModal(els.modalAbout); }
-                
-                // Menu
-                els.menuBtn.onclick = () => els.modalSelection.style.display = 'flex';
-                
-                // Models
-                els.modelBtn.onclick = () => els.modalModels.style.display = 'flex';
-                document.getElementById('model-close').onclick = () => closeModal(els.modalModels);
-                els.modalModels.onclick = (e) => { if(e.target == els.modalModels) closeModal(els.modalModels); }
-
-                // --- NOVO: Configuração do Modal de Reiniciar ---
-                document.getElementById('btn-restart-no').onclick = () => els.modalRestart.style.display = 'none';
-                document.getElementById('btn-restart-yes').onclick = () => {
-                    els.modalRestart.style.display = 'none';
-                    restartRosary();
-                };
-                els.modalRestart.onclick = (e) => { if(e.target == els.modalRestart) els.modalRestart.style.display = 'none'; }
-            }
-
-            // Suporte a Teclado (Acessibilidade)
-            function setupKeyboard() {
-                document.addEventListener('keydown', (e) => {
-                    // Navegação nos modais com ESC
-                    if (e.key === 'Escape') {
-                        els.modalAbout.style.display = 'none';
-                        els.modalModels.style.display = 'none';
-                        els.modalRestart.style.display = 'none';
-                        // Não fecha a seleção inicial se não tiver começado
-                        if(currentStep >= 0) els.modalSelection.style.display = 'none';
-                    }
-
-                    // Se modais estiverem abertos, não navegar no terço
-                    if(els.modalAbout.style.display === 'flex' || 
-                       els.modalModels.style.display === 'flex' || 
-                       els.modalRestart.style.display === 'flex' ||
-                       els.modalSelection.style.display === 'flex') return;
-
-                    if (e.key === 'ArrowRight' || e.key === ' ') {
-                        e.preventDefault(); // Evita scroll do espaço
-                        nextStep();
-                    } else if (e.key === 'ArrowLeft') {
-                        prevStep();
-                    }
-                });
-            }
-
-            function drawRosaryGeometry() {
-                const cx = 150, cy = 180, r = 135;
-                const medalY = cy + r;
-                const tailCoords = [{x:150, y:515}, {x:150, y:465}, {x:150, y:430}, {x:150, y:405}, {x:150, y:380}, {x:150, y:345}];
-                let pathD = `M 150 515 L 150 ${medalY + 16}`;
-                createBeadElement(tailCoords[0].x, tailCoords[0].y, 0); 
-                for(let i=1; i<tailCoords.length; i++) createBeadElement(tailCoords[i].x, tailCoords[i].y, (i===1||i===5)?1:2);
-                for(let i=0; i<54; i++) {
-                    const deg = 102.5 + ((360-25)/53 * i);
-                    const rad = deg * (Math.PI/180);
-                    createBeadElement(cx - r*Math.cos(rad), cy + r*Math.sin(rad), ((i+1)%11===0)?1:2);
-                }
-                createBeadElement(150, medalY, 0, true);
-                els.path.setAttribute('d', pathD);
-                mapLogicToPhysics();
-            }
-
-            function createBeadElement(x, y, type, isMedal = false) {
-                let el = document.createElementNS("http://www.w3.org/2000/svg", isMedal ? "polygon" : (type===0 ? "path" : "circle"));
-                if(isMedal) el.setAttribute("points", `${x-16},${y-14} ${x+16},${y-14} ${x},${y+18}`);
-                else if(type===0) el.setAttribute("d", `M ${x-4},${y-35} L ${x+4},${y-35} L ${x+4},${y-12} L ${x+22},${y-12} L ${x+22},${y-2} L ${x+4},${y-2} L ${x+4},${y+25} L ${x-4},${y+25} L ${x-4},${y-2} L ${x-22},${y-2} L ${x-22},${y-12} L ${x-4},${y-12} Z`);
-                else { el.setAttribute("cx", x); el.setAttribute("cy", y); el.setAttribute("r", type===1?10:6.5); }
-                el.setAttribute("class", isMedal ? "medal-base" : (type===0 ? "cross" : (type===1 ? "bead large" : "bead small")));
-                els.svg.appendChild(el);
-                beadElementsList.push(el);
-            }
-
-            function mapLogicToPhysics() {
-                if(beadElementsList.length === 0) return;
-                for(let i=0; i<3; i++) stepToElementMap[i] = beadElementsList[0];
-                stepToElementMap[3] = beadElementsList[1];
-                for(let i=4; i<7; i++) stepToElementMap[i] = beadElementsList[i-2];
-                let pIdx = 5;
-                for(let i=7; i<rosaryStructure.length; i++) {
-                    const s = rosaryStructure[i];
-                    if(s.label === "Salve Rainha" || s.label === "Infinitas Graças") {
-                        stepToElementMap[i] = beadElementsList[beadElementsList.length-1];
-                    } else {
-                        if (pIdx < beadElementsList.length) stepToElementMap[i] = beadElementsList[pIdx];
-                        if(!s.isShared || s.label === "Pai Nosso") pIdx++;
-                    }
-                }
-            }
-
-            function nextStep() {
-                if(currentStep < rosaryStructure.length-1) { 
-                    currentStep++; updateUI(); vibrate(); 
-                } else { 
-                    // Se chegou ao fim, abre o novo modal em vez do confirm()
-                    els.modalRestart.style.display = 'flex';
-                }
-            }
-
-            function prevStep() {
-                // Agora permite voltar para -1 (Tela Inicial) se estiver no passo 0
-                if(currentStep >= 0) { currentStep--; updateUI(); vibrate(); }
-            }
-
-            function setupEvents() {
-                els.btnNext.onclick = (e) => { e.stopPropagation(); nextStep(); };
-                els.btnPrev.onclick = (e) => { e.stopPropagation(); prevStep(); };
-            }
-
-            function textClick(e) {
-                // Impede avanço se o usuário estiver selecionando texto
-                const selection = window.getSelection();
-                if (selection.toString().length > 0) return;
-
-                if (window.innerWidth >= 768) return;
-                // Verificação aprimorada de elementos interativos
-                if (e.target.closest('button') || e.target.closest('.action-btn')) return;
-                
-                nextStep();
-            }
-
-            function restartRosary() { currentStep = -1; updateUI(); }
-
-            function updateUI() {
-                if(currentStep < 0) {
-                    els.text.innerText = "Toque aqui ou no botão 'Iniciar' para começar.";
-                    els.btnNext.innerText = "Iniciar"; els.btnPrev.style.display = "none";
-                    els.progress.style.width = "0%"; els.progressText.innerText = "0%";
-                    els.label.innerText = "Início";
-                    beadElementsList.forEach(e => e.classList.remove('active', 'done'));
-                    return;
-                }
-
-                const item = rosaryStructure[currentStep];
-                els.text.classList.remove('text-fade-in');
-                void els.text.offsetWidth; 
-                els.text.innerText = item.text;
-                els.text.classList.add('text-fade-in');
-
-                els.label.innerText = item.label;
-                els.btnNext.innerText = "Próximo"; els.btnPrev.style.display = "block";
-                
-                const pct = Math.round(((currentStep+1)/rosaryStructure.length)*100);
-                els.progress.style.width = pct + "%";
-                els.progressText.innerText = pct + "%";
-
-                const activeEl = stepToElementMap[currentStep];
-                beadElementsList.forEach(el => {
-                    el.classList.remove('active', 'done');
-                    if(!activeEl) return;
-                    const idx = beadElementsList.indexOf(el);
-                    const activeIdx = beadElementsList.indexOf(activeEl);
-                    if (idx < activeIdx) el.classList.add('done');
-                    if (idx === activeIdx) el.classList.add('active');
-                });
-                els.scroll.scrollTop = 0;
-            }
-
-            return { init, startWith, changeModel, textClick };
-        })();
-
-        window.onload = RosaryApp.init;
-
-        function copyPix() {
-            const key = document.getElementById('pix-key').innerText;
-            navigator.clipboard.writeText(key).then(() => alert("Copiado!"));
+      const MYSTERIES_DB = {
+        gozosos: {
+          name: "Mistérios Gozosos",
+          decades: [
+            { t: "1º Mistério: A Anunciação", d: "No primeiro mistério contemplamos a Anunciação do Arcanjo Gabriel à Nossa Senhora.\n\nDisse-lhe o anjo: 'Ave, cheia de graça, o Senhor é contigo'. E Maria respondeu: 'Eis aqui a serva do Senhor, faça-se em mim segundo a tua palavra'." },
+            { t: "2º Mistério: A Visitação", d: "No segundo mistério contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.\n\nMaria foi apressadamente às montanhas. Entrou em casa de Zacarias e saudou Isabel, que ficou cheia do Espírito Santo e exclamou: 'Bendita és tu entre as mulheres'." },
+            { t: "3º Mistério: O Nascimento", d: "No terceiro mistério contemplamos o Nascimento de Jesus em Belém.\n\nE deu à luz seu filho primogênito, e envolveu-o em panos, e deitou-o numa manjedoura, porque não havia lugar para eles na estalagem." },
+            { t: "4º Mistério: A Apresentação", d: "No quarto mistério contemplamos a Apresentação do Menino Jesus no Templo.\n\nLevaram o menino a Jerusalém para o apresentarem ao Senhor, como está escrito na Lei. Simeão tomou-o nos braços e louvou a Deus." },
+            { t: "5º Mistério: O Encontro", d: "No quinto mistério contemplamos o Encontro de Jesus no Templo.\n\nApós três dias de procura, encontraram-no no templo, sentado no meio dos doutores, ouvindo-os e interrogando-os." }
+          ]
+        },
+        dolorosos: {
+          name: "Mistérios Dolorosos",
+          decades: [
+            { t: "1º Mistério: A Agonia", d: "No primeiro mistério contemplamos a Agonia de Jesus no Horto das Oliveiras.\n\nJesus orou: 'Pai, se é do teu agrado, afasta de mim este cálice; contudo, não se faça a minha vontade, mas a tua'. E seu suor tornou-se como gotas de sangue." },
+            { t: "2º Mistério: A Flagelação", d: "No segundo mistério contemplamos a Flagelação de Nosso Senhor Jesus Cristo.\n\nPilatos, querendo satisfazer a multidão, soltou-lhes Barrabás; e, depois de mandar flagelar Jesus, entregou-o para ser crucificado." },
+            { t: "3º Mistério: A Coroação", d: "No terceiro mistério contemplamos a Coroação de Espinhos.\n\nOs soldados teceram uma coroa de espinhos, puseram-na sobre a sua cabeça e vestiram-no com um manto de púrpura, zombando dele: 'Salve, Rei dos Judeus!'." },
+            { t: "4º Mistério: O Caminho", d: "No quarto mistério contemplamos Jesus a caminho do Calvário carregando a Cruz.\n\nE ele, carregando a sua própria cruz, saiu para o lugar chamado Calvário, onde o crucificaram." },
+            { t: "5º Mistério: A Crucificação", d: "No quinto mistério contemplamos a Crucificação e Morte de Jesus.\n\nJesus disse: 'Pai, nas tuas mãos entrego o meu espírito'. E, havendo dito isto, expirou." }
+          ]
+        },
+        gloriosos: {
+          name: "Mistérios Gloriosos",
+          decades: [
+            { t: "1º Mistério: A Ressurreição", d: "No primeiro mistério contemplamos a Ressurreição de Jesus Cristo.\n\nO anjo disse às mulheres: 'Não tenhais medo. Sei que buscais Jesus, o crucificado. Ele não está aqui; ressuscitou, como havia dito'." },
+            { t: "2º Mistério: A Ascensão", d: "No segundo mistério contemplamos a Ascensão de Jesus ao Céu.\n\nEnquanto os abençoava, afastou-se deles e foi elevado ao céu. E eles o adoraram e voltaram para Jerusalém com grande alegria." },
+            { t: "3º Mistério: Pentecostes", d: "No terceiro mistério contemplamos a Vinda do Espírito Santo sobre os Apóstolos.\n\nFicaram todos cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito lhes concedia que falassem." },
+            { t: "4º Mistério: A Assunção", d: "No quarto mistério contemplamos a Assunção de Nossa Senhora ao Céu.\n\nFez-se em mim grandes coisas o Todo-Poderoso. Maria é elevada ao céu em corpo e alma, como primícia da glória a que todos somos chamados." },
+            { t: "5º Mistério: A Coroação", d: "No quinto mistério contemplamos a Coroação de Maria como Rainha do Céu e da Terra.\n\nApareceu no céu um grande sinal: uma mulher vestida de sol, com a lua debaixo dos pés e uma coroa de doze estrelas na cabeça." }
+          ]
+        },
+        luminosos: {
+          name: "Mistérios Luminosos",
+          decades: [
+            { t: "1º Mistério: O Batismo", d: "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\nAssim que Jesus foi batizado, o céu se abriu, e viu o Espírito de Deus descer como pomba. E uma voz do céu disse: 'Este é o meu Filho amado'." },
+            { t: "2º Mistério: Bodas de Caná", d: "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\nSua mãe disse aos serventes: 'Fazei tudo o que ele vos disser'. Jesus transformou a água em vinho, manifestando a sua glória e seus discípulos creram nele." },
+            { t: "3º Mistério: O Reino", d: "No terceiro mistério contemplamos o Anúncio do Reino de Deus e o convite à conversão.\n\nJesus pregava: 'O tempo completou-se e o Reino de Deus está próximo. Arrependei-vos e crede no Evangelho'." },
+            { t: "4º Mistério: A Transfiguração", d: "No quarto mistério contemplamos a Transfiguração de Jesus no Monte Tabor.\n\nSeu rosto brilhou como o sol e suas vestes tornaram-se brancas como a luz. Da nuvem saiu uma voz: 'Este é o meu Filho amado, ouvi-o'." },
+            { t: "5º Mistério: A Eucaristia", d: "No quinto mistério contemplamos a Instituição da Eucaristia.\n\nJesus tomou o pão e disse: 'Tomai e comei, isto é o meu corpo'. E o cálice: 'Bebei dele todos, pois isto é o meu sangue da nova aliança'." }
+          ]
         }
-    </script>
+      };
+
+      const MODELS = {
+        classico: { s: ['#00c6ff', '#002244'], l: ['#ff4b1f', '#660000'] },
+        perola: { s: ['#fcfcfc', '#b0b0b0'], l: ['#e6c200', '#b8860b'] },
+        madeira: { s: ['#deb887', '#8b4513'], l: ['#a0522d', '#5c4033'] },
+        rosa: { s: ['#ffb6c1', '#ff69b4'], l: ['#ff1493', '#8b0000'] },
+        noturno: { s: ['#7f8c8d', '#2c3e50'], l: ['#95a5a6', '#000000'] }
+      };
+
+      // NOVO: Adicionado currentMysteryType para controle de progresso
+      let currentStep = -1, currentMysteryType = 'auto', rosaryStructure = [], beadElementsList = [], stepToElementMap = [], els = {};
+      let wakeLock = null; // NOVO: Controle de tela
+
+      const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+      const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+
+      function init() {
+        els = {
+          container: document.querySelector('.app-container'),
+          rosaryPane: document.getElementById('rosary-pane'),
+          dragBar: document.getElementById('drag-bar'),
+          svg: document.getElementById('rosary-svg'),
+          path: document.getElementById('rosary-string'),
+          date: document.getElementById('date-display'),
+          mystery: document.getElementById('mystery-display'),
+          label: document.getElementById('label-display'),
+          text: document.getElementById('text-display'),
+          scroll: document.getElementById('prayer-scroll-area'),
+          progress: document.getElementById('progress-fill'),
+          progressText: document.getElementById('progress-text'),
+          btnNext: document.getElementById('btn-next'),
+          btnPrev: document.getElementById('btn-prev'),
+          themeBtn: document.getElementById('theme-toggle'),
+          themeIcon: document.getElementById('theme-icon'),
+          menuBtn: document.getElementById('menu-toggle'),
+          modelBtn: document.getElementById('model-toggle'),
+          modalAbout: document.getElementById('modal-about'),
+          modalSelection: document.getElementById('modal-selection'),
+          modalModels: document.getElementById('modal-models'),
+          modalRestart: document.getElementById('modal-restart'),
+          textPane: document.getElementById('text-pane'),
+          stopS1: document.getElementById('stop-small-1'),
+          stopS2: document.getElementById('stop-small-2'),
+          stopL1: document.getElementById('stop-large-1'),
+          stopL2: document.getElementById('stop-large-2'),
+          btnResume: document.getElementById('btn-resume') // Botão de retomar
+        };
+
+        setupTheme(); setupDraggable(); setupModals();
+        drawRosaryGeometry();
+        setupEvents();
+        setupKeyboard();
+
+        // NOVO: Verifica se há progresso salvo no localStorage
+        checkSavedProgress();
+
+        // NOVO: Solicita WakeLock se suportado
+        requestWakeLock();
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') requestWakeLock();
+        });
+      }
+
+      // NOVO: Screen Wake Lock API
+      async function requestWakeLock() {
+        try {
+          if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen');
+        } catch (err) { console.log('Wake Lock Error:', err); }
+      }
+
+      // NOVO: Lógica de Persistência (LocalStorage)
+      function checkSavedProgress() {
+        const saved = localStorage.getItem('tercoProgress');
+        if (saved) {
+          const data = JSON.parse(saved);
+          els.btnResume.style.display = 'flex'; // Mostra botão de retomar
+          // Carrega em background mas espera o usuário clicar
+          loadMystery(data.type || 'auto');
+        } else {
+          loadMystery('auto');
+        }
+      }
+
+      function saveProgress() {
+        if (currentStep >= 0 && currentStep < rosaryStructure.length - 1) {
+          localStorage.setItem('tercoProgress', JSON.stringify({ step: currentStep, type: currentMysteryType }));
+        } else {
+          localStorage.removeItem('tercoProgress'); // Limpa ao finalizar
+        }
+      }
+
+      function resumeProgress() {
+        const saved = localStorage.getItem('tercoProgress');
+        if (saved) {
+          const data = JSON.parse(saved);
+          currentMysteryType = data.type;
+          loadMystery(data.type);
+          currentStep = data.step;
+          els.modalSelection.style.display = 'none';
+          updateUI();
+        }
+      }
+
+      function vibrate() { if (navigator.vibrate) navigator.vibrate(12); }
+
+      function startWith(type) {
+        currentMysteryType = type;
+        loadMystery(type);
+        els.modalSelection.style.display = 'none';
+        restartRosary();
+      }
+
+      function changeModel(modelKey) {
+        const m = MODELS[modelKey];
+        if (m) {
+          els.stopS1.setAttribute('stop-color', m.s[0]);
+          els.stopS2.setAttribute('stop-color', m.s[1]);
+          els.stopL1.setAttribute('stop-color', m.l[0]);
+          els.stopL2.setAttribute('stop-color', m.l[1]);
+          els.modalModels.style.display = 'none';
+          localStorage.setItem('tercoModel', modelKey); // Salva modelo escolhido
+        }
+      }
+
+      function loadMystery(type) {
+        let mysteryData;
+        if (type === 'auto') {
+          const d = new Date().getDay();
+          const map = [MYSTERIES_DB.gloriosos, MYSTERIES_DB.gozosos, MYSTERIES_DB.dolorosos, MYSTERIES_DB.gloriosos, MYSTERIES_DB.luminosos, MYSTERIES_DB.dolorosos, MYSTERIES_DB.gozosos];
+          mysteryData = map[d];
+        } else if (MYSTERIES_DB[type]) {
+          mysteryData = MYSTERIES_DB[type];
+        } else { return; }
+
+        els.date.innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+        els.mystery.innerText = mysteryData.name;
+
+        buildStructure(mysteryData);
+        if (beadElementsList.length > 0) mapLogicToPhysics();
+      }
+
+      function buildStructure(mysteryData) {
+        rosaryStructure = [{ label: "Sinal da Cruz", text: PRAYERS.sinalCruz }, { label: "Oferecimento", text: PRAYERS.oferecimento }, { label: "Credo", text: PRAYERS.credo }, { label: "Pai Nosso", text: PRAYERS.paiNosso }, { label: "Ave Maria (Fé)", text: PRAYERS.aveMaria }, { label: "Ave Maria (Esperança)", text: PRAYERS.aveMaria }, { label: "Ave Maria (Caridade)", text: PRAYERS.aveMaria }];
+
+        mysteryData.decades.forEach((m, index) => {
+          rosaryStructure.push({ label: m.t, text: m.d, isShared: true }, { label: "Pai Nosso", text: PRAYERS.paiNosso, isShared: true });
+          for (let j = 1; j <= 10; j++) rosaryStructure.push({ label: `Ave Maria (${j}/10)`, text: PRAYERS.aveMaria });
+          rosaryStructure.push({ label: "Glória ao Pai", text: PRAYERS.gloria, isShared: true });
+          if (index === 4) rosaryStructure.push({ label: "Infinitas Graças", text: PRAYERS.gracas, isShared: true });
+        });
+
+        rosaryStructure.push({ label: "Salve Rainha", text: PRAYERS.salveRainha });
+      }
+
+      function setupDraggable() { /* Mantido igual */
+        let isDragging = false;
+        const onMove = (e) => {
+          if (!isDragging) return;
+          if (e.cancelable) e.preventDefault();
+          const touch = e.touches ? e.touches[0] : e;
+          const rect = els.container.getBoundingClientRect();
+          let pct = window.innerWidth >= 768 ? ((touch.clientX - rect.left) / rect.width) * 100 : ((touch.clientY - rect.top) / rect.height) * 100;
+          els.rosaryPane.style.flex = `0 0 ${Math.max(20, Math.min(80, pct))}%`;
+        };
+        els.dragBar.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', onMove);
+        els.dragBar.addEventListener('touchstart', (e) => { isDragging = true; if (e.cancelable) e.preventDefault(); }, { passive: false });
+        window.addEventListener('touchend', () => isDragging = false);
+        window.addEventListener('touchmove', (e) => { if (isDragging && e.cancelable) e.preventDefault(); onMove(e); }, { passive: false });
+      }
+
+      function setupTheme() {
+        els.themeBtn.onclick = () => {
+          const isLight = document.body.classList.toggle('light-theme');
+          els.themeIcon.innerHTML = isLight ? moonIcon : sunIcon;
+        };
+      }
+
+      function setupModals() {
+        const closeModal = (modal) => modal.style.display = 'none';
+
+        // Modal Sobre
+        document.getElementById('about-toggle').onclick = () => els.modalAbout.style.display = 'flex';
+        document.getElementById('about-close').onclick = () => closeModal(els.modalAbout);
+        els.modalAbout.onclick = (e) => { if (e.target == els.modalAbout) closeModal(els.modalAbout); }
+
+        // Modal Seleção
+        els.menuBtn.onclick = () => els.modalSelection.style.display = 'flex';
+
+        // Modal Modelos
+        els.modelBtn.onclick = () => els.modalModels.style.display = 'flex';
+        document.getElementById('model-close').onclick = () => closeModal(els.modalModels);
+        els.modalModels.onclick = (e) => { if (e.target == els.modalModels) closeModal(els.modalModels); }
+
+        // --- NOVO: Modal de Conclusão / Reiniciar ---
+
+        // 1. Tela Inicial: Fecha o modal, zera o terço e abre a tela de seleção
+        document.getElementById('btn-finish-home').onclick = () => {
+          els.modalRestart.style.display = 'none';
+          restartRosary();
+          els.modalSelection.style.display = 'flex';
+        };
+
+        // 2. Reiniciar Terço: Apenas fecha o modal e zera o terço (mantendo o mesmo mistério)
+        document.getElementById('btn-finish-restart').onclick = () => {
+          els.modalRestart.style.display = 'none';
+          restartRosary();
+        };
+
+        // 3. Cancelar: Apenas fecha o modal e mantém o usuário na última oração
+        document.getElementById('btn-finish-cancel').onclick = () => {
+          els.modalRestart.style.display = 'none';
+        };
+
+        // Fecha o modal ao clicar fora dele
+        els.modalRestart.onclick = (e) => { if (e.target == els.modalRestart) els.modalRestart.style.display = 'none'; }
+      }
+
+      function setupKeyboard() { /* Mantido igual */
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            els.modalAbout.style.display = 'none'; els.modalModels.style.display = 'none'; els.modalRestart.style.display = 'none';
+            if (currentStep >= 0) els.modalSelection.style.display = 'none';
+          }
+          if (els.modalAbout.style.display === 'flex' || els.modalModels.style.display === 'flex' || els.modalRestart.style.display === 'flex' || els.modalSelection.style.display === 'flex') return;
+          if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextStep(); }
+          else if (e.key === 'ArrowLeft') prevStep();
+        });
+      }
+
+      function drawRosaryGeometry() { /* Mantido igual */
+        const cx = 150, cy = 180, r = 135;
+        const medalY = cy + r;
+        const tailCoords = [{ x: 150, y: 515 }, { x: 150, y: 465 }, { x: 150, y: 430 }, { x: 150, y: 405 }, { x: 150, y: 380 }, { x: 150, y: 345 }];
+        let pathD = `M 150 515 L 150 ${medalY + 16}`;
+        createBeadElement(tailCoords[0].x, tailCoords[0].y, 0);
+        for (let i = 1; i < tailCoords.length; i++) createBeadElement(tailCoords[i].x, tailCoords[i].y, (i === 1 || i === 5) ? 1 : 2);
+        for (let i = 0; i < 54; i++) {
+          const deg = 102.5 + ((360 - 25) / 53 * i);
+          const rad = deg * (Math.PI / 180);
+          createBeadElement(cx - r * Math.cos(rad), cy + r * Math.sin(rad), ((i + 1) % 11 === 0) ? 1 : 2);
+        }
+        createBeadElement(150, medalY, 0, true);
+        els.path.setAttribute('d', pathD);
+        mapLogicToPhysics();
+      }
+
+      function createBeadElement(x, y, type, isMedal = false) { /* Mantido igual */
+        let el = document.createElementNS("http://www.w3.org/2000/svg", isMedal ? "polygon" : (type === 0 ? "path" : "circle"));
+        if (isMedal) el.setAttribute("points", `${x - 16},${y - 14} ${x + 16},${y - 14} ${x},${y + 18}`);
+        else if (type === 0) el.setAttribute("d", `M ${x - 4},${y - 35} L ${x + 4},${y - 35} L ${x + 4},${y - 12} L ${x + 22},${y - 12} L ${x + 22},${y - 2} L ${x + 4},${y - 2} L ${x + 4},${y + 25} L ${x - 4},${y + 25} L ${x - 4},${y - 2} L ${x - 22},${y - 2} L ${x - 22},${y - 12} L ${x - 4},${y - 12} Z`);
+        else { el.setAttribute("cx", x); el.setAttribute("cy", y); el.setAttribute("r", type === 1 ? 10 : 6.5); }
+        el.setAttribute("class", isMedal ? "medal-base" : (type === 0 ? "cross" : (type === 1 ? "bead large" : "bead small")));
+        els.svg.appendChild(el);
+        beadElementsList.push(el);
+      }
+
+      function mapLogicToPhysics() { /* Mantido igual */
+        if (beadElementsList.length === 0) return;
+        for (let i = 0; i < 3; i++) stepToElementMap[i] = beadElementsList[0];
+        stepToElementMap[3] = beadElementsList[1];
+        for (let i = 4; i < 7; i++) stepToElementMap[i] = beadElementsList[i - 2];
+        let pIdx = 5;
+        for (let i = 7; i < rosaryStructure.length; i++) {
+          const s = rosaryStructure[i];
+          if (s.label === "Salve Rainha" || s.label === "Infinitas Graças") {
+            stepToElementMap[i] = beadElementsList[beadElementsList.length - 1];
+          } else {
+            if (pIdx < beadElementsList.length) stepToElementMap[i] = beadElementsList[pIdx];
+            if (!s.isShared || s.label === "Pai Nosso") pIdx++;
+          }
+        }
+      }
+
+      function nextStep() {
+        if (currentStep < rosaryStructure.length - 1) {
+          currentStep++; updateUI(); vibrate();
+        } else {
+          els.modalRestart.style.display = 'flex';
+        }
+      }
+
+      function prevStep() {
+        if (currentStep >= 0) { currentStep--; updateUI(); vibrate(); }
+      }
+
+      function setupEvents() {
+        els.btnNext.onclick = (e) => { e.stopPropagation(); nextStep(); };
+        els.btnPrev.onclick = (e) => { e.stopPropagation(); prevStep(); };
+
+        // NOVO: Navegação por Swipe (Arrastar dedo na tela)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        els.textPane.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        els.textPane.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+          // Impede o swipe se o texto estiver sendo selecionado (evita bugs no scroll)
+          if (window.getSelection().toString().length > 0) return;
+
+          if (touchEndX < touchStartX - 60) nextStep(); // Arrasta pra esquerda -> Avança
+          if (touchEndX > touchStartX + 60) prevStep(); // Arrasta pra direita -> Volta
+        }
+
+        // Mudei de atributo onclick no HTML para Listener aqui (melhor prática e resolve bugs de Swipe)
+        els.textPane.addEventListener('click', (e) => {
+          if (window.getSelection().toString().length > 0) return;
+          if (window.innerWidth >= 768) return;
+          if (e.target.closest('button') || e.target.closest('.action-btn')) return;
+
+          // Com o swipe ativado, o clique na tela não é mais estritamente necessário para avançar,
+          // mas podemos mantê-lo ativo. Comente a linha abaixo se quiser forçar o usuário a usar os botões ou swipe.
+          // nextStep(); 
+        });
+      }
+
+      function restartRosary() {
+        currentStep = -1;
+        localStorage.removeItem('tercoProgress'); // Limpa save antigo
+        els.btnResume.style.display = 'none';
+        updateUI();
+      }
+
+      function updateUI() {
+        saveProgress(); // NOVO: Salva o estado atual a cada mudança
+
+        if (currentStep < 0) {
+          els.text.innerText = "Toque em 'Iniciar' ou deslize a tela para a esquerda para começar.";
+          els.btnNext.innerText = "Iniciar"; els.btnPrev.style.display = "none";
+          els.progress.style.width = "0%"; els.progressText.innerText = "0%";
+          els.label.innerText = "Início";
+          beadElementsList.forEach(e => e.classList.remove('active', 'done'));
+          return;
+        }
+
+        const item = rosaryStructure[currentStep];
+        els.text.classList.remove('text-fade-in');
+        void els.text.offsetWidth;
+        els.text.innerText = item.text;
+        els.text.classList.add('text-fade-in');
+
+        els.label.innerText = item.label;
+        els.btnNext.innerText = "Próximo"; els.btnPrev.style.display = "block";
+
+        const pct = Math.round(((currentStep + 1) / rosaryStructure.length) * 100);
+        els.progress.style.width = pct + "%";
+        els.progressText.innerText = pct + "%";
+
+        const activeEl = stepToElementMap[currentStep];
+        beadElementsList.forEach(el => {
+          el.classList.remove('active', 'done');
+          if (!activeEl) return;
+          const idx = beadElementsList.indexOf(el);
+          const activeIdx = beadElementsList.indexOf(activeEl);
+          if (idx < activeIdx) el.classList.add('done');
+          if (idx === activeIdx) el.classList.add('active');
+        });
+        els.scroll.scrollTop = 0;
+      }
+
+      return { init, startWith, changeModel, resumeProgress };
+    })();
+
+    window.onload = RosaryApp.init;
+
+    // NOVO: Função copyPix atualizada com Toast visual
+    function copyPix() {
+      const key = document.getElementById('pix-key').innerText;
+      navigator.clipboard.writeText(key).then(() => {
+        const toast = document.getElementById("toast-message");
+        toast.classList.add("show");
+        setTimeout(() => { toast.classList.remove("show"); }, 3000);
+      });
+    }
+  </script>
 </body>
+
 </html>
