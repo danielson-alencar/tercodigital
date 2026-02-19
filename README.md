@@ -58,5 +58,4 @@ A base do código foi separada para facilitar a manutenção e escalabilidade:
 ├── index.html       # Estrutura principal, botões e marcação SVG
 ├── style.css        # Estilos, variáveis de tema e animações
 ├── script.js        # Lógica de negócio, controle de progresso e eventos
-├── manifest.json    # Configurações do PWA (ícones, cores de tema, etc.)
 └── README.md        # Documentação do projeto
