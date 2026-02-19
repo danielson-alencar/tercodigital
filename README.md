@@ -2,11 +2,29 @@
 
 Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a oração diária do Santo Terço. O projeto une a beleza da tradição católica com a facilidade da tecnologia, funcionando como um PWA (Progressive Web App) que pode ser instalado diretamente no celular.
 
-![Status do Projeto](https://img.shields.io/badge/Status-Concluído-success)
-![Licença](https://img.shields.io/badge/Licença-MIT-blue)
-![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML%20%7C%20CSS%20%7C%20JS-f39f37)
+<div align="center">
+
+  [![Status do Projeto](https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge)](#)
+  [![Licença](https://img.shields.io/badge/Licença-MIT-blue?style=for-the-badge)](#)
+  [![Tecnologias](https://img.shields.io/badge/Tech-HTML_|_CSS_|_JS-f39f37?style=for-the-badge)](#)
+
+  <br>
+
+  <a href="COLE_O_LINK_DO_SEU_APK_AQUI">
+    <img src="https://img.shields.io/badge/Download_APK-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Baixar APK" />
+  </a>
+
+</div>
 
 ---
+
+## 📦 Download do Aplicativo
+
+Você pode instalar o Terço Digital diretamente no seu celular Android baixando o arquivo APK oficial:
+
+👉 **[Clique aqui para baixar a versão mais recente (.apk)](COLE_O_LINK_DO_SEU_APK_AQUI)**
+
+*Nota: Ao instalar, o seu celular pode pedir permissão para "Instalar aplicativos de fontes desconhecidas". Basta autorizar para concluir a instalação com segurança.*
 
 ## ✨ Funcionalidades
 
