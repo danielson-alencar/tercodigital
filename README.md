@@ -10,7 +10,7 @@ Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a ora�
 
   <br>
 
-  <a href="https://github.com/danielson-alencar/tercomariano/raw/refs/heads/main/terco-mariano.apk">
+  <a href="https://github.com/danielson-alencar/tercomariano/releases/download/v1.0/terco-mariano.apk">
     <img src="https://img.shields.io/badge/Download_APK-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Baixar APK" />
   </a>
 
@@ -22,7 +22,7 @@ Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a ora�
 
 Você pode instalar o Terço Digital diretamente no seu celular Android baixando o arquivo APK oficial:
 
-👉 **[Clique aqui para baixar a versão mais recente (.apk)](https://github.com/danielson-alencar/tercomariano/raw/refs/heads/main/terco-mariano.apk)**
+👉 **[Clique aqui para baixar a versão mais recente (.apk)](https://github.com/danielson-alencar/tercomariano/releases/download/v1.0/terco-mariano.apk)**
 
 *Nota: Ao instalar, o seu celular pode pedir permissão para "Instalar aplicativos de fontes desconhecidas". Basta autorizar para concluir a instalação com segurança.*
 
