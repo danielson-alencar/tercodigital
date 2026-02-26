@@ -66,6 +66,7 @@ const RosaryApp = (() => {
 
   let currentStep = -1, currentMysteryType = 'auto', rosaryStructure = [], beadElementsList = [], stepToElementMap = [], els = {};
   let wakeLock = null;
+  let currentFontSize = 1.2;
 
   const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
   const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
@@ -74,7 +75,6 @@ const RosaryApp = (() => {
     els = {
       container: document.querySelector('.app-container'),
       rosaryPane: document.getElementById('rosary-pane'),
-      dragBar: document.getElementById('drag-bar'),
       svg: document.getElementById('rosary-svg'),
       path: document.getElementById('rosary-string'),
       date: document.getElementById('date-display'),
@@ -99,13 +99,27 @@ const RosaryApp = (() => {
       stopS2: document.getElementById('stop-small-2'),
       stopL1: document.getElementById('stop-large-1'),
       stopL2: document.getElementById('stop-large-2'),
-      btnResume: document.getElementById('btn-resume')
+      btnResume: document.getElementById('btn-resume'),
+      fontBtn: document.getElementById('font-toggle'),
+      fontPanel: document.getElementById('font-control-panel'),
+      fontMinus: document.getElementById('btn-font-minus'),
+      fontPlus: document.getElementById('btn-font-plus'),
+      fontClose: document.getElementById('font-close'),
+      fontSizeDisplay: document.getElementById('font-size-display')
     };
 
-    setupTheme(); setupDraggable(); setupModals();
+    setupTheme(); setupModals();
     drawRosaryGeometry();
     setupEvents();
     setupKeyboard();
+
+    // Recuperar e aplicar tamanho da fonte salvo
+    const savedFont = localStorage.getItem('prayerFontSize');
+    if (savedFont) {
+      currentFontSize = parseFloat(savedFont);
+      els.text.style.fontSize = `${currentFontSize}rem`;
+    }
+    if (els.fontSizeDisplay) els.fontSizeDisplay.innerText = currentFontSize.toFixed(1) + 'x';
 
     checkSavedProgress();
     requestWakeLock();
@@ -202,24 +216,6 @@ const RosaryApp = (() => {
     rosaryStructure.push({ label: "Salve Rainha", text: PRAYERS.salveRainha });
   }
 
-  function setupDraggable() {
-    let isDragging = false;
-    const onMove = (e) => {
-      if (!isDragging) return;
-      if (e.cancelable) e.preventDefault();
-      const touch = e.touches ? e.touches[0] : e;
-      const rect = els.container.getBoundingClientRect();
-      let pct = window.innerWidth >= 768 ? ((touch.clientX - rect.left) / rect.width) * 100 : ((touch.clientY - rect.top) / rect.height) * 100;
-      els.rosaryPane.style.flex = `0 0 ${Math.max(20, Math.min(80, pct))}%`;
-    };
-    els.dragBar.addEventListener('mousedown', () => isDragging = true);
-    window.addEventListener('mouseup', () => isDragging = false);
-    window.addEventListener('mousemove', onMove);
-    els.dragBar.addEventListener('touchstart', (e) => { isDragging = true; if (e.cancelable) e.preventDefault(); }, { passive: false });
-    window.addEventListener('touchend', () => isDragging = false);
-    window.addEventListener('touchmove', (e) => { if (isDragging && e.cancelable) e.preventDefault(); onMove(e); }, { passive: false });
-  }
-
   function setupTheme() {
     els.themeBtn.onclick = () => {
       const isLight = document.body.classList.toggle('light-theme');
@@ -239,6 +235,39 @@ const RosaryApp = (() => {
     els.modelBtn.onclick = () => els.modalModels.style.display = 'flex';
     document.getElementById('model-close').onclick = () => closeModal(els.modalModels);
     els.modalModels.onclick = (e) => { if (e.target == els.modalModels) closeModal(els.modalModels); }
+
+    // Toggle do painel flutuante de fonte
+    els.fontBtn.onclick = () => {
+      els.fontPanel.style.display = (els.fontPanel.style.display === 'flex') ? 'none' : 'flex';
+    };
+    els.fontClose.onclick = () => els.fontPanel.style.display = 'none';
+
+    // Fecha o painel de fonte ao clicar fora dele
+    document.addEventListener('click', (e) => {
+      if (els.fontPanel.style.display === 'flex') {
+        if (!els.fontPanel.contains(e.target) && !els.fontBtn.contains(e.target)) {
+          els.fontPanel.style.display = 'none';
+        }
+      }
+    });
+
+    els.fontMinus.onclick = () => {
+      if (currentFontSize > 0.8) {
+        currentFontSize -= 0.1;
+        els.text.style.fontSize = `${currentFontSize.toFixed(1)}rem`;
+        els.fontSizeDisplay.innerText = currentFontSize.toFixed(1) + 'x';
+        localStorage.setItem('prayerFontSize', currentFontSize);
+      }
+    };
+
+    els.fontPlus.onclick = () => {
+      if (currentFontSize < 2.5) {
+        currentFontSize += 0.1;
+        els.text.style.fontSize = `${currentFontSize.toFixed(1)}rem`;
+        els.fontSizeDisplay.innerText = currentFontSize.toFixed(1) + 'x';
+        localStorage.setItem('prayerFontSize', currentFontSize);
+      }
+    };
 
     document.getElementById('btn-finish-home').onclick = () => {
       els.modalRestart.style.display = 'none';
@@ -261,7 +290,10 @@ const RosaryApp = (() => {
   function setupKeyboard() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        els.modalAbout.style.display = 'none'; els.modalModels.style.display = 'none'; els.modalRestart.style.display = 'none';
+        els.modalAbout.style.display = 'none'; 
+        els.modalModels.style.display = 'none'; 
+        els.modalRestart.style.display = 'none'; 
+        els.fontPanel.style.display = 'none';
         if (currentStep >= 0) els.modalSelection.style.display = 'none';
       }
       if (els.modalAbout.style.display === 'flex' || els.modalModels.style.display === 'flex' || els.modalRestart.style.display === 'flex' || els.modalSelection.style.display === 'flex') return;
@@ -347,12 +379,6 @@ const RosaryApp = (() => {
       if (touchEndX < touchStartX - 60) nextStep();
       if (touchEndX > touchStartX + 60) prevStep();
     }
-
-    els.textPane.addEventListener('click', (e) => {
-      if (window.getSelection().toString().length > 0) return;
-      if (window.innerWidth >= 768) return;
-      if (e.target.closest('button') || e.target.closest('.action-btn')) return;
-    });
   }
 
   function restartRosary() {
