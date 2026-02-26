@@ -1,13 +1,11 @@
-const CACHE_NAME = 'terco-digital-v1';
+const CACHE_NAME = 'terco-digital-v2';
 const ASSETS_TO_CACHE = [
-  './',
   './index.html',
   './style.css',
   './script.js',
   './manifest.json'
 ];
 
-// Ocorre quando a aplicação é instalada no telemóvel/browser
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -18,14 +16,10 @@ self.addEventListener('install', event => {
   );
 });
 
-// Interceta os pedidos à rede
 self.addEventListener('fetch', event => {
-  // Ignora o pedido se for para a API externa (o nosso script.js já trata disso)
-  if (event.request.url.includes('api.npoint.io')) {
+  if (event.request.url.includes('raw.githubusercontent.com')) {
     return;
   }
-
-  // Tenta responder com o ficheiro em cache. Se não encontrar, vai à internet.
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -34,7 +28,6 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Limpa caches antigos (útil para atualizações futuras)
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {

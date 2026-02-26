@@ -2,7 +2,7 @@ const RosaryApp = (() => {
   'use strict';
 
   // COLOQUE AQUI O LINK DA SUA API OU ARQUIVO JSON
-  const API_URL = 'https://api.npoint.io/01197a90ec645ec50810'; 
+  const API_URL = 'https://raw.githubusercontent.com/danielson-alencar/tercomariano/refs/heads/main/api.json'; 
 
   // Variáveis vazias que serão preenchidas pela API
   let PRAYERS = {};
@@ -92,15 +92,26 @@ const RosaryApp = (() => {
   }
 
 
-// Função para buscar os dados na API com suporte OFFLINE
+// Função para buscar os dados na API com suporte OFFLINE anti-bloqueio
   async function fetchDataFromAPI() {
+    // TRUQUE: Verifica imediatamente se o dispositivo está offline
+    // Se estiver offline, nem tenta fazer o fetch para não irritar o WebIntoApp!
+    if (!navigator.onLine) {
+      console.warn("Sem internet detetada. A saltar a API e a ir direto para o cache...");
+      carregarDadosOffline("Dispositivo offline.");
+      return; // Para a execução da função aqui
+    }
+
     try {
-      const response = await fetch(API_URL);
+      // Como tem internet, tenta ir ao GitHub com o quebrador de cache
+      const cacheBuster = `?t=${new Date().getTime()}`;
+      const response = await fetch(API_URL + cacheBuster, { cache: 'no-store' });
+      
       if (!response.ok) throw new Error('Servidor retornou código ' + response.status);
       
       const data = await response.json();
       
-      // Guarda uma cópia de segurança no telemóvel para funcionar offline depois
+      // Guarda a cópia mais fresca no telemóvel
       localStorage.setItem('cachedRosaryData', JSON.stringify(data));
       
       PRAYERS = data.prayers;
@@ -110,29 +121,33 @@ const RosaryApp = (() => {
       els.modalLoading.style.display = 'none';
       
     } catch (error) {
-      console.warn("Sem internet ou API indisponível. A tentar carregar modo offline...");
+      // Se tiver internet mas o GitHub estiver em baixo, tenta ler o cache na mesma
+      console.warn("Falha no fetch. A tentar carregar modo offline...");
+      carregarDadosOffline(error.message);
+    }
+  }
+
+  // NOVA FUNÇÃO AUXILIAR: Lê os dados locais se a net falhar
+  function carregarDadosOffline(mensagemErro) {
+    const cachedData = localStorage.getItem('cachedRosaryData');
+    
+    if (cachedData) {
+      const data = JSON.parse(cachedData);
+      PRAYERS = data.prayers;
+      MYSTERIES_DB = data.mysteries;
+      isDataLoaded = true;
+      els.modalLoading.style.display = 'none';
       
-      // Tenta recuperar os dados guardados localmente
-      const cachedData = localStorage.getItem('cachedRosaryData');
-      
-      if (cachedData) {
-        const data = JSON.parse(cachedData);
-        PRAYERS = data.prayers;
-        MYSTERIES_DB = data.mysteries;
-        isDataLoaded = true;
-        els.modalLoading.style.display = 'none';
-        
-        // Apresenta um aviso rápido de que está offline
-        const toast = document.getElementById("toast-message");
-        toast.innerText = "Modo Offline: A utilizar orações guardadas.";
-        toast.classList.add("show");
-        setTimeout(() => { toast.classList.remove("show"); }, 4000);
-      } else {
-        // Se der erro e NÃO houver cópia de segurança, aí sim mostra o erro
-        els.modalLoading.style.display = 'none';
-        els.modalError.style.display = 'flex';
-        els.apiErrorText.innerText = "Sem ligação e sem dados guardados. Detalhe: " + error.message;
-      }
+      // Apresenta o aviso de offline
+      const toast = document.getElementById("toast-message");
+      toast.innerText = "Modo Offline: A utilizar orações guardadas.";
+      toast.classList.add("show");
+      setTimeout(() => { toast.classList.remove("show"); }, 4000);
+    } else {
+      // Se não houver dados e não houver net, mostra o erro
+      els.modalLoading.style.display = 'none';
+      els.modalError.style.display = 'flex';
+      els.apiErrorText.innerText = "Sem ligação e sem dados guardados. Detalhe: " + mensagemErro;
     }
   }
 
