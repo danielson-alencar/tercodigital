@@ -1,7 +1,7 @@
 {
   "prayers": {
     "sinalCruz": "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém.",
-    "oferecimento": "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
+    "oferecimento": "Oh, senhor. Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
     "credo": "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
     "paiNosso": "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
     "aveMaria": "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
@@ -41,7 +41,7 @@
       ]
     },
     "luminosos": {
-      "name": "Mistérios Luminosos-TESTE",
+      "name": "Mistérios Luminosos",
       "decades": [
         { "t": "1º Mistério: O Batismo", "d": "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\nAssim que Jesus foi batizado, o céu se abriu, e viu o Espírito de Deus descer como pomba. E uma voz do céu disse: 'Este é o meu Filho amado'." },
         { "t": "2º Mistério: Bodas de Caná", "d": "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\nSua mãe disse aos serventes: 'Fazei tudo o que ele vos disser'. Jesus transformou a água em vinho, manifestando a sua glória e seus discípulos creram nele." },
