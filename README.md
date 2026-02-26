@@ -13,7 +13,7 @@ Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a ora√
   <a href="https://danielson-alencar.github.io/tercomariano/">
     <img src="https://img.shields.io/badge/Acessar_Web_App-Navegador-0078D4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Acessar Web App" />
   </a>
-  <a href="https://github.com/danielson-alencar/tercomariano/releases/download/v1.0/terco-mariano.apk">
+  <a href="https://github.com/danielson-alencar/tercomariano/releases/download/v2.0/app-releaseV2.apk">
     <img src="https://img.shields.io/badge/Download_APK-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Baixar APK" />
   </a>
 
