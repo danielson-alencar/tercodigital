@@ -18,6 +18,23 @@
 
 <body>
 
+  <div id="modal-loading" class="modal-overlay" style="display: flex;" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 300px;">
+      <h2 style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">A Conectar...</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">A sincronizar as orações</p>
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <div id="modal-error" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 320px;">
+      <h2 style="font-family: 'Cinzel'; color: #ff4b1f; margin-bottom: 15px;">Falha na Ligação</h2>
+      <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 10px;">Não foi possível comunicar com o servidor.</p>
+      <p id="api-error-text" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 25px; word-wrap: break-word;"></p>
+      <button onclick="window.location.reload()" class="modal-btn primary" style="width: 100%;">Tentar Novamente</button>
+    </div>
+  </div>
+
   <div id="modal-models" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-models">
     <div class="modal-content">
       <span id="model-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
@@ -43,7 +60,7 @@
     </div>
   </div>
 
-  <div id="modal-selection" class="modal-overlay" style="display: flex;" role="dialog" aria-modal="true" aria-labelledby="title-selection">
+  <div id="modal-selection" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-selection">
     <div class="modal-content">
       <h2 id="title-selection" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Bem-vindo</h2>
       <p style="color: var(--text-muted); font-size: 0.95rem;">O que vamos rezar hoje?</p>

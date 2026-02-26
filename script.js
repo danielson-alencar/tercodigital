@@ -1,60 +1,13 @@
 const RosaryApp = (() => {
   'use strict';
 
-  // Dicionário de orações
-  const PRAYERS = {
-    sinalCruz: "Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém.",
-    oferecimento: "Oferecimento: Divino Jesus, nós Vos oferecemos este terço que vamos rezar, meditando nos mistérios da Vossa Redenção. Concedei-nos as virtudes necessárias.",
-    credo: "Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria, padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai Todo-Poderoso, de onde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.",
-    paiNosso: "Pai Nosso que estais nos Céus, santificado seja o vosso Nome, venha a nós o vosso Reino, seja feita a vossa vontade assim na terra como no Céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do Mal. Amém.",
-    aveMaria: "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.",
-    gloria: "Glória ao Pai e ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém. \n\nJaculatória: Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.",
-    gracas: "Infinitas graças vos damos, Soberana Rainha, pelos benefícios que todos os dias recebemos de vossas mãos liberais. Dignai-vos agora e para sempre tomar-nos debaixo de vosso poderoso amparo e para mais vos obrigar, vos saudamos com uma Salve Rainha...",
-    salveRainha: "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria. V. Rogai por nós, Santa Mãe de Deus. R. Para que sejamos dignos das promessas de Cristo. Amém."
-  };
+  // COLOQUE AQUI O LINK DA SUA API OU ARQUIVO JSON
+  const API_URL = 'https://api.npoint.io/01197a90ec645ec50810'; 
 
-  const MYSTERIES_DB = {
-    gozosos: {
-      name: "Mistérios Gozosos",
-      decades: [
-        { t: "1º Mistério: A Anunciação", d: "No primeiro mistério contemplamos a Anunciação do Arcanjo Gabriel à Nossa Senhora.\n\nDisse-lhe o anjo: 'Ave, cheia de graça, o Senhor é contigo'. E Maria respondeu: 'Eis aqui a serva do Senhor, faça-se em mim segundo a tua palavra'." },
-        { t: "2º Mistério: A Visitação", d: "No segundo mistério contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.\n\nMaria foi apressadamente às montanhas. Entrou em casa de Zacarias e saudou Isabel, que ficou cheia do Espírito Santo e exclamou: 'Bendita és tu entre as mulheres'." },
-        { t: "3º Mistério: O Nascimento", d: "No terceiro mistério contemplamos o Nascimento de Jesus em Belém.\n\nE deu à luz seu filho primogênito, e envolveu-o em panos, e deitou-o numa manjedoura, porque não havia lugar para eles na estalagem." },
-        { t: "4º Mistério: A Apresentação", d: "No quarto mistério contemplamos a Apresentação do Menino Jesus no Templo.\n\nLevaram o menino a Jerusalém para o apresentarem ao Senhor, como está escrito na Lei. Simeão tomou-o nos braços e louvou a Deus." },
-        { t: "5º Mistério: O Encontro", d: "No quinto mistério contemplamos o Encontro de Jesus no Templo.\n\nApós três dias de procura, encontraram-no no templo, sentado no meio dos doutores, ouvindo-os e interrogando-os." }
-      ]
-    },
-    dolorosos: {
-      name: "Mistérios Dolorosos",
-      decades: [
-        { t: "1º Mistério: A Agonia", d: "No primeiro mistério contemplamos a Agonia de Jesus no Horto das Oliveiras.\n\nJesus orou: 'Pai, se é do teu agrado, afasta de mim este cálice; contudo, não se faça a minha vontade, mas a tua'. E seu suor tornou-se como gotas de sangue." },
-        { t: "2º Mistério: A Flagelação", d: "No segundo mistério contemplamos a Flagelação de Nosso Senhor Jesus Cristo.\n\nPilatos, querendo satisfazer a multidão, soltou-lhes Barrabás; e, depois de mandar flagelar Jesus, entregou-o para ser crucificado." },
-        { t: "3º Mistério: A Coroação", d: "No terceiro mistério contemplamos a Coroação de Espinhos.\n\nOs soldados teceram uma coroa de espinhos, puseram-na sobre a sua cabeça e vestiram-no com um manto de púrpura, zombando dele: 'Salve, Rei dos Judeus!'." },
-        { t: "4º Mistério: O Caminho", d: "No quarto mistério contemplamos Jesus a caminho do Calvário carregando a Cruz.\n\nE ele, carregando a sua própria cruz, saiu para o lugar chamado Calvário, onde o crucificaram." },
-        { t: "5º Mistério: A Crucificação", d: "No quinto mistério contemplamos a Crucificação e Morte de Jesus.\n\nJesus disse: 'Pai, nas tuas mãos entrego o meu espírito'. E, havendo dito isto, expirou." }
-      ]
-    },
-    gloriosos: {
-      name: "Mistérios Gloriosos",
-      decades: [
-        { t: "1º Mistério: A Ressurreição", d: "No primeiro mistério contemplamos a Ressurreição de Jesus Cristo.\n\nO anjo disse às mulheres: 'Não tenhais medo. Sei que buscais Jesus, o crucificado. Ele não está aqui; ressuscitou, como havia dito'." },
-        { t: "2º Mistério: A Ascensão", d: "No segundo mistério contemplamos a Ascensão de Jesus ao Céu.\n\nEnquanto os abençoava, afastou-se deles e foi elevado ao céu. E eles o adoraram e voltaram para Jerusalém com grande alegria." },
-        { t: "3º Mistério: Pentecostes", d: "No terceiro mistério contemplamos a Vinda do Espírito Santo sobre os Apóstolos.\n\nFicaram todos cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito lhes concedia que falassem." },
-        { t: "4º Mistério: A Assunção", d: "No quarto mistério contemplamos a Assunção de Nossa Senhora ao Céu.\n\nFez-se em mim grandes coisas o Todo-Poderoso. Maria é elevada ao céu em corpo e alma, como primícia da glória a que todos somos chamados." },
-        { t: "5º Mistério: A Coroação", d: "No quinto mistério contemplamos a Coroação de Maria como Rainha do Céu e da Terra.\n\nApareceu no céu um grande sinal: uma mulher vestida de sol, com a lua debaixo dos pés e uma coroa de doze estrelas na cabeça." }
-      ]
-    },
-    luminosos: {
-      name: "Mistérios Luminosos",
-      decades: [
-        { t: "1º Mistério: O Batismo", d: "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\nAssim que Jesus foi batizado, o céu se abriu, e viu o Espírito de Deus descer como pomba. E uma voz do céu disse: 'Este é o meu Filho amado'." },
-        { t: "2º Mistério: Bodas de Caná", d: "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\nSua mãe disse aos serventes: 'Fazei tudo o que ele vos disser'. Jesus transformou a água em vinho, manifestando a sua glória e seus discípulos creram nele." },
-        { t: "3º Mistério: O Reino", d: "No terceiro mistério contemplamos o Anúncio do Reino de Deus e o convite à conversão.\n\nJesus pregava: 'O tempo completou-se e o Reino de Deus está próximo. Arrependei-vos e crede no Evangelho'." },
-        { t: "4º Mistério: A Transfiguração", d: "No quarto mistério contemplamos a Transfiguração de Jesus no Monte Tabor.\n\nSeu rosto brilhou como o sol e suas vestes tornaram-se brancas como a luz. Da nuvem saiu uma voz: 'Este é o meu Filho amado, ouvi-o'." },
-        { t: "5º Mistério: A Eucaristia", d: "No quinto mistério contemplamos a Instituição da Eucaristia.\n\nJesus tomou o pão e disse: 'Tomai e comei, isto é o meu corpo'. E o cálice: 'Bebei dele todos, pois isto é o meu sangue da nova aliança'." }
-      ]
-    }
-  };
+  // Variáveis vazias que serão preenchidas pela API
+  let PRAYERS = {};
+  let MYSTERIES_DB = {};
+  let isDataLoaded = false;
 
   const MODELS = {
     classico: { s: ['#00c6ff', '#002244'], l: ['#ff4b1f', '#660000'] },
@@ -71,7 +24,7 @@ const RosaryApp = (() => {
   const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
   const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
 
-  function init() {
+  async function init() {
     els = {
       container: document.querySelector('.app-container'),
       rosaryPane: document.getElementById('rosary-pane'),
@@ -105,7 +58,10 @@ const RosaryApp = (() => {
       fontMinus: document.getElementById('btn-font-minus'),
       fontPlus: document.getElementById('btn-font-plus'),
       fontClose: document.getElementById('font-close'),
-      fontSizeDisplay: document.getElementById('font-size-display')
+      fontSizeDisplay: document.getElementById('font-size-display'),
+      modalLoading: document.getElementById('modal-loading'),
+      modalError: document.getElementById('modal-error'),
+      apiErrorText: document.getElementById('api-error-text')
     };
 
     setupTheme(); setupModals();
@@ -113,7 +69,7 @@ const RosaryApp = (() => {
     setupEvents();
     setupKeyboard();
 
-    // Recuperar e aplicar tamanho da fonte salvo
+    // Recuperar preferências salvas
     const savedFont = localStorage.getItem('prayerFontSize');
     if (savedFont) {
       currentFontSize = parseFloat(savedFont);
@@ -121,11 +77,63 @@ const RosaryApp = (() => {
     }
     if (els.fontSizeDisplay) els.fontSizeDisplay.innerText = currentFontSize.toFixed(1) + 'x';
 
-    checkSavedProgress();
+    // Carregar dados da API antes de inicializar a oração
+    await fetchDataFromAPI();
+
+    // Só carrega o progresso e mostra a seleção se a API retornar com sucesso
+    if (isDataLoaded) {
+      checkSavedProgress();
+    }
+
     requestWakeLock();
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') requestWakeLock();
     });
+  }
+
+
+// Função para buscar os dados na API com suporte OFFLINE
+  async function fetchDataFromAPI() {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error('Servidor retornou código ' + response.status);
+      
+      const data = await response.json();
+      
+      // Guarda uma cópia de segurança no telemóvel para funcionar offline depois
+      localStorage.setItem('cachedRosaryData', JSON.stringify(data));
+      
+      PRAYERS = data.prayers;
+      MYSTERIES_DB = data.mysteries;
+      isDataLoaded = true;
+      
+      els.modalLoading.style.display = 'none';
+      
+    } catch (error) {
+      console.warn("Sem internet ou API indisponível. A tentar carregar modo offline...");
+      
+      // Tenta recuperar os dados guardados localmente
+      const cachedData = localStorage.getItem('cachedRosaryData');
+      
+      if (cachedData) {
+        const data = JSON.parse(cachedData);
+        PRAYERS = data.prayers;
+        MYSTERIES_DB = data.mysteries;
+        isDataLoaded = true;
+        els.modalLoading.style.display = 'none';
+        
+        // Apresenta um aviso rápido de que está offline
+        const toast = document.getElementById("toast-message");
+        toast.innerText = "Modo Offline: A utilizar orações guardadas.";
+        toast.classList.add("show");
+        setTimeout(() => { toast.classList.remove("show"); }, 4000);
+      } else {
+        // Se der erro e NÃO houver cópia de segurança, aí sim mostra o erro
+        els.modalLoading.style.display = 'none';
+        els.modalError.style.display = 'flex';
+        els.apiErrorText.innerText = "Sem ligação e sem dados guardados. Detalhe: " + error.message;
+      }
+    }
   }
 
   async function requestWakeLock() {
@@ -136,13 +144,19 @@ const RosaryApp = (() => {
 
   function checkSavedProgress() {
     const saved = localStorage.getItem('tercoProgress');
+    
+    // Mostra ou esconde o botão de retomar
     if (saved) {
-      const data = JSON.parse(saved);
       els.btnResume.style.display = 'flex';
-      loadMystery(data.type || 'auto');
     } else {
-      loadMystery('auto');
+      els.btnResume.style.display = 'none';
     }
+    
+    // Apresenta a seleção inicial
+    els.modalSelection.style.display = 'flex';
+    
+    const typeToLoad = saved ? JSON.parse(saved).type || 'auto' : 'auto';
+    loadMystery(typeToLoad);
   }
 
   function saveProgress() {
@@ -168,6 +182,7 @@ const RosaryApp = (() => {
   function vibrate() { if (navigator.vibrate) navigator.vibrate(12); }
 
   function startWith(type) {
+    if (!isDataLoaded) return; // Impede iniciar se a API falhou
     currentMysteryType = type;
     loadMystery(type);
     els.modalSelection.style.display = 'none';
@@ -236,15 +251,13 @@ const RosaryApp = (() => {
     document.getElementById('model-close').onclick = () => closeModal(els.modalModels);
     els.modalModels.onclick = (e) => { if (e.target == els.modalModels) closeModal(els.modalModels); }
 
-    // Toggle do painel flutuante de fonte
     els.fontBtn.onclick = () => {
       els.fontPanel.style.display = (els.fontPanel.style.display === 'flex') ? 'none' : 'flex';
     };
     els.fontClose.onclick = () => els.fontPanel.style.display = 'none';
 
-    // Fecha o painel de fonte ao clicar fora dele
     document.addEventListener('click', (e) => {
-      if (els.fontPanel.style.display === 'flex') {
+      if (els.fontPanel && els.fontPanel.style.display === 'flex') {
         if (!els.fontPanel.contains(e.target) && !els.fontBtn.contains(e.target)) {
           els.fontPanel.style.display = 'none';
         }
@@ -293,7 +306,7 @@ const RosaryApp = (() => {
         els.modalAbout.style.display = 'none'; 
         els.modalModels.style.display = 'none'; 
         els.modalRestart.style.display = 'none'; 
-        els.fontPanel.style.display = 'none';
+        if (els.fontPanel) els.fontPanel.style.display = 'none';
         if (currentStep >= 0) els.modalSelection.style.display = 'none';
       }
       if (els.modalAbout.style.display === 'flex' || els.modalModels.style.display === 'flex' || els.modalRestart.style.display === 'flex' || els.modalSelection.style.display === 'flex') return;
@@ -436,5 +449,16 @@ function copyPix() {
     const toast = document.getElementById("toast-message");
     toast.classList.add("show");
     setTimeout(() => { toast.classList.remove("show"); }, 3000);
+  });
+}
+
+// Registo do Service Worker para cache dos ficheiros (HTML, CSS, JS)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(registration => {
+      console.log('Service Worker registado com sucesso!', registration.scope);
+    }).catch(err => {
+      console.log('Falha ao registar o Service Worker:', err);
+    });
   });
 }
