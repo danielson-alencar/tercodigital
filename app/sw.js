@@ -1,8 +1,9 @@
 const CACHE_NAME = 'terco-digital-v2';
 const ASSETS_TO_CACHE = [
-  './index.html',
-  './style.css',
-  './script.js',
+  './app/index.html',
+  './app/app.html',
+  './app/style.css',
+  './app/script.js',
   './manifest.json'
 ];
 

@@ -1,307 +1,204 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terço Digital Mariano - O Seu Companheiro de Oração</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Terço Digital</title>
+  
+  <link rel="manifest" href="./manifest.json">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg-color: #050505;
-      --bg-gradient: radial-gradient(circle at top right, #1a1f25 0%, #000000 100%);
-      --text-main: #f0f0f0;
-      --text-gold: #D4AF37;
-      --text-muted: #a0a0a0;
-      --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
-      --card-bg: rgba(20, 20, 20, 0.8);
-      --border-color: rgba(212, 175, 55, 0.2);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--bg-color);
-      background-image: var(--bg-gradient);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Cinzel', serif;
-      font-weight: 600;
-    }
-
-    /* CONTAINER PRINCIPAL */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* HERO SECTION (Topo) */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-    }
-
-    .hero-badge {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--text-gold);
-      color: var(--text-gold);
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-      animation: fadeInDown 1s ease-out;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      color: var(--text-gold);
-      margin-bottom: 20px;
-      line-height: 1.1;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    .hero p {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      color: var(--text-muted);
-      max-width: 600px;
-      margin-bottom: 40px;
-      animation: fadeInUp 1.2s ease-out;
-    }
-
-    /* BOTÕES CTA */
-    .cta-group {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeInUp 1.4s ease-out;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-      background: var(--btn-gradient);
-      color: #000;
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-main);
-      border: 2px solid var(--border-color);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--text-gold);
-      background: rgba(212, 175, 55, 0.05);
-      transform: translateY(-3px);
-    }
-
-    /* FUNCIONALIDADES */
-    .features {
-      padding: 80px 0;
-      background: rgba(0, 0, 0, 0.6);
-      border-top: 1px solid var(--border-color);
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      color: var(--text-gold);
-      margin-bottom: 60px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 40px 30px;
-      border-radius: 20px;
-      text-align: center;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--text-gold);
-    }
-
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px auto;
-      color: var(--text-gold);
-    }
-
-    .feature-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: var(--text-main);
-    }
-
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid var(--border-color);
-      margin-top: 40px;
-    }
-
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    footer span {
-      color: var(--text-gold);
-      font-family: 'Cinzel', serif;
-    }
-
-    /* ANIMAÇÕES */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SVGs INLINE */
-    svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <section class="hero">
-    <div class="hero-badge">App Gratuito e Sem Anúncios</div>
-    <h1>Terço Digital<br>Mariano</h1>
-    <p>A tradição católica unida à tecnologia. Guie sua oração diária de forma intuitiva, com acompanhamento visual e passagens biblicas.</p>
-    
-    <div class="cta-group">
-      <a href="https://github.com/danielson-alencar/tercomariano/releases/download/v2.0/app-release-v2.apk" class="btn btn-primary">
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Baixar App (Android)
-      </a>
-      
-      <a href="https://danielson-alencar.github.io/tercomariano/" class="btn btn-secondary" target="_blank">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        Acessar no Navegador
-      </a>
+  <div id="modal-loading" class="modal-overlay" style="display: flex;" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 300px;">
+      <h2 style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">A Conectar...</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">A sincronizar as orações</p>
+      <div class="loading-spinner"></div>
     </div>
-  </section>
+  </div>
 
-  <section class="features">
-    <div class="container">
-      <h2 class="section-title">Por que usar o Terço Digital?</h2>
-      
-      <div class="features-grid">
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          </div>
-          <h3>Textos Oficiais da Igreja Católica</h3>
-          <p>Medite com as passagens bíblicas exatas e orações tradicionais da tradução oficial da Igreja Católica no Brasil.</p>
+  <div id="modal-error" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 320px;">
+      <h2 style="font-family: 'Cinzel'; color: #ff4b1f; margin-bottom: 15px;">Falha na Ligação</h2>
+      <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 10px;">Não foi possível comunicar com o servidor.</p>
+      <p id="api-error-text" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 25px; word-wrap: break-word;"></p>
+      <button onclick="window.location.reload()" class="modal-btn primary" style="width: 100%;">Tentar Novamente</button>
+    </div>
+  </div>
+
+  <div id="modal-models" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-models">
+    <div class="modal-content">
+      <span id="model-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
+      <h2 id="title-models" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Estilo do Terço</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Escolha a cor das contas</p>
+      <div class="models-grid">
+        <div class="model-option" onclick="RosaryApp.changeModel('classico')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #00c6ff, #002244)"></div><span class="model-name">Clássico (Azul)</span>
         </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24"><path d="M1 1zM23 1zM1 23zM23 23z"></path><path d="M19 5.5A4.5 4.5 0 0 0 14.5 1h-5A4.5 4.5 0 0 0 5 5.5v13A4.5 4.5 0 0 0 9.5 23h5a4.5 4.5 0 0 0 4.5-4.5v-13z"></path><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-          </div>
-          <h3>100% Offline</h3>
-          <p>O aplicativo baixa as orações automaticamente. Depois disso, você pode rezar em qualquer lugar, mesmo sem internet.</p>
+        <div class="model-option" onclick="RosaryApp.changeModel('perola')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #fcfcfc, #b0b0b0)"></div><span class="model-name">Pérola Mariana</span>
         </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </div>
-          <h3>Salva o Progresso</h3>
-          <p>Precisou parar? O app guarda exatamente em qual conta e mistério você parou para continuar mais tarde.</p>
+        <div class="model-option" onclick="RosaryApp.changeModel('madeira')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #deb887, #8b4513)"></div><span class="model-name">Madeira Rústica</span>
         </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          </div>
-          <h3>Personalização</h3>
-          <p>Altere o tamanho da fonte, escolha entre Modo Claro ou Escuro e selecione entre 5 estilos de terços diferentes.</p>
+        <div class="model-option" onclick="RosaryApp.changeModel('rosa')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #ffb6c1, #ff69b4)"></div><span class="model-name">Rosa Místico</span>
         </div>
-
+        <div class="model-option" onclick="RosaryApp.changeModel('noturno')" role="button" tabindex="0">
+          <div class="model-preview" style="background: linear-gradient(135deg, #7f8c8d, #2c3e50)"></div><span class="model-name">Noturno</span>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <footer>
-    <div class="container">
-      <p>Desenvolvido com Fé por <span>Danielson Alencar</span> &copy; 2026</p>
-      <p style="margin-top: 10px; font-size: 0.8rem;">O Terço Digital é um projeto sem fins lucrativos e de código aberto.</p>
+  <div id="modal-selection" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-selection">
+    <div class="modal-content">
+      <h2 id="title-selection" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 5px;">Bem-vindo</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">O que vamos rezar hoje?</p>
+      <div class="selection-grid">
+        <button id="btn-resume" class="select-btn primary full-width" style="display: none;" onclick="RosaryApp.resumeProgress()">CONTINUAR DE ONDE PAROU<small>Retomar Oração</small></button>
+        <button class="select-btn primary full-width" onclick="RosaryApp.startWith('auto')">MISTÉRIO DO DIA<small>Automático</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('gozosos')">GOZOSOS<small>Segunda e Sábado</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('dolorosos')">DOLOROSOS<small>Terça e Sexta</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('gloriosos')">GLORIOSOS<small>Quarta e Domingo</small></button>
+        <button class="select-btn" onclick="RosaryApp.startWith('luminosos')">LUMINOSOS<small>Quinta-feira</small></button>
+      </div>
     </div>
-  </footer>
+  </div>
 
+  <div id="modal-about" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-about">
+    <div class="modal-content">
+      <span id="about-close" class="modal-close" aria-label="Fechar" tabindex="0">&times;</span>
+      <h2 id="title-about" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 15px;">Sobre o Aplicativo</h2>
+      <p style="font-size: 1rem; line-height: 1.6; color: var(--text-main);">O Terço Digital une a beleza da tradição católica com a facilidade da tecnologia moderna para guiar sua fé diária.</p>
+      <div style="margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 15px; border: 1px dashed var(--text-gold);">
+        <h3 style="font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px;">Apoie o Projeto</h3>
+        <p style="font-size: 0.9rem; margin-bottom: 15px;">Sua doação ajuda a manter este app gratuito.</p>
+        <code id="pix-key" style="display: block; background: #000; padding: 12px; border-radius: 8px; color: var(--text-gold); font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 1px; user-select: text;">danielson150@gmail.com</code>
+        <button onclick="copyPix()" style="padding: 12px 24px; background: var(--text-gold); color: #000; font-weight: bold; border: none; cursor: pointer; border-radius: 8px; width: auto; font-size: 0.9rem;">Copiar Chave PIX</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Versão 2.8 | Desenvolvido com Fé</p>
+    </div>
+  </div>
+
+  <div id="modal-restart" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="title-restart">
+    <div class="modal-content" style="max-width: 320px;">
+      <h2 id="title-restart" style="font-family: 'Cinzel'; color: var(--text-gold); margin-bottom: 10px;">Terço Concluído</h2>
+      <p style="color: var(--text-main); margin-bottom: 25px;">O que você deseja fazer agora?</p>
+      <div class="modal-actions" style="flex-direction: column; gap: 12px;">
+        <button id="btn-finish-home" class="modal-btn primary" style="width: 100%;">Tela Inicial</button>
+        <button id="btn-finish-restart" class="modal-btn secondary" style="width: 100%;">Reiniciar Terço</button>
+        <button id="btn-finish-cancel" class="modal-btn secondary" style="width: 100%; border: none; background: transparent; color: var(--text-muted);">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-message" class="toast-notification">Chave PIX copiada com sucesso!</div>
+
+  <div class="app-container" id="app-container">
+    
+    <header class="top-bar">
+      <div class="top-bar-group">
+        <button id="about-toggle" class="top-btn" aria-label="Sobre o Aplicativo">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
+        <button id="model-toggle" class="top-btn" aria-label="Personalizar Aparência">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.88 0 1.65-.24 2.32-.67a3 3 0 0 0 .68-4.13 1 1 0 0 1-.22-.58 1 1 0 0 1 1-1h1.72a4.5 4.5 0 0 0 4.5-4.5V11c0-5-4.03-9-9-9zM7.5 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path></svg>
+        </button>
+      </div>
+      <div class="top-bar-group">
+        <button id="font-toggle" class="top-btn" aria-label="Tamanho do Texto">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 14h-5"></path>
+            <path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"></path>
+            <path d="M4.5 13h6"></path>
+            <path d="M3 16l4.5-9 4.5 9"></path>
+          </svg>
+        </button>
+        <button id="menu-toggle" class="top-btn" aria-label="Menu de Mistérios">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </button>
+        <button id="theme-toggle" class="top-btn" aria-label="Alternar Tema Claro/Escuro">
+          <svg id="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="font-control-panel" class="floating-panel">
+      <button id="btn-font-minus" class="action-btn circle-btn">-A</button>
+      <span id="font-size-display" class="font-display">1.2x</span>
+      <button id="btn-font-plus" class="action-btn circle-btn">+A</button>
+      <div id="font-close" class="panel-close" aria-label="Fechar" tabindex="0">&times;</div>
+    </div>
+
+    <section class="rosary-section" id="rosary-pane" aria-hidden="true">
+      <div class="rosary-svg-container">
+        <svg id="rosary-svg" viewBox="0 -40 360 540" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="grad-bead-small" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
+              <stop id="stop-small-1" offset="0%" stop-color="#00c6ff" />
+              <stop id="stop-small-2" offset="100%" stop-color="#002244" />
+            </radialGradient>
+            <radialGradient id="grad-bead-large" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
+              <stop id="stop-large-1" offset="0%" stop-color="#ff4b1f" />
+              <stop id="stop-large-2" offset="100%" stop-color="#660000" />
+            </radialGradient>
+            <linearGradient id="grad-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#cbb35a" />
+              <stop offset="100%" stop-color="#745c1b" />
+            </linearGradient>
+            <radialGradient id="grad-active" cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="#fffde7" />
+              <stop offset="100%" stop-color="#b8860b" />
+            </radialGradient>
+          </defs>
+          <path id="rosary-string" class="string-line" d="" />
+        </svg>
+      </div>
+    </section>
+
+    <section class="text-section" id="text-pane">
+      <div class="progress-area" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar-container">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <span id="progress-text" class="progress-text">0%</span>
+      </div>
+      <div class="header-info">
+        <div id="date-display" class="date-badge">...</div>
+        <h2 id="mystery-display" class="mystery-title">Carregando...</h2>
+        <div id="label-display" class="bead-label">Início</div>
+      </div>
+
+      <div id="prayer-scroll-area" class="prayer-content">
+        <div id="text-display" class="prayer-text" role="region" aria-live="polite"></div>
+      </div>
+
+      <div class="controls-area">
+        <div class="btn-group">
+          <button id="btn-prev" class="nav-btn secondary-btn" aria-label="Voltar Oração" style="display: none;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <span>Voltar</span>
+          </button>
+          <button id="btn-next" class="nav-btn primary-btn" aria-label="Avançar Oração">
+            <span id="btn-next-text">Iniciar</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>

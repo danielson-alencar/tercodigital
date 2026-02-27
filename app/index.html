@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terço Digital Mariano - O Seu Companheiro de Oração</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #050505;
+      --bg-gradient: radial-gradient(circle at top right, #1a1f25 0%, #000000 100%);
+      --text-main: #f0f0f0;
+      --text-gold: #D4AF37;
+      --text-muted: #a0a0a0;
+      --btn-gradient: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg-color);
+      background-image: var(--bg-gradient);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HERO SECTION (Topo) */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+
+    .hero-badge {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--text-gold);
+      color: var(--text-gold);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      color: var(--text-gold);
+      margin-bottom: 20px;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 40px;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    /* BOTÕES CTA */
+    .cta-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--btn-gradient);
+      color: #000;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 2px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-gold);
+      background: rgba(212, 175, 55, 0.05);
+      transform: translateY(-3px);
+    }
+
+    /* FUNCIONALIDADES */
+    .features {
+      padding: 80px 0;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--text-gold);
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--text-gold);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      color: var(--text-gold);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--text-main);
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer span {
+      color: var(--text-gold);
+      font-family: 'Cinzel', serif;
+    }
+
+    /* ANIMAÇÕES */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SVGs INLINE */
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-badge">App Gratuito e Sem Anúncios</div>
+    <h1>Terço Digital<br>Mariano</h1>
+    <p>A tradição católica unida à tecnologia. Guie sua oração diária de forma intuitiva, com acompanhamento visual e passagens biblicas.</p>
+    
+    <div class="cta-group">
+      <a href="https://github.com/danielson-alencar/tercodigital/releases/download/v2.0/app-release-v2.apk" class="btn btn-primary">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Baixar App (Android)
+      </a>
+      
+      <a href="https://danielson-alencar.github.io/tercodigital/" class="btn btn-secondary" target="_blank">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        Acessar no Navegador
+      </a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Por que usar o Terço Digital?</h2>
+      
+      <div class="features-grid">
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Textos Oficiais da Igreja Católica</h3>
+          <p>Medite com as passagens bíblicas exatas e orações tradicionais da tradução oficial da Igreja Católica no Brasil.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 1zM23 1zM1 23zM23 23z"></path><path d="M19 5.5A4.5 4.5 0 0 0 14.5 1h-5A4.5 4.5 0 0 0 5 5.5v13A4.5 4.5 0 0 0 9.5 23h5a4.5 4.5 0 0 0 4.5-4.5v-13z"></path><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h3>100% Offline</h3>
+          <p>O aplicativo baixa as orações automaticamente. Depois disso, você pode rezar em qualquer lugar, mesmo sem internet.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>Salva o Progresso</h3>
+          <p>Precisou parar? O app guarda exatamente em qual conta e mistério você parou para continuar mais tarde.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </div>
+          <h3>Personalização</h3>
+          <p>Altere o tamanho da fonte, escolha entre Modo Claro ou Escuro e selecione entre 5 estilos de terços diferentes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Desenvolvido com Fé por <span>Danielson Alencar</span> &copy; 2026</p>
+      <p style="margin-top: 10px; font-size: 0.8rem;">O Terço Digital é um projeto sem fins lucrativos e de código aberto.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

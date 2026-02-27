@@ -1,7 +1,7 @@
 const RosaryApp = (() => {
   'use strict';
 
-  const API_URL = 'https://raw.githubusercontent.com/danielson-alencar/tercomariano/refs/heads/main/api.json'; 
+  const API_URL = 'https://raw.githubusercontent.com/danielson-alencar/tercodigital/refs/heads/main/api.json'; 
 
   let PRAYERS = {};
   let MYSTERIES_DB = {};
