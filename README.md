@@ -49,7 +49,7 @@ O Terço Digital foi pensado para oferecer a melhor experiência durante a oraç
 
 Para manter o código limpo e permitir atualizações fáceis, o aplicativo consome todos os textos através de um arquivo próprio: o **`api.json`**.
 
-* **Textos Oficiais da Igreja:** O JSON contém todas as orações fixas e as passagens bíblicas de cada mistério utilizando a tradução oficial da **CNBB**.
+* **Textos Oficiais da Igreja:** O JSON contém todas as orações fixas e as passagens bíblicas de cada mistério.
 * **Manutenção Desacoplada:** A separação entre a Lógica (JS) e os Dados (JSON) permite corrigir eventuais erros de texto ou adicionar novas jaculatórias sem precisar alterar a estrutura principal do aplicativo.
 * **Cache Inteligente:** Ao acessar o app com internet, o JavaScript faz o *fetch* da versão mais atualizada do `api.json` no GitHub e salva no `localStorage`. Em acessos futuros sem conexão, o sistema ignora a requisição web e carrega os dados locais instantaneamente.
 
