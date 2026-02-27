@@ -1,10 +1,8 @@
 const RosaryApp = (() => {
   'use strict';
 
-  // COLOQUE AQUI O LINK DA SUA API OU ARQUIVO JSON
   const API_URL = 'https://raw.githubusercontent.com/danielson-alencar/tercomariano/refs/heads/main/api.json'; 
 
-  // Variáveis vazias que serão preenchidas pela API
   let PRAYERS = {};
   let MYSTERIES_DB = {};
   let isDataLoaded = false;
@@ -37,8 +35,12 @@ const RosaryApp = (() => {
       scroll: document.getElementById('prayer-scroll-area'),
       progress: document.getElementById('progress-fill'),
       progressText: document.getElementById('progress-text'),
+      
+      // NOVA LIGAÇÃO DOS BOTÕES
       btnNext: document.getElementById('btn-next'),
+      btnNextText: document.getElementById('btn-next-text'),
       btnPrev: document.getElementById('btn-prev'),
+      
       themeBtn: document.getElementById('theme-toggle'),
       themeIcon: document.getElementById('theme-icon'),
       menuBtn: document.getElementById('menu-toggle'),
@@ -69,7 +71,6 @@ const RosaryApp = (() => {
     setupEvents();
     setupKeyboard();
 
-    // Recuperar preferências salvas
     const savedFont = localStorage.getItem('prayerFontSize');
     if (savedFont) {
       currentFontSize = parseFloat(savedFont);
@@ -77,10 +78,8 @@ const RosaryApp = (() => {
     }
     if (els.fontSizeDisplay) els.fontSizeDisplay.innerText = currentFontSize.toFixed(1) + 'x';
 
-    // Carregar dados da API antes de inicializar a oração
     await fetchDataFromAPI();
 
-    // Só carrega o progresso e mostra a seleção se a API retornar com sucesso
     if (isDataLoaded) {
       checkSavedProgress();
     }
@@ -91,19 +90,14 @@ const RosaryApp = (() => {
     });
   }
 
-
-// Função para buscar os dados na API com suporte OFFLINE anti-bloqueio
   async function fetchDataFromAPI() {
-    // TRUQUE: Verifica imediatamente se o dispositivo está offline
-    // Se estiver offline, nem tenta fazer o fetch para não irritar o WebIntoApp!
     if (!navigator.onLine) {
       console.warn("Sem internet detetada. A saltar a API e a ir direto para o cache...");
       carregarDadosOffline("Dispositivo offline.");
-      return; // Para a execução da função aqui
+      return; 
     }
 
     try {
-      // Como tem internet, tenta ir ao GitHub com o quebrador de cache
       const cacheBuster = `?t=${new Date().getTime()}`;
       const response = await fetch(API_URL + cacheBuster, { cache: 'no-store' });
       
@@ -111,7 +105,6 @@ const RosaryApp = (() => {
       
       const data = await response.json();
       
-      // Guarda a cópia mais fresca no telemóvel
       localStorage.setItem('cachedRosaryData', JSON.stringify(data));
       
       PRAYERS = data.prayers;
@@ -121,13 +114,11 @@ const RosaryApp = (() => {
       els.modalLoading.style.display = 'none';
       
     } catch (error) {
-      // Se tiver internet mas o GitHub estiver em baixo, tenta ler o cache na mesma
       console.warn("Falha no fetch. A tentar carregar modo offline...");
       carregarDadosOffline(error.message);
     }
   }
 
-  // NOVA FUNÇÃO AUXILIAR: Lê os dados locais se a net falhar
   function carregarDadosOffline(mensagemErro) {
     const cachedData = localStorage.getItem('cachedRosaryData');
     
@@ -138,13 +129,11 @@ const RosaryApp = (() => {
       isDataLoaded = true;
       els.modalLoading.style.display = 'none';
       
-      // Apresenta o aviso de offline
       const toast = document.getElementById("toast-message");
       toast.innerText = "Modo Offline: A utilizar orações guardadas.";
       toast.classList.add("show");
       setTimeout(() => { toast.classList.remove("show"); }, 4000);
     } else {
-      // Se não houver dados e não houver net, mostra o erro
       els.modalLoading.style.display = 'none';
       els.modalError.style.display = 'flex';
       els.apiErrorText.innerText = "Sem ligação e sem dados guardados. Detalhe: " + mensagemErro;
@@ -160,14 +149,12 @@ const RosaryApp = (() => {
   function checkSavedProgress() {
     const saved = localStorage.getItem('tercoProgress');
     
-    // Mostra ou esconde o botão de retomar
     if (saved) {
       els.btnResume.style.display = 'flex';
     } else {
       els.btnResume.style.display = 'none';
     }
     
-    // Apresenta a seleção inicial
     els.modalSelection.style.display = 'flex';
     
     const typeToLoad = saved ? JSON.parse(saved).type || 'auto' : 'auto';
@@ -197,7 +184,7 @@ const RosaryApp = (() => {
   function vibrate() { if (navigator.vibrate) navigator.vibrate(12); }
 
   function startWith(type) {
-    if (!isDataLoaded) return; // Impede iniciar se a API falhou
+    if (!isDataLoaded) return; 
     currentMysteryType = type;
     loadMystery(type);
     els.modalSelection.style.display = 'none';
@@ -331,18 +318,44 @@ const RosaryApp = (() => {
   }
 
   function drawRosaryGeometry() {
-    const cx = 150, cy = 180, r = 135;
-    const medalY = cy + r;
-    const tailCoords = [{ x: 150, y: 515 }, { x: 150, y: 465 }, { x: 150, y: 430 }, { x: 150, y: 405 }, { x: 150, y: 380 }, { x: 150, y: 345 }];
-    let pathD = `M 150 515 L 150 ${medalY + 16}`;
+    const cx = 180, cy = 135, r = 145; 
+    const medalY = 280; 
+    
+    const tailCoords = [
+      { x: 180, y: 450 }, 
+      { x: 180, y: 410 }, 
+      { x: 180, y: 385 }, 
+      { x: 180, y: 360 }, 
+      { x: 180, y: 335 }, 
+      { x: 180, y: 310 }  
+    ];
+    
+    let pathD = `M 180 450 L 180 280 `;
+    
     createBeadElement(tailCoords[0].x, tailCoords[0].y, 0);
-    for (let i = 1; i < tailCoords.length; i++) createBeadElement(tailCoords[i].x, tailCoords[i].y, (i === 1 || i === 5) ? 1 : 2);
-    for (let i = 0; i < 54; i++) {
-      const deg = 102.5 + ((360 - 25) / 53 * i);
-      const rad = deg * (Math.PI / 180);
-      createBeadElement(cx - r * Math.cos(rad), cy + r * Math.sin(rad), ((i + 1) % 11 === 0) ? 1 : 2);
+    for (let i = 1; i < tailCoords.length; i++) {
+      createBeadElement(tailCoords[i].x, tailCoords[i].y, (i === 1 || i === 5) ? 1 : 2);
     }
-    createBeadElement(150, medalY, 0, true);
+    
+    let loopPath = "";
+    for (let i = 0; i < 54; i++) {
+      const deg = 75 - ((360 - 30) / 53 * i);
+      const rad = deg * (Math.PI / 180);
+      
+      const bx = cx + r * Math.cos(rad);
+      const by = cy + r * Math.sin(rad);
+      
+      createBeadElement(bx, by, ((i + 1) % 11 === 0) ? 1 : 2);
+      
+      loopPath += (i === 0) ? `M ${bx} ${by} ` : `L ${bx} ${by} `;
+      
+      if (i === 0) pathD += `M 180 280 L ${bx} ${by} `;
+      if (i === 53) pathD += `M 180 280 L ${bx} ${by} `;
+    }
+    
+    pathD += loopPath;
+    
+    createBeadElement(180, medalY, 0, true);
     els.path.setAttribute('d', pathD);
     mapLogicToPhysics();
   }
@@ -421,7 +434,8 @@ const RosaryApp = (() => {
 
     if (currentStep < 0) {
       els.text.innerText = "Toque em 'Iniciar' ou deslize a tela para a esquerda para começar.";
-      els.btnNext.innerText = "Iniciar"; els.btnPrev.style.display = "none";
+      els.btnNextText.innerText = "Iniciar"; 
+      els.btnPrev.style.display = "none";
       els.progress.style.width = "0%"; els.progressText.innerText = "0%";
       els.label.innerText = "Início";
       beadElementsList.forEach(e => e.classList.remove('active', 'done'));
@@ -435,7 +449,10 @@ const RosaryApp = (() => {
     els.text.classList.add('text-fade-in');
 
     els.label.innerText = item.label;
-    els.btnNext.innerText = "Próximo"; els.btnPrev.style.display = "block";
+    
+    // ATUALIZA O TEXTO INTERNO SEM APAGAR O ÍCONE (SVG)
+    els.btnNextText.innerText = "Próximo"; 
+    els.btnPrev.style.display = "flex";
 
     const pct = Math.round(((currentStep + 1) / rosaryStructure.length) * 100);
     els.progress.style.width = pct + "%";
@@ -467,7 +484,6 @@ function copyPix() {
   });
 }
 
-// Registo do Service Worker para cache dos ficheiros (HTML, CSS, JS)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').then(registration => {

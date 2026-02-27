@@ -142,7 +142,7 @@
 
     <section class="rosary-section" id="rosary-pane" aria-hidden="true">
       <div class="rosary-svg-container">
-        <svg id="rosary-svg" viewBox="-30 -30 360 620" preserveAspectRatio="xMidYMid meet">
+        <svg id="rosary-svg" viewBox="0 -40 360 540" preserveAspectRatio="xMidYMid meet">
           <defs>
             <radialGradient id="grad-bead-small" cx="30%" cy="30%" r="80%" fx="30%" fy="30%">
               <stop id="stop-small-1" offset="0%" stop-color="#00c6ff" />
@@ -185,8 +185,14 @@
 
       <div class="controls-area">
         <div class="btn-group">
-          <button id="btn-prev" class="action-btn" aria-label="Voltar Oração">Voltar</button>
-          <button id="btn-next" class="action-btn" aria-label="Avançar Oração">Iniciar</button>
+          <button id="btn-prev" class="nav-btn secondary-btn" aria-label="Voltar Oração" style="display: none;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <span>Voltar</span>
+          </button>
+          <button id="btn-next" class="nav-btn primary-btn" aria-label="Avançar Oração">
+            <span id="btn-next-text">Iniciar</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
       </div>
     </section>
