@@ -38,10 +38,20 @@ O Terço Digital foi pensado para oferecer a melhor experiência durante a oraç
 * **Persistência de Estado (Auto-Save):** Fechou o navegador sem querer? O app salva seu progresso automaticamente. Ao voltar, basta clicar em "Continuar de onde parou".
 * **Navegação por Gestos (Swipe):** No celular, basta deslizar o dedo para a esquerda ou direita na tela de texto para avançar ou voltar as orações.
 * **Screen Wake Lock:** A tela do dispositivo permanece ligada automaticamente enquanto você estiver rezando (em navegadores compatíveis).
+* **Funcionamento 100% Offline:** Graças ao Service Worker e LocalStorage, você pode rezar em qualquer lugar, mesmo sem conexão com a internet.
 * **Personalização Total:**
   * Modo Claro e Escuro (Dark/Light mode).
+  * Tamanho de fonte ajustável para leitura confortável.
   * 5 estilos diferentes para as contas (Clássico, Pérola Mariana, Madeira Rústica, Rosa Místico e Noturno).
 * **Design Responsivo:** Interface otimizada para funcionar perfeitamente em smartphones, tablets e computadores (com ajuste lateral).
+
+## 🗄️ Arquitetura de Dados (API Local)
+
+Para manter o código limpo e permitir atualizações fáceis, o aplicativo consome todos os textos através de um arquivo próprio: o **`api.json`**.
+
+* **Textos Oficiais da Igreja:** O JSON contém todas as orações fixas e as passagens bíblicas de cada mistério utilizando a tradução oficial da **CNBB**.
+* **Manutenção Desacoplada:** A separação entre a Lógica (JS) e os Dados (JSON) permite corrigir eventuais erros de texto ou adicionar novas jaculatórias sem precisar alterar a estrutura principal do aplicativo.
+* **Cache Inteligente:** Ao acessar o app com internet, o JavaScript faz o *fetch* da versão mais atualizada do `api.json` no GitHub e salva no `localStorage`. Em acessos futuros sem conexão, o sistema ignora a requisição web e carrega os dados locais instantaneamente.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -49,8 +59,8 @@ Este projeto foi construído utilizando tecnologias web puras (Vanilla), garanti
 
 * **HTML5:** Semântica e estruturação, além da construção do SVG dinâmico.
 * **CSS3:** Estilização, variáveis nativas para temas, Flexbox, CSS Grid, animações fluidas e responsividade.
-* **JavaScript (ES6+):** Lógica do aplicativo, manipulação do DOM, LocalStorage, Screen Wake Lock API e detecção de eventos de toque (Touch Events).
-* **PWA (Progressive Web App):** Configurado com `manifest.json` para permitir a instalação como aplicativo nativo.
+* **JavaScript (ES6+):** Lógica do aplicativo, manipulação do DOM, Fetch API, LocalStorage, Screen Wake Lock API e detecção de eventos de toque (Touch Events).
+* **PWA (Progressive Web App):** Configurado com `manifest.json` e `sw.js` (Service Worker) para permitir a instalação e uso offline como aplicativo nativo.
 
 ## 📂 Estrutura de Arquivos
 
@@ -58,7 +68,10 @@ A base do código foi separada para facilitar a manutenção e escalabilidade:
 
 ```text
 /
-├── index.html       # Estrutura principal, botões e marcação SVG
+├── index.html       # Estrutura principal, botões e marcação da caixa SVG
 ├── style.css        # Estilos, variáveis de tema e animações
 ├── script.js        # Lógica de negócio, controle de progresso e eventos
+├── api.json         # Base de dados (JSON) com as orações e passagens bíblicas
+├── sw.js            # Service Worker responsável pelo cache de arquivos (PWA offline)
+├── manifest.json    # Diretrizes de instalação nativa do PWA (ícones, cor, nome)
 └── README.md        # Documentação do projeto
