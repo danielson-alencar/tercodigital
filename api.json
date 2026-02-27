@@ -13,41 +13,41 @@
     "gozosos": {
       "name": "Mistérios Gozosos",
       "decades": [
-        { "t": "1º Mistério: A Anunciação", "d": "No primeiro mistério contemplamos a Anunciação do Arcanjo Gabriel à Nossa Senhora.\n\nDisse-lhe o anjo: 'Ave, cheia de graça, o Senhor é contigo'. E Maria respondeu: 'Eis aqui a serva do Senhor, faça-se em mim segundo a tua palavra'." },
-        { "t": "2º Mistério: A Visitação", "d": "No segundo mistério contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.\n\nMaria foi apressadamente às montanhas. Entrou em casa de Zacarias e saudou Isabel, que ficou cheia do Espírito Santo e exclamou: 'Bendita és tu entre as mulheres'." },
-        { "t": "3º Mistério: O Nascimento", "d": "No terceiro mistério contemplamos o Nascimento de Jesus em Belém.\n\nE deu à luz seu filho primogênito, e envolveu-o em panos, e deitou-o numa manjedoura, porque não havia lugar para eles na estalagem." },
-        { "t": "4º Mistério: A Apresentação", "d": "No quarto mistério contemplamos a Apresentação do Menino Jesus no Templo.\n\nLevaram o menino a Jerusalém para o apresentarem ao Senhor, como está escrito na Lei. Simeão tomou-o nos braços e louvou a Deus." },
-        { "t": "5º Mistério: O Encontro", "d": "No quinto mistério contemplamos o Encontro de Jesus no Templo.\n\nApós três dias de procura, encontraram-no no templo, sentado no meio dos doutores, ouvindo-os e interrogando-os." }
+        { "t": "1º Mistério: A Anunciação", "d": "No primeiro mistério contemplamos a Anunciação do Arcanjo Gabriel a Nossa Senhora.\n\n«O anjo entrou onde ela estava e disse: 'Alegra-te, cheia de graça! O Senhor está contigo'. [...] Maria disse: 'Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra!'» (Lc 1,28.38)" },
+        { "t": "2º Mistério: A Visitação", "d": "No segundo mistério contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.\n\n«Entrou na casa de Zacarias e saudou Isabel. Quando Isabel ouviu a saudação de Maria, a criança pulou no seu ventre e Isabel ficou cheia do Espírito Santo. Com um grande grito, exclamou: 'Bendita és tu entre as mulheres e bendito é o fruto do teu ventre!'» (Lc 1,40-42)" },
+        { "t": "3º Mistério: O Nascimento", "d": "No terceiro mistério contemplamos o Nascimento de Jesus em Belém.\n\n«E ela deu à luz o seu filho primogênito. Envolveu-o em faixas e deitou-o numa manjedoura, porque não havia lugar para eles na hospedaria.» (Lc 2,7)" },
+        { "t": "4º Mistério: A Apresentação", "d": "No quarto mistério contemplamos a Apresentação do Menino Jesus no Templo.\n\n«Quando se completaram os dias para a purificação da mãe e do filho, segundo a Lei de Moisés, levaram-no a Jerusalém, a fim de apresentá-lo ao Senhor. Conforme está escrito na Lei do Senhor: 'Todo primogênito do sexo masculino será consagrado ao Senhor'.» (Lc 2,22-23)" },
+        { "t": "5º Mistério: O Encontro", "d": "No quinto mistério contemplamos o Encontro de Jesus no Templo.\n\n«Três dias depois, o encontraram no Templo. Estava sentado no meio dos mestres, escutando e fazendo perguntas. [...] Ele respondeu: 'Por que me procuráveis? Não sabíeis que eu devo estar na casa de meu Pai?'» (Lc 2,46.49)" }
       ]
     },
     "dolorosos": {
       "name": "Mistérios Dolorosos",
       "decades": [
-        { "t": "1º Mistério: A Agonia", "d": "No primeiro mistério contemplamos a Agonia de Jesus no Horto das Oliveiras.\n\nJesus orou: 'Pai, se é do teu agrado, afasta de mim este cálice; contudo, não se faça a minha vontade, mas a tua'. E seu suor tornou-se como gotas de sangue." },
-        { "t": "2º Mistério: A Flagelação", "d": "No segundo mistério contemplamos a Flagelação de Nosso Senhor Jesus Cristo.\n\nPilatos, querendo satisfazer a multidão, soltou-lhes Barrabás; e, depois de mandar flagelar Jesus, entregou-o para ser crucificado." },
-        { "t": "3º Mistério: A Coroação", "d": "No terceiro mistério contemplamos a Coroação de Espinhos.\n\nOs soldados teceram uma coroa de espinhos, puseram-na sobre a sua cabeça e vestiram-no com um manto de púrpura, zombando dele: 'Salve, Rei dos Judeus!'." },
-        { "t": "4º Mistério: O Caminho", "d": "No quarto mistério contemplamos Jesus a caminho do Calvário carregando a Cruz.\n\nE ele, carregando a sua própria cruz, saiu para o lugar chamado Calvário, onde o crucificaram." },
-        { "t": "5º Mistério: A Crucificação", "d": "No quinto mistério contemplamos a Crucificação e Morte de Jesus.\n\nJesus disse: 'Pai, nas tuas mãos entrego o meu espírito'. E, havendo dito isto, expirou." }
+        { "t": "1º Mistério: A Agonia", "d": "No primeiro mistério contemplamos a Agonia de Jesus no Horto das Oliveiras.\n\n«'Pai, se queres, afasta de mim este cálice; contudo, não seja feita a minha vontade, mas a tua!' [...] Entrando em agonia, Jesus orava com mais insistência. Seu suor tornou-se como gotas de sangue que caíam no chão.» (Lc 22,42.44)" },
+        { "t": "2º Mistério: A Flagelação", "d": "No segundo mistério contemplamos a Flagelação de Nosso Senhor Jesus Cristo.\n\n«Então Pilatos mandou soltar Barrabás, mandou flagelar Jesus, e entregou-o para ser crucificado.» (Mt 27,26)" },
+        { "t": "3º Mistério: A Coroação", "d": "No terceiro mistério contemplamos a Coroação de Espinhos.\n\n«Os soldados trançaram uma coroa de espinhos, colocaram-na na cabeça de Jesus, e vestiram-no com um manto de púrpura. Aproximavam-se dele e diziam: 'Viva o rei dos judeus!' E batiam nele.» (Jo 19,2-3)" },
+        { "t": "4º Mistério: O Caminho", "d": "No quarto mistério contemplamos Jesus a caminho do Calvário carregando a Cruz.\n\n«E Jesus, carregando a sua cruz, saiu para o lugar chamado Calvário (que em hebraico se chama Gólgota).» (Jo 19,17)" },
+        { "t": "5º Mistério: A Crucificação", "d": "No quinto mistério contemplamos a Crucificação e Morte de Jesus.\n\n«Jesus deu um forte grito: 'Pai, em tuas mãos entrego o meu espírito'. Dizendo isso, expirou.» (Lc 23,46)" }
       ]
     },
     "gloriosos": {
       "name": "Mistérios Gloriosos",
       "decades": [
-        { "t": "1º Mistério: A Ressurreição", "d": "No primeiro mistério contemplamos a Ressurreição de Jesus Cristo.\n\nO anjo disse às mulheres: 'Não tenhais medo. Sei que buscais Jesus, o crucificado. Ele não está aqui; ressuscitou, como havia dito'." },
-        { "t": "2º Mistério: A Ascensão", "d": "No segundo mistério contemplamos a Ascensão de Jesus ao Céu.\n\nEnquanto os abençoava, afastou-se deles e foi elevado ao céu. E eles o adoraram e voltaram para Jerusalém com grande alegria." },
-        { "t": "3º Mistério: Pentecostes", "d": "No terceiro mistério contemplamos a Vinda do Espírito Santo sobre os Apóstolos.\n\nFicaram todos cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito lhes concedia que falassem." },
-        { "t": "4º Mistério: A Assunção", "d": "No quarto mistério contemplamos a Assunção de Nossa Senhora ao Céu.\n\nFez-se em mim grandes coisas o Todo-Poderoso. Maria é elevada ao céu em corpo e alma, como primícia da glória a que todos somos chamados." },
-        { "t": "5º Mistério: A Coroação", "d": "No quinto mistério contemplamos a Coroação de Maria como Rainha do Céu e da Terra.\n\nApareceu no céu um grande sinal: uma mulher vestida de sol, com a lua debaixo dos pés e uma coroa de doze estrelas na cabeça." }
+        { "t": "1º Mistério: A Ressurreição", "d": "No primeiro mistério contemplamos a Ressurreição de Jesus Cristo.\n\n«O anjo, porém, disse às mulheres: 'Não tenhais medo! Sei que procurais Jesus, que foi crucificado. Ele não está aqui! Ressuscitou, como havia dito!'» (Mt 28,5-6)" },
+        { "t": "2º Mistério: A Ascensão", "d": "No segundo mistério contemplamos a Ascensão de Jesus ao Céu.\n\n«Depois, Jesus levou-os para fora, até perto de Betânia. Ali ergueu as mãos e os abençoou. Enquanto os abençoava, afastou-se deles e foi levado para o céu.» (Lc 24,50-51)" },
+        { "t": "3º Mistério: Pentecostes", "d": "No terceiro mistério contemplamos a Vinda do Espírito Santo sobre os Apóstolos e a Virgem Maria.\n\n«Chegou o dia de Pentecostes [...] Ficaram todos cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito os inspirava.» (At 2,1.4)" },
+        { "t": "4º Mistério: A Assunção", "d": "No quarto mistério contemplamos a Assunção de Nossa Senhora ao Céu.\n\n«Doravante todas as gerações me chamarão bem-aventurada, porque o Todo-poderoso fez grandes coisas em meu favor. O seu nome é santo.» (Lc 1,48-49)" },
+        { "t": "5º Mistério: A Coroação", "d": "No quinto mistério contemplamos a Coroação de Maria como Rainha do Céu e da Terra.\n\n«Apareceu no céu um grande sinal: uma mulher vestida do sol, tendo a lua debaixo dos pés, e sobre a cabeça uma coroa de doze estrelas.» (Ap 12,1)" }
       ]
     },
     "luminosos": {
       "name": "Mistérios Luminosos",
       "decades": [
-        { "t": "1º Mistério: O Batismo", "d": "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\nAssim que Jesus foi batizado, o céu se abriu, e viu o Espírito de Deus descer como pomba. E uma voz do céu disse: 'Este é o meu Filho amado'." },
-        { "t": "2º Mistério: Bodas de Caná", "d": "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\nSua mãe disse aos serventes: 'Fazei tudo o que ele vos disser'. Jesus transformou a água em vinho, manifestando a sua glória e seus discípulos creram nele." },
-        { "t": "3º Mistério: O Reino", "d": "No terceiro mistério contemplamos o Anúncio do Reino de Deus e o convite à conversão.\n\nJesus pregava: 'O tempo completou-se e o Reino de Deus está próximo. Arrependei-vos e crede no Evangelho'." },
-        { "t": "4º Mistério: A Transfiguração", "d": "No quarto mistério contemplamos a Transfiguração de Jesus no Monte Tabor.\n\nSeu rosto brilhou como o sol e suas vestes tornaram-se brancas como a luz. Da nuvem saiu uma voz: 'Este é o meu Filho amado, ouvi-o'." },
-        { "t": "5º Mistério: A Eucaristia", "d": "No quinto mistério contemplamos a Instituição da Eucaristia.\n\nJesus tomou o pão e disse: 'Tomai e comei, isto é o meu corpo'. E o cálice: 'Bebei dele todos, pois isto é o meu sangue da nova aliança'." }
+        { "t": "1º Mistério: O Batismo", "d": "No primeiro mistério contemplamos o Batismo de Jesus no Rio Jordão.\n\n«Logo que foi batizado, Jesus saiu da água. [...] E do céu desceu uma voz: 'Este é o meu Filho amado, no qual eu pus o meu agrado'.» (Mt 3,16-17)" },
+        { "t": "2º Mistério: Bodas de Caná", "d": "No segundo mistério contemplamos a Auto-revelação de Jesus nas Bodas de Caná.\n\n«Sua mãe disse aos que estavam servindo: 'Fazei tudo o que ele vos disser'. [...] Este foi o princípio dos sinais de Jesus; ele o fez em Caná da Galileia. Ele manifestou a sua glória, e os seus discípulos creram nele.» (Jo 2,5.11)" },
+        { "t": "3º Mistério: O Reino", "d": "No terceiro mistério contemplamos o Anúncio do Reino de Deus e o convite à conversão.\n\n«O tempo já se completou e o Reino de Deus está próximo. Convertei-vos e crede no Evangelho!» (Mc 1,15)" },
+        { "t": "4º Mistério: A Transfiguração", "d": "No quarto mistério contemplamos a Transfiguração de Jesus no Monte Tabor.\n\n«E foi transfigurado diante deles; o seu rosto brilhou como o sol e as suas roupas ficaram brancas como a luz. [...] E da nuvem uma voz dizia: 'Este é o meu Filho amado, no qual eu pus todo meu agrado. Escutai-o!'» (Mt 17,2.5)" },
+        { "t": "5º Mistério: A Eucaristia", "d": "No quinto mistério contemplamos a Instituição da Eucaristia.\n\n«Enquanto comiam, Jesus tomou o pão, deu graças, o partiu e deu aos discípulos, dizendo: 'Tomai e comei, isto é o meu corpo'. Em seguida, tomou o cálice, deu graças e o entregou a eles, dizendo: 'Bebei dele todos, pois isto é o meu sangue da nova aliança'.» (Mt 26,26-28)" }
       ]
     }
   }
