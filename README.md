@@ -10,7 +10,7 @@ Um aplicativo web moderno, intuitivo e responsivo desenvolvido para guiar a ora√
 
   <br>
   
-  <a href="https://danielson-alencar.github.io/tercomariano/">
+  <a href="https://danielson-alencar.github.io/tercodigital/">
     <img src="https://img.shields.io/badge/Acessar_Web_App-Navegador-0078D4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Acessar Web App" />
   </a>
   <a href="https://github.com/danielson-alencar/tercomariano/releases/download/v2.0/app-release-v2.apk">
